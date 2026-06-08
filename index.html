@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brighton Lawn & Landscape — Landscape Construction & Commercial Maintenance | NJ & PA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ═══════════════════════════════ HEADER ═══ -->
+<header id="header">
+  <div class="header-inner">
+    <a href="#top" class="brand"><img src="logo.png" alt="Brighton Lawn & Landscape"></a>
+    <nav class="nav">
+      <a href="residential.html">Residential</a>
+      <a href="commercial.html">Commercial</a>
+      <a href="sitework.html">Site Work</a>
+      <a href="snow.html">Snow &amp; Ice</a>
+      <a href="#about">About</a>
+      <a href="#contact" class="nav-btn">Get a Quote</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<div class="mobile-nav" id="mobileNav"><button class="mobile-nav-close" onclick="closeNav()" aria-label="Close menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  <a href="residential.html" onclick="closeNav()">Residential</a>
+  <a href="commercial.html" onclick="closeNav()">Commercial</a>
+  <a href="sitework.html" onclick="closeNav()">Site Work</a>
+  <a href="snow.html" onclick="closeNav()">Snow &amp; Ice</a>
+  <a href="#about" onclick="closeNav()">About</a>
+  <a href="#contact" class="nav-btn" onclick="closeNav()">Get a Quote</a>
+</div>
+
+<!-- ═══════════════════════════════ HERO ═══ -->
+<section class="hero" id="top">
+  <video class="hero-video" id="heroVideo" autoplay muted loop playsinline poster="hero.jpg?v=5">
+    <source src="hero.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <span class="eyebrow">Residential &amp; Commercial Landscapes — NJ &amp; PA</span>
+      <h1>Designing, Building &amp; Maintaining <em>Residential and Commercial</em> Landscapes Across NJ &amp; PA</h1>
+      <p class="sub">Full-service landscape construction and maintenance built on quality, precision, and long-term performance.</p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn btn-primary">Request a Quote</a>
+        <a href="work.html" class="btn btn-ghost">View Our Work</a>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-cue">
+    <span>Scroll</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+</section>
+
+<!-- ═══════════════════════ POSITIONING STRIP ═══ -->
+<div class="strip">
+  <div class="wrap">
+    <p>From complete residential backyard builds to <strong>large-scale commercial maintenance services.</strong></p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ STATS ═══ -->
+<section class="stats">
+  <div class="wrap">
+    <div class="stats-grid">
+      <div class="stat reveal">
+        <div class="num" data-count="10" data-suffix="+">0</div>
+        <div class="lbl">Years<br>Experience</div>
+      </div>
+      <div class="stat reveal">
+        <div class="num" data-count="500" data-suffix="+">0</div>
+        <div class="lbl">Projects<br>Completed</div>
+      </div>
+      <div class="stat reveal">
+        <div class="num" data-text="NJ &amp; PA">0</div>
+        <div class="lbl">Service<br>Area</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ CAPABILITIES (SPLIT) ═══ -->
+<section class="capabilities" id="services">
+  <div class="wrap">
+    <div class="sec-head center casc">
+      <span class="kicker">What We Do</span>
+      <h2>Two Sides of the Industry. <em>Done Right.</em></h2>
+      <p>We operate as a full landscape contractor, handling high-end residential construction and dependable commercial maintenance under one roof. All work is performed in-house by our team — ensuring consistency, accountability, and a seamless process from start to finish. No outsourcing, no handoffs, no confusion. Just one team managing your project the right way.</p>
+    </div>
+    <div class="split">
+      <div class="cap-col reveal" id="residential">
+        <span class="cap-tag">Residential Construction</span>
+        <h3>Backyard Design &amp; Build</h3>
+        <ul class="cap-list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Full backyard design and build</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Paver patios, walkways &amp; pool decks</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> In-ground trampolines</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Artificial turf installation</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Trees, bushes &amp; sod installation</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Outdoor lighting</li>
+        </ul>
+      </div>
+      <div class="cap-col reveal" id="commercial">
+        <span class="cap-tag">Commercial Maintenance</span>
+        <h3>Grounds Management &amp; Upkeep</h3>
+        <ul class="cap-list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Weekly lawn maintenance services</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Fertilization and weed control services</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Snow and ice management</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Seasonal color</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Asphalt and concrete services</li>
+        </ul>
+      </div>
+      <div class="cap-col reveal" id="sitework">
+        <span class="cap-tag">Site Work</span>
+        <h3>Grading &amp; Site Preparation</h3>
+        <ul class="cap-list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Land clearing &amp; demolition</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Grading &amp; leveling</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Excavation</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Drainage solutions</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Retaining walls</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════ SERVICE AREA ═══ -->
+<div class="trust" id="service-area">
+  <div class="wrap">
+    <div class="service-band casc">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7-5.5-7-11a7 7 0 0114 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+      <span class="service-kicker">Service Area</span>
+      <h3>Proudly servicing New Jersey, Pennsylvania &amp; the surrounding region</h3>
+    </div>
+    <div id="serviceMap" class="service-map"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ ABOUT (anchor) ═══ -->
+<section class="capabilities" id="about" style="background:var(--bg);">
+  <div class="wrap">
+    <div class="sec-head casc" style="max-width:760px;">
+      <span class="kicker">About Brighton</span>
+      <h2>Small enough to care, <em>big enough to deliver.</em></h2>
+      <p style="font-size:17px; line-height:1.8; max-width:760px;">At Brighton, we're a local team that takes pride in our work. We show up, work hard, and focus on the details that matter.</p>
+      <p style="font-size:17px; line-height:1.8; max-width:760px; margin-top:18px;">We handle everything from backyard projects to larger commercial properties, all in-house — no subcontractors, just our team doing the job right from start to finish.</p>
+      <p style="font-size:17px; line-height:1.8; max-width:760px; margin-top:18px;">We do what we say we'll do. Whether it's building a patio, upgrading a property, or ongoing maintenance, we treat every job like it matters.</p>
+      <p style="font-size:17px; line-height:1.8; max-width:760px; margin-top:18px;">We're here for people who want a reliable team — good communication, solid work, and no runaround.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ CONTACT ═══ -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div class="contact-info casc">
+        <span class="kicker">Get In Touch</span>
+        <h2>Request a Quote or <em>Schedule a Site Visit</em></h2>
+        <p>Tell us about your project and one of our team members will get back to you.</p>
+        <div class="ci-item">
+          <div class="ci-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 16.92z"/></svg></div>
+          <div><div class="lbl">Phone</div><a href="tel:8482260090">(848) 226-0090</a></div>
+        </div>
+        <div class="ci-item">
+          <div class="ci-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 6 10-6"/></svg></div>
+          <div><div class="lbl">Email</div><a href="mailto:info@BrightonLawn.com">info@BrightonLawn.com</a></div>
+        </div>
+        <div class="ci-item">
+          <div class="ci-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-5.5-7-11a7 7 0 0114 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
+          <div><div class="lbl">Service Area</div><span>New Jersey &amp; Pennsylvania</span></div>
+        </div>
+      </div>
+
+      <div class="form-card reveal">
+        <h3>Get My Estimate</h3>
+        <p>Typical response within one business day.</p>
+        <form class="form" id="quoteForm" onsubmit="submitForm(event)">
+          <div class="row2">
+            <div class="field"><label>Name</label><input id="qName" type="text" required placeholder="Full name"></div>
+            <div class="field"><label>Phone</label><input id="qPhone" type="tel" required placeholder="(000) 000-0000"></div>
+          </div>
+          <div class="field"><label>Email</label><input id="qEmail" type="email" required placeholder="you@email.com"></div>
+          <div class="field">
+            <label>Property Type</label>
+            <div class="seg">
+              <input type="radio" name="ptype" id="pres" checked><label for="pres">Residential</label>
+              <input type="radio" name="ptype" id="pcom"><label for="pcom">Commercial</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>Service Needed</label>
+            <select id="qService">
+              <option value="">Select a service…</option>
+              <option>Backyard Design &amp; Build</option>
+              <option>Pavers / Patios / Walkways</option>
+              <option>Turf &amp; Sod Installation</option>
+              <option>Landscape Lighting &amp; Planting</option>
+              <option>Commercial Property Maintenance</option>
+              <option>Seasonal Cleanup Contract</option>
+              <option>Snow &amp; Storm Response</option>
+              <option>Other / Multiple</option>
+            </select>
+          </div>
+          <div class="field"><label>Project Details</label><textarea id="qDetails" placeholder="Tell us about your property, scope, and timeline."></textarea></div>
+          <button type="submit" class="btn btn-primary">Submit Request</button>
+        </form>
+        <div class="form-success" id="formSuccess">
+          Thank you — your request has been received.
+          <small>We'll be in touch within one business day.</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ FOOTER ═══ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <img src="logo.png" alt="Brighton Lawn & Landscape">
+        <p>Full-service landscape construction and commercial maintenance across New Jersey &amp; Pennsylvania.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Services</h5>
+        <a href="#residential">Residential Construction</a>
+        <a href="commercial.html">Commercial Maintenance</a>
+        <a href="sitework.html">Site Work</a>
+      <a href="snow.html">Snow &amp; Ice</a>
+        <a href="#about">About</a>
+      </div>
+      <div class="foot-col">
+        <h5>Service Area</h5>
+        <p>New Jersey</p>
+        <p>Philadelphia &amp; Main Line, PA</p>
+        <p>Northern DE &amp; NE Maryland</p>
+      </div>
+      <div class="foot-col">
+        <h5>Contact</h5>
+        <a href="tel:8482260090">(848) 226-0090</a>
+        <a href="mailto:info@BrightonLawn.com">info@BrightonLawn.com</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <p>© 2025 Brighton Lawn &amp; Landscape. All rights reserved.</p>
+      <div class="foot-social">
+        <a href="https://www.instagram.com/brighton_lawn_landscape" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Header solid on scroll
+  const header = document.getElementById('header');
+  addEventListener('scroll', () => header.classList.toggle('solid', scrollY > 40));
+
+  // Mobile nav
+  const burger = document.getElementById('burger');
+  const mobileNav = document.getElementById('mobileNav');
+  burger.addEventListener('click', () => {
+    const open = mobileNav.classList.toggle('open');
+    burger.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  function closeNav(){ mobileNav.classList.remove('open'); burger.classList.remove('open'); document.body.style.overflow=''; }
+
+  // Reveal on scroll
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  }, { threshold: .15 });
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // Mobile: cascade the capability lists as each card scrolls into view (replays)
+  const cascadeIO = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      e.target.classList.toggle('cascade', e.isIntersecting);
+    });
+  }, { threshold: .35 });
+  document.querySelectorAll('.cap-col').forEach(el=>cascadeIO.observe(el));
+
+  // Generic cascade containers (e.g. About) — stagger children in on scroll
+  const cascIO = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      e.target.classList.toggle('shown', e.isIntersecting);
+    });
+  }, { threshold: .25 });
+  document.querySelectorAll('.casc').forEach(el=>cascIO.observe(el));
+
+  // Count-up stats — re-animates every time they scroll into view
+  function animateNum(el){
+    if (el.dataset.animating) return;
+    if (el.dataset.text){ el.textContent = el.dataset.text; return; }
+    el.dataset.animating = '1';
+    const target = +el.dataset.count, suffix = el.dataset.suffix || '';
+    const dur = 2200, start = performance.now();
+    const tick = (now)=>{
+      const p = Math.min((now - start) / dur, 1);
+      // easeOutExpo — fast start, long graceful slow-down at the end
+      const eased = p === 1 ? 1 : 1 - Math.pow(2, -10 * p);
+      el.textContent = Math.round(eased * target) + suffix;
+      if (p < 1) { requestAnimationFrame(tick); }
+      else { delete el.dataset.animating; }
+    };
+    requestAnimationFrame(tick);
+  }
+  const statIO = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      const el = e.target;
+      if (e.isIntersecting){
+        animateNum(el);
+      } else if (!el.dataset.text) {
+        // reset numeric stats so they count up again next time (leave text stats as-is)
+        delete el.dataset.animating;
+        el.textContent = '0';
+      }
+    });
+  }, { threshold: .55 });
+  document.querySelectorAll('.num').forEach(el=>statIO.observe(el));
+
+  // Form
+  function submitForm(e){
+    e.preventDefault();
+    const name    = document.getElementById('qName').value;
+    const phone   = document.getElementById('qPhone').value;
+    const email   = document.getElementById('qEmail').value;
+    const ptype   = document.querySelector('input[name="ptype"]:checked').nextElementSibling.textContent;
+    const service = document.getElementById('qService').value || 'Not specified';
+    const details = document.getElementById('qDetails').value || 'None provided';
+
+    const subject = encodeURIComponent('New Quote Request — Brighton Lawn & Landscape');
+    const body = encodeURIComponent(
+      'New quote request from the website:\n\n' +
+      'Name: ' + name + '\n' +
+      'Phone: ' + phone + '\n' +
+      'Email: ' + email + '\n' +
+      'Property Type: ' + ptype + '\n' +
+      'Service Needed: ' + service + '\n\n' +
+      'Project Details:\n' + details
+    );
+
+    window.location.href = 'mailto:info@BrightonLawn.com?subject=' + subject + '&body=' + body;
+
+    document.getElementById('quoteForm').style.display='none';
+    document.getElementById('formSuccess').style.display='block';
+  }
+</script>
+
+<!-- Service-area map -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  (function(){
+    if (typeof L === 'undefined') return;
+    const map = L.map('serviceMap', {
+      zoomControl: true, scrollWheelZoom: false, dragging: true, attributionControl: true
+    });
+    // Dark basemap (no API key)
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; OpenStreetMap &copy; CARTO', subdomains: 'abcd', maxZoom: 19
+    }).addTo(map);
+
+    const style = { color: '#6cbf52', weight: 2, opacity: 1, fillColor: '#52A03C', fillOpacity: 0.26 };
+
+    // Primary coverage region: NJ, Philadelphia + Main Line, NE Pennsylvania,
+    // northern Delaware, and the NE tip of Maryland.
+    const primary = L.polygon([
+      [41.45, -75.78],  // NE Pennsylvania (Scranton / Poconos)
+      [41.30, -74.10],  // North NJ (NY border)
+      [40.95, -73.90],  // NJ at NYC
+      [40.10, -73.95],  // Jersey Shore (central)
+      [39.35, -74.40],  // South Jersey shore (Atlantic City)
+      [38.92, -74.92],  // Cape May
+      [39.45, -75.55],  // Northern Delaware (Wilmington / New Castle)
+      [39.55, -76.05],  // NE Maryland (Cecil County)
+      [40.05, -76.15],  // SE Pennsylvania (Lancaster / west Main Line)
+      [40.65, -75.55],  // Lehigh Valley (Allentown)
+      [41.10, -75.95]   // back toward NE PA
+    ], style).addTo(map);
+
+    function label(latlng, text){
+      L.marker(latlng, { icon: L.divIcon({ className:'', html:`<div class="area-label">${text}</div>`, iconSize:[0,0] }) }).addTo(map);
+    }
+    label([40.15, -74.75], 'NJ · Philly · DE · MD');
+    label([41.30, -75.70], 'NE Pennsylvania');
+
+    // Frame the coverage region (polygon bounds are projection-free)
+    map.fitBounds(primary.getBounds().pad(0.12));
+    setTimeout(() => map.invalidateSize(), 250);
+  })();
+</script>
+<script src="search.js"></script>
+</body>
+</html>

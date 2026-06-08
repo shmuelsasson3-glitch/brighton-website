@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Commercial — Brighton Lawn &amp; Landscape</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .page-hero { position:relative; min-height: 56vh; display:flex; align-items:flex-end; overflow:hidden; }
+    .page-hero .ph-bg { position:absolute; inset:0; background:#0d160d; }
+    .page-hero .ph-video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; }
+    .page-hero .ph-ov { position:absolute; inset:0;
+      background: linear-gradient(to top, rgba(8,12,8,.92) 0%, rgba(8,12,8,.45) 55%, rgba(8,12,8,.3) 100%); }
+    .page-hero .ph-inner { position:relative; z-index:2; width:100%; padding-bottom:56px; }
+    .ph-kicker { display:inline-block; font-size:12px; letter-spacing:3.5px; text-transform:uppercase;
+      color: var(--green-light); font-weight:700; margin-bottom:16px; }
+    .page-hero h1 { font-family: var(--font-head); color:#fff; font-weight:600;
+      font-size: clamp(40px, 6vw, 74px); line-height:1.03; letter-spacing:-1px; margin-bottom:18px; }
+    .page-hero h1 em { font-style:normal; color: var(--green-light); }
+    .page-hero p { color: rgba(255,255,255,.82); font-weight:300; font-size: clamp(16px,1.7vw,19px); max-width: 620px; }
+
+    .intro-strip { background: var(--dark-green); padding: 56px 0; }
+    .intro-strip .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .intro-strip h2 { font-family: var(--font-head); color: #fff; font-weight: 600;
+      font-size: clamp(26px, 3.5vw, 40px); line-height: 1.1; letter-spacing: -.5px; margin-bottom: 0; }
+    .intro-strip h2 em { font-style: normal; color: var(--green-light); }
+    .intro-strip p { color: rgba(255,255,255,.75); font-weight: 300; font-size: 16px; line-height: 1.8; margin: 0; }
+
+    .services-page { padding: 100px 0; background: var(--bg); }
+    .prow { display:grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items:center; padding: 56px 0; }
+    .prow + .prow { border-top: 1px solid var(--hair); }
+    .prow.rev .ptext { grid-column: 2; grid-row: 1; }
+    .prow.rev .pimg  { grid-column: 1; grid-row: 1; }
+    .pimg { aspect-ratio: 4/3; border-radius: 18px; overflow:hidden;
+      background: linear-gradient(150deg, #1B3D2B, #2a5c3f);
+      display:flex; align-items:center; justify-content:center; position:relative;
+      box-shadow: 0 24px 56px rgba(27,61,43,.16); }
+    .pimg::after { content:''; position:absolute; inset:0;
+      background: radial-gradient(circle at 72% 18%, rgba(82,160,60,.25), transparent 60%); }
+    .pimg svg { width:54px; height:54px; color: rgba(255,255,255,.4); position:relative; z-index:1; }
+    .pimg img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:2; }
+    .pstep { display:inline-block; font-size:12px; letter-spacing:2.5px; text-transform:uppercase;
+      color: var(--green); font-weight:700; margin-bottom:14px; }
+    .ptext h2 { font-family: var(--font-head); color: var(--heading); font-weight:600;
+      font-size: clamp(28px, 3.5vw, 44px); line-height:1.08; letter-spacing:-.5px; margin-bottom:16px; }
+    .ptext p { color: var(--muted); font-size:16.5px; line-height:1.9; margin-bottom: 20px; }
+    .ptext ul { list-style: none; padding: 0; margin: 0 0 24px; display: flex; flex-direction: column; gap: 10px; }
+    .ptext ul li { display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: 15px; }
+    .ptext ul li::before { content:''; width:6px; height:6px; border-radius:50%; background: var(--green-light); flex-shrink:0; }
+
+    /* Snow teaser card */
+    .snow-card { border-top: 1px solid var(--hair); padding: 56px 0; }
+    .snow-inner { display:grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items:center; }
+    .snow-visual { aspect-ratio:4/3; border-radius:18px; overflow:hidden; position:relative;
+      background: linear-gradient(135deg, #0a1a2e 0%, #0d2540 50%, #112d4a 100%);
+      display:flex; align-items:center; justify-content:center;
+      box-shadow: 0 24px 56px rgba(10,30,60,.28); }
+    .snow-visual::before { content:''; position:absolute; inset:0;
+      background: radial-gradient(circle at 30% 40%, rgba(100,160,255,.15), transparent 60%); }
+    .snow-visual svg { width:64px; height:64px; color:rgba(160,200,255,.5); position:relative; z-index:1; }
+    .snow-badge { display:inline-block; font-size:12px; letter-spacing:2.5px; text-transform:uppercase;
+      color:#6ab0ff; font-weight:700; margin-bottom:14px; }
+    .snow-text h2 { font-family: var(--font-head); color: var(--heading); font-weight:600;
+      font-size: clamp(28px,3.5vw,44px); line-height:1.08; letter-spacing:-.5px; margin-bottom:16px; }
+    .snow-text p { color: var(--muted); font-size:16.5px; line-height:1.9; margin-bottom:24px; }
+    .snow-stats { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:28px; }
+    .snow-stat { background: #f3f6f1; border-radius:12px; padding:16px 20px; }
+    .snow-stat-num { font-family: var(--font-head); font-size:28px; font-weight:700; color:#0d2540; line-height:1; }
+    .snow-stat-label { font-size:12px; color:#6a8a9a; text-transform:uppercase; letter-spacing:1.5px; font-weight:600; margin-top:4px; }
+    .btn-snow { background:#0d2540; color:#fff; padding:14px 32px; border-radius:50px;
+      text-decoration:none; font-size:13px; font-weight:700; letter-spacing:1.4px; text-transform:uppercase;
+      display:inline-block; transition: background .25s, transform .25s; white-space:nowrap; }
+    .btn-snow:hover { background:#1a3d6e; transform:translateY(-2px); }
+
+    /* Stats bar */
+    .stats-bar { background: #0d160d; padding: 60px 0; }
+    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; text-align: center; }
+    .stat-num { font-family: var(--font-head); font-size: clamp(36px, 5vw, 56px); font-weight: 700;
+      color: var(--green-light); line-height: 1; margin-bottom: 8px; }
+    .stat-label { font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
+      color: rgba(255,255,255,.5); font-weight: 600; }
+
+    .prow.casc { opacity: 0; transform: translateY(40px); transition: opacity .7s ease, transform .7s ease; }
+    .prow.casc.shown { opacity: 1; transform: none; }
+    .snow-card.casc { opacity: 0; transform: translateY(40px); transition: opacity .7s ease, transform .7s ease; }
+    .snow-card.casc.shown { opacity: 1; transform: none; }
+
+    /* Commercial work grid */
+    .comm-work { padding: 100px 0; background: var(--bg-2); }
+    .comm-work .sec-head { margin-bottom: 48px; }
+    .cta-band { background: var(--dark-green); padding: 90px 0; text-align:center; }
+    .cta-band h2 { font-family: var(--font-head); color:#fff; font-weight:600;
+      font-size: clamp(28px,4vw,48px); margin-bottom:14px; letter-spacing:-.5px; }
+    .cta-band h2 em { font-style:normal; color: var(--green-light); }
+    .cta-band p { color: rgba(255,255,255,.72); font-weight:300; font-size:17px; margin-bottom:34px;
+      max-width:540px; margin-left:auto; margin-right:auto; }
+
+    @media (max-width: 820px) {
+      .intro-strip .wrap { grid-template-columns: 1fr; gap: 24px; }
+      .services-page { padding: 64px 0; }
+      .prow { grid-template-columns: 1fr; gap: 26px; padding: 40px 0; }
+      .prow.rev .ptext, .prow.rev .pimg { grid-column: 1; }
+      .prow.rev .pimg { grid-row: 1; }
+      .prow.rev .ptext { grid-row: 2; }
+      .snow-inner { grid-template-columns: 1fr; gap: 28px; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .snow-stats { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header id="header" class="solid">
+  <div class="header-inner">
+    <a href="index.html" class="brand"><img src="logo.png" alt="Brighton Lawn & Landscape"></a>
+    <nav class="nav">
+      <a href="residential.html">Residential</a>
+      <a href="commercial.html" class="active">Commercial</a>
+      <a href="sitework.html">Site Work</a>
+      <a href="snow.html">Snow &amp; Ice</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#contact" class="nav-btn">Get a Quote</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-nav-close" onclick="closeNav()" aria-label="Close menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <a href="residential.html" onclick="closeNav()">Residential</a>
+  <a href="commercial.html" onclick="closeNav()">Commercial</a>
+  <a href="sitework.html" onclick="closeNav()">Site Work</a>
+  <a href="snow.html" onclick="closeNav()">Snow &amp; Ice</a>
+  <a href="index.html#about" onclick="closeNav()">About</a>
+  <a href="index.html#contact" class="nav-btn" onclick="closeNav()">Get a Quote</a>
+</div>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="ph-bg"></div>
+  <video class="ph-video" autoplay muted loop playsinline>
+    <source src="commercial-hero.mp4" type="video/mp4">
+  </video>
+  <div class="ph-ov"></div>
+  <div class="ph-inner">
+    <div class="wrap">
+      <span class="ph-kicker">Commercial Services</span>
+      <h1>Grounds You Can <em>Count On</em></h1>
+      <p>Brighton keeps commercial properties looking sharp year-round — reliable crews, consistent results, and one team that shows up every time.</p>
+    </div>
+  </div>
+</section>
+
+<!-- INTRO STRIP -->
+<div class="intro-strip casc">
+  <div class="wrap">
+    <h2>Your Property Reflects <em>Your Business</em></h2>
+    <p>First impressions matter. Whether it's a shopping center, office complex, HOA, or residential community — we show up on schedule, do the work right, and make sure your property always looks the part. Long-term contracts, dedicated crews, one point of contact.</p>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services-page">
+  <div class="wrap">
+
+    <div class="sec-head center casc" style="margin-bottom:30px;">
+      <span class="kicker">What We Do</span>
+      <h2>Commercial <em>Services</em></h2>
+      <p>From full landscape installations to weekly maintenance and winter snow operations — one team covering your property in every season.</p>
+    </div>
+
+    <!-- Lawn Maintenance -->
+    <div id="lawn-maintenance" class="prow casc">
+      <div class="pimg">
+        <img src="commercial-maintenance.jpg" alt="Commercial Lawn Maintenance" style="image-orientation:from-image;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M12 22V12"/></svg>
+      </div>
+      <div class="ptext">
+        <span class="pstep">01 — Lawn Maintenance</span>
+        <h2>Commercial Lawn Maintenance</h2>
+        <p>We manage the grounds so you don't have to think about it. Brighton provides weekly commercial lawn maintenance for properties across New Jersey — mowing, edging, blowing, and keeping everything looking clean and professional every single visit.</p>
+        <p>Our crews are punctual, consistent, and trained to hold the same standard week after week. No missed visits, no excuses. Just a well-maintained property your tenants and customers can be proud of.</p>
+        <ul>
+          <li>Weekly mowing &amp; edging</li>
+          <li>Trimming &amp; blowing</li>
+          <li>Fertilization &amp; weed control</li>
+          <li>Spring &amp; fall cleanups</li>
+          <li>Seasonal color &amp; mulching</li>
+        </ul>
+        <a href="index.html#contact" class="btn btn-primary" style="margin-top:8px;">Get a Maintenance Quote</a>
+      </div>
+    </div>
+
+    <!-- Installs teaser -->
+    <div class="snow-card casc" style="border-top:1px solid var(--hair); padding:56px 0;">
+      <div class="snow-inner">
+        <div class="ptext" style="grid-column:1;">
+          <span class="pstep">02 — Commercial Installs</span>
+          <h2>New Construction &amp; Full Landscape Installs</h2>
+          <p>Brighton builds commercial landscapes from the ground up. Sodding, trees, shrubs, landscape beds, hardscape, irrigation — we handle the full install package for new developments and property overhauls. One crew, no subcontractors, built to last.</p>
+          <ul style="margin-bottom:28px;">
+            <li>Sodding &amp; turf establishment</li>
+            <li>Tree &amp; shrub installation</li>
+            <li>Landscape bed creation</li>
+            <li>Hardscape — pavers, walls &amp; curbing</li>
+            <li>Irrigation system installation</li>
+          </ul>
+          <div style="display:flex;gap:14px;flex-wrap:wrap;">
+            <a href="work.html?filter=commercial" class="btn btn-primary">View Our Work</a>
+          </div>
+        </div>
+        <div class="pimg" style="aspect-ratio:4/3;">
+          <img src="install-header.jpg" alt="Commercial Installs" style="image-orientation:from-image;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 22V12M12 12C12 7 7 3 3 3s9 4 9 9zM12 12c0-5 5-9 9-9s-9 4-9 9z"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Snow & Ice teaser -->
+    <div class="snow-card casc">
+      <div class="snow-inner">
+        <div class="snow-visual">
+          <img src="snow-section.jpg" alt="Snow & Ice Management" style="width:100%;height:100%;object-fit:cover;border-radius:16px;image-orientation:from-image;">
+        </div>
+        <div class="snow-text">
+          <span class="snow-badge">03 — Snow &amp; Ice Management</span>
+          <h2>We Run One of NJ's Most Active Snow Divisions</h2>
+          <p>When a storm hits, we're already moving. Brighton operates a full snow and ice management division with dedicated routes, 24/7 crews, and contracts across Ocean County and beyond. The numbers speak for themselves.</p>
+          <div class="snow-stats">
+            <div class="snow-stat">
+              <div class="snow-stat-num">200+</div>
+              <div class="snow-stat-label">Lane Miles Plowed</div>
+            </div>
+            <div class="snow-stat">
+              <div class="snow-stat-num">50+</div>
+              <div class="snow-stat-label">Miles of Sidewalk</div>
+            </div>
+            <div class="snow-stat">
+              <div class="snow-stat-num">1M+</div>
+              <div class="snow-stat-label">Sq Ft Serviced</div>
+            </div>
+            <div class="snow-stat">
+              <div class="snow-stat-num">1,000+</div>
+              <div class="snow-stat-label">Stakes Installed</div>
+            </div>
+          </div>
+          <a href="snow.html" class="btn-snow">See the Full Snow Division →</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar casc">
+  <div class="wrap">
+    <div class="stats-grid">
+      <div>
+        <div class="stat-num cm-num" data-count="10" data-suffix="+">0</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div>
+        <div class="stat-num cm-num" data-text="24/7">24/7</div>
+        <div class="stat-label">Snow Response</div>
+      </div>
+      <div>
+        <div class="stat-num cm-num" data-text="NJ">NJ</div>
+        <div class="stat-label">Licensed &amp; Insured</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- COMMERCIAL WORK -->
+<section class="comm-work casc">
+  <div class="wrap">
+    <div class="sec-head center comm-work">
+      <span class="kicker">Our Commercial Builds</span>
+      <h2>Work We're <em>Proud Of</em></h2>
+      <p>From HOA grounds to shopping center renovations — a look at what Brighton builds on the commercial side.</p>
+    </div>
+    <div class="proj-grid" id="commGrid">
+      <!-- Commercial project cards go here as they are added to work.html -->
+      <!-- Placeholder card until commercial projects are added -->
+      <div class="proj-card" style="background:var(--bg);border:2px dashed var(--border);display:flex;align-items:center;justify-content:center;min-height:280px;border-radius:16px;">
+        <div style="text-align:center;padding:32px;">
+          <div style="font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:12px;">Coming Soon</div>
+          <div style="font-family:var(--font-head);font-size:22px;font-weight:600;color:var(--heading);margin-bottom:8px;">Commercial Projects</div>
+          <div style="color:var(--muted);font-size:14px;">Photos &amp; project pages coming shortly.</div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:40px;">
+      <a href="work.html?filter=commercial" class="btn btn-primary">View All Commercial Work</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-band">
+  <div class="wrap">
+    <h2>Ready to <em>Get Started?</em></h2>
+    <p>Tell us about your property and we'll put together a plan that fits your schedule and budget.</p>
+    <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+      <a href="index.html#contact" class="btn btn-primary">Request a Quote</a>
+      <a href="snow.html" class="btn btn-outline">Snow &amp; Ice Division</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <img src="logo.png" alt="Brighton Lawn & Landscape">
+        <p>Full-service landscape construction and commercial maintenance across New Jersey &amp; Pennsylvania.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Services</h5>
+        <a href="residential.html">Residential Construction</a>
+        <a href="commercial.html">Commercial Maintenance</a>
+        <a href="snow.html">Snow &amp; Ice Management</a>
+        <a href="sitework.html">Site Work</a>
+      <a href="snow.html">Snow &amp; Ice</a>
+      </div>
+      <div class="foot-col">
+        <h5>Service Area</h5>
+        <p>New Jersey</p>
+        <p>Philadelphia &amp; Main Line, PA</p>
+        <p>Northern DE &amp; NE Maryland</p>
+      </div>
+      <div class="foot-col">
+        <h5>Contact</h5>
+        <a href="tel:8482260090">(848) 226-0090</a>
+        <a href="mailto:brightonlawnnj@gmail.com">brightonlawnnj@gmail.com</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <p>© 2025 Brighton Lawn &amp; Landscape. All rights reserved.</p>
+      <div class="foot-social">
+        <a href="https://www.instagram.com/brighton_lawn_landscape" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('header').classList.add('solid');
+  const burger = document.getElementById('burger');
+  const mobileNav = document.getElementById('mobileNav');
+  burger.addEventListener('click', () => {
+    const open = mobileNav.classList.toggle('open');
+    burger.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  function closeNav(){ mobileNav.classList.remove('open'); burger.classList.remove('open'); document.body.style.overflow=''; }
+
+  const cascIO = new IntersectionObserver((es)=>{ es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('shown'); cascIO.unobserve(e.target); } }); }, { threshold:.08 });
+  document.querySelectorAll('.casc').forEach(el=>cascIO.observe(el));
+
+  function animateNum(el){
+    if(el.dataset.animating) return;
+    if(el.dataset.text){ el.textContent = el.dataset.text; return; }
+    el.dataset.animating = '1';
+    const target = +el.dataset.count, suffix = el.dataset.suffix || '';
+    const dur = 2000, start = performance.now();
+    const tick = (now)=>{ const p = Math.min((now-start)/dur,1); const e2 = p===1?1:1-Math.pow(2,-10*p);
+      el.textContent = Math.round(e2*target)+suffix; if(p<1) requestAnimationFrame(tick); else delete el.dataset.animating; };
+    requestAnimationFrame(tick);
+  }
+  const statIO = new IntersectionObserver((es)=>{ es.forEach(e=>{ const el=e.target;
+    if(e.isIntersecting) animateNum(el); else if(!el.dataset.text){ delete el.dataset.animating; el.textContent='0'; }
+  }); }, { threshold:.55 });
+  document.querySelectorAll('.cm-num').forEach(el=>statIO.observe(el));
+</script>
+<script src="search.js"></script>
+</body>
+</html>

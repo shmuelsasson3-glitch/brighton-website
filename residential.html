@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Residential — Brighton Lawn &amp; Landscape</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Page hero */
+    .page-hero { position:relative; min-height: 56vh; display:flex; align-items:flex-end; overflow:hidden; }
+    .page-hero .ph-bg { position:absolute; inset:0; background:#0d160d; }
+    .page-hero .ph-video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; }
+    .page-hero .ph-ov { position:absolute; inset:0;
+      background: linear-gradient(to top, rgba(8,12,8,.92) 0%, rgba(8,12,8,.45) 55%, rgba(8,12,8,.35) 100%); }
+    .page-hero .ph-inner { position:relative; z-index:2; width:100%; padding-bottom:56px; }
+    .ph-kicker { display:inline-block; font-size:12px; letter-spacing:3.5px; text-transform:uppercase;
+      color: var(--green-light); font-weight:700; margin-bottom:16px; }
+    .page-hero h1 { font-family: var(--font-head); color:#fff; font-weight:600;
+      font-size: clamp(40px, 6vw, 74px); line-height:1.03; letter-spacing:-1px; margin-bottom:18px; }
+    .page-hero h1 em { font-style:normal; color: var(--green-light); }
+    .page-hero p { color: rgba(255,255,255,.82); font-weight:300; font-size: clamp(16px,1.7vw,19px); max-width: 620px; }
+
+    /* Process rows */
+    .proc-page { padding: 100px 0; background: var(--bg); }
+    .prow { display:grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items:center; padding: 56px 0; }
+    .prow + .prow { border-top: 1px solid var(--hair); }
+    .prow.rev .ptext { grid-column: 2; grid-row: 1; }
+    .prow.rev .pimg  { grid-column: 1; grid-row: 1; }
+    .pimg {
+      aspect-ratio: 4/3; border-radius: 18px; overflow:hidden;
+      background: linear-gradient(150deg, #1B3D2B, #2a5c3f);
+      display:flex; align-items:center; justify-content:center; position:relative;
+      box-shadow: 0 24px 56px rgba(27,61,43,.16);
+    }
+    .pimg::after { content:''; position:absolute; inset:0;
+      background: radial-gradient(circle at 72% 18%, rgba(82,160,60,.35), transparent 60%); }
+    .pimg svg { width:54px; height:54px; color: rgba(255,255,255,.45); position:relative; z-index:1; }
+    .pimg img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:2; }
+    .pstep { display:inline-block; font-size:12px; letter-spacing:2.5px; text-transform:uppercase;
+      color: var(--green); font-weight:700; margin-bottom:14px; }
+    .ptext h2 { font-family: var(--font-head); color: var(--heading); font-weight:600;
+      font-size: clamp(30px, 4vw, 46px); line-height:1.08; letter-spacing:-.5px; margin-bottom:18px; }
+    .ptext p { color: var(--muted); font-size:16.5px; line-height:1.9; }
+
+    /* CTA band */
+    .cta-band { background: var(--dark-green); padding: 84px 0; text-align:center; }
+    .cta-band h2 { font-family: var(--font-head); color:#fff; font-weight:600;
+      font-size: clamp(28px,4vw,46px); margin-bottom:14px; letter-spacing:-.5px; }
+    .cta-band h2 em { font-style:normal; color: var(--green-light); }
+    .cta-band p { color: rgba(255,255,255,.72); font-weight:300; font-size:17px; margin-bottom:34px; max-width:540px; margin-left:auto; margin-right:auto; }
+
+    @media (max-width: 820px) {
+      .proc-page { padding: 64px 0; }
+      .prow { grid-template-columns: 1fr; gap: 26px; padding: 40px 0; }
+      .prow.rev .ptext, .prow.rev .pimg { grid-column: 1; }
+      .prow.rev .pimg { grid-row: 1; }
+      .prow.rev .ptext { grid-row: 2; }
+      .prow .pimg { grid-row: 1; }
+      .prow .ptext { grid-row: 2; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════ HEADER ═══ -->
+<header id="header" class="solid">
+  <div class="header-inner">
+    <a href="index.html" class="brand"><img src="logo.png" alt="Brighton Lawn & Landscape"></a>
+    <nav class="nav">
+      <a href="residential.html">Residential</a>
+      <a href="commercial.html">Commercial</a>
+      <a href="sitework.html">Site Work</a>
+      <a href="snow.html">Snow &amp; Ice</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#contact" class="nav-btn">Get a Quote</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<div class="mobile-nav" id="mobileNav"><button class="mobile-nav-close" onclick="closeNav()" aria-label="Close menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  <a href="residential.html" onclick="closeNav()">Residential</a>
+  <a href="commercial.html" onclick="closeNav()">Commercial</a>
+  <a href="sitework.html" onclick="closeNav()">Site Work</a>
+  <a href="snow.html" onclick="closeNav()">Snow &amp; Ice</a>
+  <a href="index.html#about" onclick="closeNav()">About</a>
+  <a href="index.html#contact" class="nav-btn" onclick="closeNav()">Get a Quote</a>
+</div>
+
+<!-- ═══════════════════ PAGE HERO ═══ -->
+<section class="page-hero">
+  <div class="ph-bg"></div>
+  <video class="ph-video" autoplay muted loop playsinline>
+    <source src="residential-hero.mp4" type="video/mp4">
+  </video>
+  <div class="ph-ov"></div>
+  <div class="ph-inner">
+    <div class="wrap">
+      <span class="ph-kicker">Residential</span>
+      <h1>From Vision to <em>Finished Backyard</em></h1>
+      <p>Complete residential landscape construction — designed, built, and maintained entirely in-house by the Brighton team.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ PROCESS ═══ -->
+<section class="proc-page">
+  <div class="wrap">
+    <div class="sec-head center casc" style="margin-bottom:30px;">
+      <span class="kicker">Our Residential Process</span>
+      <h2>Design. Build. <em>Maintain.</em></h2>
+      <p>One team, one standard — guiding your project from the first walkthrough to long-term care.</p>
+    </div>
+
+    <!-- DESIGN -->
+    <div id="design" class="prow casc">
+      <div class="pimg">
+        <img src="res-design.jpg" alt="Design">
+      </div>
+      <div class="ptext">
+        <span class="pstep">Step 01 — Design</span>
+        <h2>We Start at Your Property</h2>
+        <p>It begins with a visit. We come out to your property, walk the space with you, and learn how you want to live in it. From there our team develops a custom design — layout, materials, plantings, and lighting — tailored to your home, your goals, and your budget. Every detail is planned before a shovel hits the ground.</p>
+      </div>
+    </div>
+
+    <!-- BUILD -->
+    <div id="build" class="prow rev casc">
+      <div class="pimg">
+        <img src="res-build.jpg" alt="Build">
+      </div>
+      <div class="ptext">
+        <span class="pstep">Step 02 — Build</span>
+        <h2>Built In-House by Our Experts</h2>
+        <p>Our in-house crews bring the design to life. No subcontractors, no handoffs — the same team that plans your project builds it. From excavation and hardscaping to planting, turf, and lighting, every element is installed with precision and built to last using proven techniques and high-quality materials.</p>
+      </div>
+    </div>
+
+    <!-- MAINTAIN -->
+    <div id="maintain" class="prow casc">
+      <div class="pimg">
+        <img src="res-maintain.jpg" alt="Maintain">
+      </div>
+      <div class="ptext">
+        <span class="pstep">Step 03 — Maintain</span>
+        <h2>We Maintain What We Install</h2>
+        <p>We don't disappear after the build. We maintain what we install in your landscape — protecting your investment with ongoing, attentive care that keeps everything looking its best, season after season. One team that knows your property inside and out.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ CTA ═══ -->
+<div class="cta-band">
+  <div class="wrap">
+    <h2>See What We <em>Build</em></h2>
+    <p>Browse a portfolio of completed residential transformations across NJ &amp; PA.</p>
+    <a href="work.html" class="btn btn-primary">View Our Work</a>
+  </div>
+</div>
+
+<!-- ═══════════════════ FOOTER ═══ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <img src="logo.png" alt="Brighton Lawn & Landscape">
+        <p>Full-service landscape construction and commercial maintenance across New Jersey &amp; Pennsylvania.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Services</h5>
+        <a href="residential.html">Residential Construction</a>
+        <a href="commercial.html">Commercial Maintenance</a>
+        <a href="sitework.html">Site Work</a>
+      <a href="snow.html">Snow &amp; Ice</a>
+        <a href="index.html#about">About</a>
+      </div>
+      <div class="foot-col">
+        <h5>Service Area</h5>
+        <p>New Jersey</p>
+        <p>Philadelphia &amp; Main Line, PA</p>
+        <p>Northern DE &amp; NE Maryland</p>
+      </div>
+      <div class="foot-col">
+        <h5>Contact</h5>
+        <a href="tel:8482260090">(848) 226-0090</a>
+        <a href="mailto:info@BrightonLawn.com">info@BrightonLawn.com</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <p>© 2025 Brighton Lawn &amp; Landscape. All rights reserved.</p>
+      <div class="foot-social">
+        <a href="https://www.instagram.com/brighton_lawn_landscape" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Header solid on scroll (page hero is dark, header starts solid here)
+  const header = document.getElementById('header');
+  addEventListener('scroll', () => header.classList.toggle('solid', true));
+
+  // Mobile nav
+  const burger = document.getElementById('burger');
+  const mobileNav = document.getElementById('mobileNav');
+  burger.addEventListener('click', () => {
+    const open = mobileNav.classList.toggle('open');
+    burger.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  function closeNav(){ mobileNav.classList.remove('open'); burger.classList.remove('open'); document.body.style.overflow=''; }
+
+  // Reveal + cascade on scroll
+  const io = new IntersectionObserver((es)=>{ es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }); }, { threshold:.15 });
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  const cascIO = new IntersectionObserver((es)=>{ es.forEach(e=>{ e.target.classList.toggle('shown', e.isIntersecting); }); }, { threshold:.2 });
+  document.querySelectorAll('.casc').forEach(el=>cascIO.observe(el));
+</script>
+<script src="search.js"></script>
+</body>
+</html>

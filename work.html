@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Work — Brighton Lawn &amp; Landscape</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .page-hero { position:relative; min-height: 46vh; display:flex; align-items:flex-end; overflow:hidden; }
+    .page-hero .ph-bg { position:absolute; inset:0; background:url('hero.jpg?v=5') center 30%/cover no-repeat; }
+    .page-hero .ph-ov { position:absolute; inset:0;
+      background: linear-gradient(to top, rgba(8,12,8,.92) 0%, rgba(8,12,8,.5) 60%, rgba(8,12,8,.4) 100%); }
+    .page-hero .ph-inner { position:relative; z-index:2; width:100%; padding-bottom:52px; }
+    .ph-kicker { display:inline-block; font-size:12px; letter-spacing:3.5px; text-transform:uppercase;
+      color: var(--green-light); font-weight:700; margin-bottom:16px; }
+    .page-hero h1 { font-family: var(--font-head); color:#fff; font-weight:600;
+      font-size: clamp(40px, 6vw, 72px); line-height:1.03; letter-spacing:-1px; margin-bottom:16px; }
+    .page-hero h1 em { font-style:normal; color: var(--green-light); }
+    .page-hero p { color: rgba(255,255,255,.82); font-weight:300; font-size: clamp(16px,1.7vw,19px); max-width: 600px; }
+
+    .work-wrap { padding: 90px 0; background: var(--bg); }
+    /* filters reuse existing .filter style? define lightweight */
+    .work-filters { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-bottom:46px; }
+    .wfilter { padding:9px 22px; border:1px solid var(--border); background:transparent; color:var(--muted);
+      font-family:var(--font-body); font-size:12px; letter-spacing:1.5px; text-transform:uppercase; font-weight:600;
+      border-radius:50px; cursor:pointer; transition: all .25s; }
+    .wfilter:hover, .wfilter.active { background: var(--green); border-color: var(--green); color:#fff; }
+    .cta-band { background: var(--dark-green); padding: 80px 0; text-align:center; }
+    .cta-band h2 { font-family: var(--font-head); color:#fff; font-weight:600; font-size: clamp(28px,4vw,44px); margin-bottom:14px; }
+    .cta-band h2 em { font-style:normal; color: var(--green-light); }
+    .cta-band p { color: rgba(255,255,255,.72); font-weight:300; font-size:17px; margin-bottom:32px; }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════ HEADER ═══ -->
+<header id="header" class="solid">
+  <div class="header-inner">
+    <a href="index.html" class="brand"><img src="logo.png" alt="Brighton Lawn & Landscape"></a>
+    <nav class="nav">
+      <a href="residential.html">Residential</a>
+      <a href="commercial.html">Commercial</a>
+      <a href="sitework.html">Site Work</a>
+      <a href="snow.html">Snow &amp; Ice</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#contact" class="nav-btn">Get a Quote</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<div class="mobile-nav" id="mobileNav"><button class="mobile-nav-close" onclick="closeNav()" aria-label="Close menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  <a href="residential.html" onclick="closeNav()">Residential</a>
+  <a href="commercial.html" onclick="closeNav()">Commercial</a>
+  <a href="sitework.html" onclick="closeNav()">Site Work</a>
+  <a href="snow.html" onclick="closeNav()">Snow &amp; Ice</a>
+  <a href="index.html#about" onclick="closeNav()">About</a>
+  <a href="index.html#contact" class="nav-btn" onclick="closeNav()">Get a Quote</a>
+</div>
+
+<!-- ═══════════════════ PAGE HERO ═══ -->
+<section class="page-hero">
+  <div class="ph-bg"></div>
+  <div class="ph-ov"></div>
+  <div class="ph-inner">
+    <div class="wrap">
+      <span class="ph-kicker">Our Work</span>
+      <h1>Projects We're <em>Proud Of</em></h1>
+      <p>A growing portfolio of completed residential and commercial projects across NJ &amp; PA.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ WORK GRID ═══ -->
+<section class="work-wrap">
+  <div class="wrap">
+    <div class="work-filters">
+      <button class="wfilter active" data-filter="residential">Residential</button>
+      <button class="wfilter" data-filter="commercial">Commercial</button>
+      <button class="wfilter" data-filter="all">All</button>
+    </div>
+
+    <div class="proj-grid casc" id="workGrid">
+      <a class="proj-card" data-cat="commercial" href="toras-aron-project.html" style="text-decoration:none;display:block;">
+        <div class="proj-img">
+          <img src="projects/toras-aron/dji_fly_20250821_143958_122_1755801612096_photo_optimized.jpg" alt="Toras Aron" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;image-orientation:from-image;">
+        </div>
+        <div class="proj-body"><h4>The Toras Aron Project</h4><span>Commercial · NJ</span></div>
+      </a>
+      <a class="proj-card" data-cat="commercial" href="scotchway-project.html" style="text-decoration:none;display:block;">
+        <div class="proj-img">
+          <img src="projects/scotchway/dji_fly_20251208_144004_276_1767113993651_photo_optimized.jpg" alt="The Scotchway Project" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;image-orientation:from-image;">
+        </div>
+        <div class="proj-body"><h4>The Scotch Way Project</h4><span>Commercial · NJ</span></div>
+      </a>
+      <a class="proj-card" data-cat="residential" href="beige-project.html" style="text-decoration:none;display:block;">
+        <div class="proj-img">
+          <img src="projects/beige/finished2_lowangle.jpg" alt="The Beige Project" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;">
+        </div>
+        <div class="proj-body"><h4>The Beige Project</h4><span>Residential · NJ</span></div>
+      </a>
+      <a class="proj-card" data-cat="residential" href="pool-patio.html" style="text-decoration:none;display:block;">
+        <div class="proj-img">
+          <img src="projects/project2/v5_9349.jpg" alt="The Jacks Way Project" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;">
+        </div>
+        <div class="proj-body"><h4>The Jacks Way Project</h4><span>Residential · NJ</span></div>
+      </a>
+      <a class="proj-card" data-cat="residential" href="baker-project.html" style="text-decoration:none;display:block;">
+        <div class="proj-img">
+          <img src="projects/baker/p1_night.jpg" alt="The Baker Project" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;">
+        </div>
+        <div class="proj-body"><h4>The Baker Project</h4><span>Residential · NJ</span></div>
+      </a>
+      <a class="proj-card" data-cat="residential" href="vanard-project.html" style="text-decoration:none;display:block;">
+        <div class="proj-img">
+          <img src="projects/vanard/v1_patio.jpg" alt="The Vanard Project" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;">
+        </div>
+        <div class="proj-body"><h4>The Vanard Project</h4><span>Residential · Waterfront · NJ</span></div>
+      </a>
+      <a class="proj-card" data-cat="residential" href="bates-road.html" style="text-decoration:none;display:block;">
+        <div class="proj-img">
+          <img src="projects/bates-road/cover_fixed2.jpg" alt="Bates Road Project" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;">
+        </div>
+        <div class="proj-body"><h4>Bates Road Project</h4><span>Residential · NJ</span></div>
+      </a>
+      <a class="proj-card" data-cat="residential" href="arlington-project.html" style="text-decoration:none;display:block;">
+        <div class="proj-img">
+          <img src="projects/arlington/p1.jpg" alt="The Arlington Project" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;">
+        </div>
+        <div class="proj-body"><h4>The Arlington Project</h4><span>Residential · NJ</span></div>
+      </a>
+      <a class="proj-card" data-cat="residential" href="corner-project.html" style="text-decoration:none;display:block;">
+        <div class="proj-img">
+          <img src="projects/corner/IMG_4196.jpg" alt="The Corner Project" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;">
+        </div>
+        <div class="proj-body"><h4>The Corner Project</h4><span>Residential · NJ</span></div>
+      </a>
+      <a class="proj-card" data-cat="residential" href="sukkah-project.html" style="text-decoration:none;display:block;">
+        <div class="proj-img">
+          <img src="projects/sukkah/IMG_5980.jpg" alt="The Sukkah Project" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;">
+        </div>
+        <div class="proj-body"><h4>The Sukkah Project</h4><span>Residential · NJ</span></div>
+      </a>
+    </div>
+    <div style="text-align:center; margin-top:48px; padding: 32px 20px; border-top: 1px solid var(--border);">
+      <p style="color:var(--muted); font-size:15px; font-weight:400; line-height:1.6; max-width:480px; margin:0 auto;">
+        More projects coming soon — we're still adding to our portfolio as the site grows. Check back for updates.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ CTA ═══ -->
+<div class="cta-band">
+  <div class="wrap">
+    <h2>Have a Project in <em>Mind?</em></h2>
+    <p>Tell us about your property — we'll handle the rest, from design to installation.</p>
+    <a href="index.html#contact" class="btn btn-primary">Request a Quote</a>
+  </div>
+</div>
+
+<!-- ═══════════════════ FOOTER ═══ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <img src="logo.png" alt="Brighton Lawn & Landscape">
+        <p>Full-service landscape construction and commercial maintenance across New Jersey &amp; Pennsylvania.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Services</h5>
+        <a href="residential.html">Residential Construction</a>
+        <a href="commercial.html">Commercial Maintenance</a>
+        <a href="sitework.html">Site Work</a>
+      <a href="snow.html">Snow &amp; Ice</a>
+        <a href="index.html#about">About</a>
+      </div>
+      <div class="foot-col">
+        <h5>Service Area</h5>
+        <p>New Jersey</p>
+        <p>Philadelphia &amp; Main Line, PA</p>
+        <p>Northern DE &amp; NE Maryland</p>
+      </div>
+      <div class="foot-col">
+        <h5>Contact</h5>
+        <a href="tel:8482260090">(848) 226-0090</a>
+        <a href="mailto:info@BrightonLawn.com">info@BrightonLawn.com</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <p>© 2025 Brighton Lawn &amp; Landscape. All rights reserved.</p>
+      <div class="foot-social">
+        <a href="https://www.instagram.com/brighton_lawn_landscape" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const header = document.getElementById('header');
+  addEventListener('scroll', () => header.classList.toggle('solid', true));
+
+  const burger = document.getElementById('burger');
+  const mobileNav = document.getElementById('mobileNav');
+  burger.addEventListener('click', () => {
+    const open = mobileNav.classList.toggle('open');
+    burger.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  function closeNav(){ mobileNav.classList.remove('open'); burger.classList.remove('open'); document.body.style.overflow=''; }
+
+  // Cascade
+  const cascIO = new IntersectionObserver((es)=>{ es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('shown'); cascIO.unobserve(e.target); } }); }, { threshold:.05 });
+  document.querySelectorAll('.casc').forEach(el=>cascIO.observe(el));
+
+  // Filters
+  function applyFilter(f) {
+    document.querySelectorAll('.wfilter').forEach(b=>b.classList.remove('active'));
+    const btn = document.querySelector(`.wfilter[data-filter="${f}"]`) || document.querySelector('.wfilter[data-filter="all"]');
+    if(btn) btn.classList.add('active');
+    document.querySelectorAll('#workGrid .proj-card').forEach(c=>{
+      c.style.display = (f==='all' || c.dataset.cat===f) ? '' : 'none';
+    });
+  }
+
+  document.querySelectorAll('.wfilter').forEach(btn=>{
+    btn.addEventListener('click', ()=>applyFilter(btn.dataset.filter));
+  });
+
+  // Auto-filter from URL param e.g. ?filter=commercial
+  const urlFilter = new URLSearchParams(location.search).get('filter');
+  applyFilter(urlFilter || 'residential');
+</script>
+<script src="search.js"></script>
+</body>
+</html>
