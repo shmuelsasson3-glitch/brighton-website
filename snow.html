@@ -6,7 +6,7 @@
   <title>Snow &amp; Ice Management — Brighton Lawn &amp; Landscape</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="assets/css/styles.css">
   <style>
     /* Override global green em — everything on this page is logo blue */
     h1 em, h2 em, h3 em { color: #1a52d4 !important; font-style: normal; }
@@ -163,7 +163,7 @@
 
 <header id="header" class="solid">
   <div class="header-inner">
-    <a href="index.html" class="brand"><img src="snow-logo-crop.png" alt="Brighton Snow Division" style="height:52px; filter:none;"></a>
+    <a href="index.html" class="brand"><img src="assets/images/snow-logo-crop.png" alt="Brighton Snow Division" style="height:52px; filter:none;"></a>
     <nav class="nav">
       <a href="residential.html">Residential</a>
       <a href="commercial.html">Commercial</a>
@@ -192,7 +192,7 @@
 <section class="page-hero">
   <div class="ph-bg">
     <video autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;">
-      <source src="snow-hero.mp4" type="video/mp4">
+      <source src="assets/videos/snow-hero.mp4" type="video/mp4">
     </video>
     <div class="snow-particles" id="snowParticles"></div>
   </div>
@@ -237,7 +237,7 @@
       <p>Every property is staked before the season. Every route is mapped. Every crew knows exactly where to be and when. That's how we've grown into one of the most relied-upon snow contractors in the region.</p>
     </div>
     <div class="intro-visual">
-      <img src="not-a-side.jpg" alt="Cleared Before You Clock In" style="width:100%;height:100%;object-fit:cover;border-radius:18px;image-orientation:from-image;filter:brightness(1.3);">
+      <img src="assets/images/not-a-side.jpg" alt="Cleared Before You Clock In" style="width:100%;height:100%;object-fit:cover;border-radius:18px;image-orientation:from-image;filter:brightness(1.3);">
     </div>
   </div>
 </div>
@@ -264,7 +264,7 @@
     <!-- Plowing -->
     <div id="plowing" class="srow casc">
       <div class="simg">
-        <img src="plow.jpg" alt="Plowing & Snow Stacking" style="image-orientation:from-image;">
+        <img src="assets/images/plow.jpg" alt="Plowing & Snow Stacking" style="image-orientation:from-image;">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8zM5.5 21a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM18.5 21a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"/></svg>
       </div>
       <div class="stext">
@@ -285,7 +285,7 @@
     <!-- Salting -->
     <div id="salting" class="srow rev casc">
       <div class="simg">
-        <img src="salting.jpg" alt="Salting & De-Icing" style="image-orientation:from-image; object-position:center 80%;">
+        <img src="assets/images/salting.jpg" alt="Salting & De-Icing" style="image-orientation:from-image; object-position:center 80%;">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
       </div>
       <div class="stext">
@@ -306,7 +306,7 @@
     <!-- Sidewalks -->
     <div id="sidewalks" class="srow casc">
       <div class="simg">
-        <img src="sidewalk-snow.jpg" alt="Sidewalk Clearing" style="image-orientation:from-image;">
+        <img src="assets/images/sidewalk-snow.jpg" alt="Sidewalk Clearing" style="image-orientation:from-image;">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M3 12h18M3 6l9-3 9 3M3 18l9 3 9-3"/></svg>
       </div>
       <div class="stext">
@@ -327,7 +327,7 @@
     <!-- Staking -->
     <div id="planning" class="srow rev casc">
       <div class="simg">
-        <img src="go-over.jpg" alt="Pre-Storm Planning" style="image-orientation:from-image;">
+        <img src="assets/images/go-over.jpg" alt="Pre-Storm Planning" style="image-orientation:from-image;">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 2v15M8 17l4 5 4-5"/><path d="M6 9h12"/></svg>
       </div>
       <div class="stext">
@@ -386,7 +386,7 @@
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
-        <img src="snow-logo-crop.png" alt="Brighton Snow Division" style="height:52px; filter:brightness(0) invert(1);">
+        <img src="assets/images/snow-logo-crop.png" alt="Brighton Snow Division" style="height:52px; filter:brightness(0) invert(1);">
         <p>Full-service landscape construction and commercial maintenance across New Jersey &amp; Pennsylvania.</p>
       </div>
       <div class="foot-col">
@@ -470,6 +470,6 @@
   }); }, { threshold:.15 });
   document.querySelectorAll('.sn-num').forEach(el=>statIO.observe(el));
 </script>
-<script src="search.js"></script>
+<script src="assets/js/search.js"></script>
 </body>
 </html>

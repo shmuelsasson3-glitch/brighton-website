@@ -7,14 +7,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
 
 <!-- ═══════════════════════════════ HEADER ═══ -->
 <header id="header">
   <div class="header-inner">
-    <a href="#top" class="brand"><img src="logo.png" alt="Brighton Lawn & Landscape"></a>
+    <a href="#top" class="brand"><img src="assets/images/logo.png" alt="Brighton Lawn & Landscape"></a>
     <nav class="nav">
       <a href="residential.html">Residential</a>
       <a href="commercial.html">Commercial</a>
@@ -38,8 +38,8 @@
 
 <!-- ═══════════════════════════════ HERO ═══ -->
 <section class="hero" id="top">
-  <video class="hero-video" id="heroVideo" autoplay muted loop playsinline poster="hero.jpg?v=5">
-    <source src="hero.mp4" type="video/mp4">
+  <video class="hero-video" id="heroVideo" autoplay muted loop playsinline poster="assets/images/go-over.jpg">
+    <source src="assets/videos/hero.mp4" type="video/mp4">
   </video>
   <div class="hero-overlay"></div>
   <div class="hero-inner">
@@ -229,7 +229,7 @@
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
-        <img src="logo.png" alt="Brighton Lawn & Landscape">
+        <img src="assets/images/logo.png" alt="Brighton Lawn & Landscape">
         <p>Full-service landscape construction and commercial maintenance across New Jersey &amp; Pennsylvania.</p>
       </div>
       <div class="foot-col">
@@ -399,6 +399,6 @@
     setTimeout(() => map.invalidateSize(), 250);
   })();
 </script>
-<script src="search.js"></script>
+<script src="assets/js/search.js"></script>
 </body>
 </html>

@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Arlington Project — Brighton Lawn &amp; Landscape</title>
+  <title>The Arlington Project  -  Brighton Lawn &amp; Landscape</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="assets/css/styles.css">
   <style>
     .proj-hero {
       position: relative; height: 70vh; min-height: 480px; overflow: hidden;
@@ -93,7 +93,7 @@
 
 <header id="header" class="solid">
   <div class="header-inner">
-    <a href="index.html" class="brand"><img src="logo.png" alt="Brighton Lawn & Landscape"></a>
+    <a href="index.html" class="brand"><img src="assets/images/logo.png" alt="Brighton Lawn & Landscape"></a>
     <nav class="nav">
       <a href="residential.html">Residential</a>
       <a href="commercial.html">Commercial</a>
@@ -127,7 +127,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
         Our Work
       </a>
-      <div class="proj-tag">Residential · NJ</div>
+      <div class="proj-tag">Residential  -  NJ</div>
       <h1>The Arlington Project</h1>
     </div>
   </div>
@@ -186,7 +186,7 @@
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
-        <img src="logo.png" alt="Brighton Lawn & Landscape">
+        <img src="assets/images/logo.png" alt="Brighton Lawn & Landscape">
         <p>Full-service landscape construction and commercial maintenance across New Jersey &amp; Pennsylvania.</p>
       </div>
       <div class="foot-col">
@@ -210,7 +210,7 @@
       </div>
     </div>
     <div class="foot-bottom">
-      <p>© 2025 Brighton Lawn &amp; Landscape. All rights reserved.</p>
+      <p>(c) 2025 Brighton Lawn &amp; Landscape. All rights reserved.</p>
       <div class="foot-social">
         <a href="https://www.instagram.com/brighton_lawn_landscape" target="_blank" rel="noopener" aria-label="Instagram">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
@@ -221,7 +221,7 @@
 </footer>
 
 <div class="lightbox" id="lightbox">
-  <button class="lb-close" onclick="closeLb()">✕</button>
+  <button class="lb-close" onclick="closeLb()">âœ•</button>
   <button class="lb-prev" onclick="shiftLb(-1)">&#8592;</button>
   <img id="lbImg" src="" alt="">
   <button class="lb-next" onclick="shiftLb(1)">&#8594;</button>
@@ -256,6 +256,7 @@
   document.getElementById('lightbox').addEventListener('click', function(e){ if(e.target===this) closeLb(); });
   document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeLb(); if(e.key==='ArrowRight') shiftLb(1); if(e.key==='ArrowLeft') shiftLb(-1); });
 </script>
-<script src="search.js"></script>
+<script src="assets/js/search.js"></script>
 </body>
 </html>
+

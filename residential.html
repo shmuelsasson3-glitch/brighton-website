@@ -6,7 +6,7 @@
   <title>Residential — Brighton Lawn &amp; Landscape</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="assets/css/styles.css">
   <style>
     /* Page hero */
     .page-hero { position:relative; min-height: 56vh; display:flex; align-items:flex-end; overflow:hidden; }
@@ -67,7 +67,7 @@
 <!-- ═══════════════════ HEADER ═══ -->
 <header id="header" class="solid">
   <div class="header-inner">
-    <a href="index.html" class="brand"><img src="logo.png" alt="Brighton Lawn & Landscape"></a>
+    <a href="index.html" class="brand"><img src="assets/images/logo.png" alt="Brighton Lawn & Landscape"></a>
     <nav class="nav">
       <a href="residential.html">Residential</a>
       <a href="commercial.html">Commercial</a>
@@ -93,7 +93,7 @@
 <section class="page-hero">
   <div class="ph-bg"></div>
   <video class="ph-video" autoplay muted loop playsinline>
-    <source src="residential-hero.mp4" type="video/mp4">
+    <source src="assets/videos/residential-hero.mp4" type="video/mp4">
   </video>
   <div class="ph-ov"></div>
   <div class="ph-inner">
@@ -117,7 +117,7 @@
     <!-- DESIGN -->
     <div id="design" class="prow casc">
       <div class="pimg">
-        <img src="res-design.jpg" alt="Design">
+        <img src="assets/images/res-design.jpg" alt="Design">
       </div>
       <div class="ptext">
         <span class="pstep">Step 01 — Design</span>
@@ -129,7 +129,7 @@
     <!-- BUILD -->
     <div id="build" class="prow rev casc">
       <div class="pimg">
-        <img src="res-build.jpg" alt="Build">
+        <img src="assets/images/res-build.jpg" alt="Build">
       </div>
       <div class="ptext">
         <span class="pstep">Step 02 — Build</span>
@@ -141,7 +141,7 @@
     <!-- MAINTAIN -->
     <div id="maintain" class="prow casc">
       <div class="pimg">
-        <img src="res-maintain.jpg" alt="Maintain">
+        <img src="assets/images/res-maintain.jpg" alt="Maintain">
       </div>
       <div class="ptext">
         <span class="pstep">Step 03 — Maintain</span>
@@ -166,7 +166,7 @@
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
-        <img src="logo.png" alt="Brighton Lawn & Landscape">
+        <img src="assets/images/logo.png" alt="Brighton Lawn & Landscape">
         <p>Full-service landscape construction and commercial maintenance across New Jersey &amp; Pennsylvania.</p>
       </div>
       <div class="foot-col">
@@ -219,6 +219,6 @@
   const cascIO = new IntersectionObserver((es)=>{ es.forEach(e=>{ e.target.classList.toggle('shown', e.isIntersecting); }); }, { threshold:.2 });
   document.querySelectorAll('.casc').forEach(el=>cascIO.observe(el));
 </script>
-<script src="search.js"></script>
+<script src="assets/js/search.js"></script>
 </body>
 </html>
