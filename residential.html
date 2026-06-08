@@ -133,9 +133,9 @@
         <img src="assets/images/res-build.jpg" alt="Build">
       </div>
       <div class="ptext">
-        <span class="pstep">Step 02 — Build</span>
+        <span class="pstep">Step 02 - Build</span>
         <h2>Built In-House by Our Experts</h2>
-        <p>Our in-house crews bring the design to life. No subcontractors, no handoffs — the same team that plans your project builds it. From excavation and hardscaping to planting, turf, and lighting, every element is installed with precision and built to last using proven techniques and high-quality materials.</p>
+        <p>Our in-house crews bring the design to life. No subcontractors, no handoffs - the same team that plans your project builds it. From excavation and hardscaping to planting, turf, and lighting, every element is installed with precision and built to last using proven techniques and high-quality materials.</p>
       </div>
     </div>
 
@@ -145,9 +145,9 @@
         <img src="assets/images/res-maintain.jpg" alt="Maintain">
       </div>
       <div class="ptext">
-        <span class="pstep">Step 03 — Maintain</span>
+        <span class="pstep">Step 03 - Maintain</span>
         <h2>We Maintain What We Install</h2>
-        <p>We don't disappear after the build. We maintain what we install in your landscape — protecting your investment with ongoing, attentive care that keeps everything looking its best, season after season. One team that knows your property inside and out.</p>
+        <p>We don't disappear after the build. We maintain what we install in your landscape - protecting your investment with ongoing, attentive care that keeps everything looking its best, season after season. One team that knows your property inside and out.</p>
       </div>
     </div>
   </div>
@@ -163,43 +163,7 @@
 </div>
 
 <!-- ═══════════════════ FOOTER ═══ -->
-<footer>
-  <div class="wrap">
-    <div class="foot-grid">
-      <div class="foot-brand">
-        <img src="assets/images/logo.png" alt="Brighton Lawn & Landscape">
-        <p>Full-service landscape construction and commercial maintenance across New Jersey &amp; Pennsylvania.</p>
-      </div>
-      <div class="foot-col">
-        <h5>Services</h5>
-        <a href="residential.html">Residential Construction</a>
-        <a href="commercial.html">Commercial Maintenance</a>
-        <a href="sitework.html">Site Work</a>
-      <a href="snow.html">Snow &amp; Ice</a>
-        <a href="index.html#about">About</a>
-      </div>
-      <div class="foot-col">
-        <h5>Service Area</h5>
-        <p>New Jersey</p>
-        <p>Philadelphia &amp; Main Line, PA</p>
-        <p>Northern DE &amp; NE Maryland</p>
-      </div>
-      <div class="foot-col">
-        <h5>Contact</h5>
-        <a href="tel:8482260090">(848) 226-0090</a>
-        <a href="mailto:info@BrightonLawn.com">info@BrightonLawn.com</a>
-      </div>
-    </div>
-    <div class="foot-bottom">
-      <p class="copyright"><span class="copyright-icon" aria-hidden="true">&copy;</span> <span class="yr"></span> Brighton Lawn &amp; Landscape. All rights reserved.</p>
-      <div class="foot-social">
-        <a href="https://www.instagram.com/brighton_lawn_landscape" target="_blank" rel="noopener" aria-label="Instagram">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
-        </a>
-      </div>
-    </div>
-  </div>
-</footer>
+<div data-site-footer></div>
 
 <script>
   // Header solid on scroll (page hero is dark, header starts solid here)
@@ -222,6 +186,7 @@
   const cascIO = new IntersectionObserver((es)=>{ es.forEach(e=>{ e.target.classList.toggle('shown', e.isIntersecting); }); }, { threshold:.2 });
   document.querySelectorAll('.casc').forEach(el=>cascIO.observe(el));
 </script>
+<script src="assets/js/layout.js"></script>
 <script src="assets/js/search.js"></script>
 </body>
 </html>

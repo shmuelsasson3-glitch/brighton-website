@@ -1,19 +1,19 @@
-// Brighton Search — shared across all pages
+// Brighton Search - shared across all pages
 (function(){
 
   const INDEX = [
     // ── Main Pages ──────────────────────────────────────────────────────────────
-    { title:'Home',                   desc:'Brighton Lawn & Landscape — full-service landscaping NJ & PA', url:'index.html',                      tags:'home main brighton lawn landscape nj pa' },
+    { title:'Home',                   desc:'Brighton Lawn & Landscape - full-service landscaping NJ & PA', url:'index.html',                      tags:'home main brighton lawn landscape nj pa' },
     { title:'Residential Services',   desc:'Design, build, and maintain your dream outdoor space',         url:'residential.html',                tags:'residential design build maintain backyard home house' },
     { title:'Commercial Services',    desc:'Commercial lawn maintenance and installs',                      url:'commercial.html',                 tags:'commercial lawn maintenance property management hoa office' },
     { title:'Site Work',              desc:'Asphalt, concrete, drainage, land clearing, tree removal',     url:'sitework.html',                   tags:'site work asphalt concrete drainage land clearing tree removal grading excavation' },
-    { title:'Snow & Ice Management',  desc:'Plowing, salting, sidewalk clearing — 24/7 storm response',   url:'snow.html',                       tags:'snow ice plowing salting storm winter division brighton snow' },
+    { title:'Snow & Ice Management',  desc:'Plowing, salting, sidewalk clearing - 24/7 storm response',   url:'snow.html',                       tags:'snow ice plowing salting storm winter division brighton snow' },
     { title:'Our Work / Portfolio',   desc:'Browse all completed projects',                                url:'work.html',                       tags:'portfolio work projects gallery completed photos' },
-    { title:'Contact / Get a Quote',  desc:'Request a free estimate — call or email us',                  url:'index.html#contact',              tags:'contact quote estimate call email phone reach' },
+    { title:'Contact / Get a Quote',  desc:'Request a free estimate - call or email us',                  url:'index.html#contact',              tags:'contact quote estimate call email phone reach' },
     { title:'About Us',               desc:'Meet the Brighton Lawn & Landscape team',                      url:'index.html#about',                tags:'about team story brighton who we are' },
 
     // ── Commercial Services ──────────────────────────────────────────────────────
-    { title:'Lawn Maintenance',       desc:'Weekly mowing, edging, blowing — commercial properties',       url:'commercial.html#lawn-maintenance', tags:'lawn mowing edging blowing fertilization weed commercial weekly' },
+    { title:'Lawn Maintenance',       desc:'Weekly mowing, edging, blowing - commercial properties',       url:'commercial.html#lawn-maintenance', tags:'lawn mowing edging blowing fertilization weed commercial weekly' },
     { title:'Commercial Installs',    desc:'Sodding, trees, beds, hardscape & irrigation installs',        url:'commercial-installs.html',         tags:'commercial install sod turf tree shrub bed hardscape irrigation new construction' },
     { title:'Sodding & Turf Install', desc:'Commercial sod installation for all property sizes',           url:'commercial-installs.html#sod',     tags:'sod sodding turf grass lawn install roll' },
     { title:'Tree & Shrub Planting',  desc:'Specimen trees, privacy hedges, ornamental plantings',         url:'commercial-installs.html#trees',   tags:'tree shrub plant install commercial privacy hedge ornamental' },
@@ -22,12 +22,12 @@
     { title:'Irrigation Install',     desc:'Full irrigation system design and installation',               url:'commercial-installs.html#irrigation',tags:'irrigation sprinkler system install water heads zones' },
 
     // ── Snow & Ice ───────────────────────────────────────────────────────────────
-    { title:'Snow Plowing',           desc:'Parking lots, driveways, roads — multi-pass storm coverage',  url:'snow.html#plowing',               tags:'plow plowing parking lot snow push stacking truck fleet' },
+    { title:'Snow Plowing',           desc:'Parking lots, driveways, roads - multi-pass storm coverage',  url:'snow.html#plowing',               tags:'plow plowing parking lot snow push stacking truck fleet' },
     { title:'Salting & De-Icing',     desc:'Pre-treatment, mid-storm and post-storm salting',             url:'snow.html#salting',               tags:'salt salting deicing ice treatment spreader bulk liquid brine' },
     { title:'Sidewalk Clearing',      desc:'50+ miles of sidewalk cleared every season',                  url:'snow.html#sidewalks',             tags:'sidewalk walkway snow shovel sand ADA entrance path clearing' },
     { title:'Pre-Storm Planning',     desc:'Client walkthroughs and crew briefings before every storm',   url:'snow.html#planning',              tags:'planning walkthrough meeting crew storm prep preparation' },
-    { title:'Snow Contract',          desc:'Get under contract — seasonal snow coverage',                  url:'snow.html',                       tags:'contract seasonal snow agreement coverage winter pricing quote' },
-    { title:'Snow Division',          desc:'Brighton Snow Division — dedicated snow & ice management',     url:'snow.html',                       tags:'snow division brighton dedicated fleet routes crews storm 24 7' },
+    { title:'Snow Contract',          desc:'Get under contract - seasonal snow coverage',                  url:'snow.html',                       tags:'contract seasonal snow agreement coverage winter pricing quote' },
+    { title:'Snow Division',          desc:'Brighton Snow Division - dedicated snow & ice management',     url:'snow.html',                       tags:'snow division brighton dedicated fleet routes crews storm 24 7' },
 
     // ── Service Locations ────────────────────────────────────────────────────────
     // Ocean County
@@ -72,14 +72,14 @@
     // ── Residential ─────────────────────────────────────────────────────────────
     { title:'Landscape Design',       desc:'Custom layout, materials, planting, and lighting plans',     url:'residential.html#design',         tags:'design landscape plan layout 3d render rendering concept' },
     { title:'Landscape Construction', desc:'Hardscaping, planting, turf, lighting installation',         url:'residential.html#build',          tags:'build construction hardscape paver patio retaining wall lighting turf install' },
-    { title:'Landscape Maintenance',  desc:'Ongoing seasonal care — we maintain what we install',        url:'residential.html#maintain',       tags:'maintain maintenance seasonal residential cleanup spring fall' },
+    { title:'Landscape Maintenance',  desc:'Ongoing seasonal care - we maintain what we install',        url:'residential.html#maintain',       tags:'maintain maintenance seasonal residential cleanup spring fall' },
 
     // ── Projects ─────────────────────────────────────────────────────────────────
-    { title:'The Scotch Way Project', desc:'Commercial — 17 homes fully landscaped, 200+ trees, sod',   url:'scotchway-project.html',          tags:'scotch way commercial development sod trees shrubs landscape beds install' },
-    { title:'The Toras Aron Project', desc:'Commercial — full grounds revamp, mulch, pruning, planting', url:'toras-aron-project.html',         tags:'toras aron commercial playground revamp mulch pruning planting signage' },
-    { title:'The Sukkah Project',     desc:'Residential — custom lattice arch with roses and flowers',   url:'sukkah-project.html',             tags:'sukkah arch floral roses residential project custom' },
-    { title:'Corner Project',         desc:'Residential — full backyard transformation',                  url:'corner-project.html',             tags:'corner project patio paver backyard residential transformation' },
-    { title:'Baker Project',          desc:'Residential — paver driveway and landscape install',         url:'baker-project.html',              tags:'baker project driveway paver residential install' },
+    { title:'The Scotch Way Project', desc:'Commercial - 17 homes fully landscaped, 200+ trees, sod',   url:'scotchway-project.html',          tags:'scotch way commercial development sod trees shrubs landscape beds install' },
+    { title:'The Toras Aron Project', desc:'Commercial - full grounds revamp, mulch, pruning, planting', url:'toras-aron-project.html',         tags:'toras aron commercial playground revamp mulch pruning planting signage' },
+    { title:'The Sukkah Project',     desc:'Residential - custom lattice arch with roses and flowers',   url:'sukkah-project.html',             tags:'sukkah arch floral roses residential project custom' },
+    { title:'Corner Project',         desc:'Residential - full backyard transformation',                  url:'corner-project.html',             tags:'corner project patio paver backyard residential transformation' },
+    { title:'Baker Project',          desc:'Residential - paver driveway and landscape install',         url:'baker-project.html',              tags:'baker project driveway paver residential install' },
     { title:'Beige Project',          desc:'Residential landscape project',                              url:'beige-project.html',              tags:'beige project residential landscape' },
     { title:'Bates Road',             desc:'Residential landscape project',                              url:'bates-road.html',                 tags:'bates road project residential landscape' },
     { title:'Arlington Project',      desc:'Residential landscape project',                              url:'arlington-project.html',          tags:'arlington project residential landscape' },
@@ -111,7 +111,7 @@
     'routes':['snow','plowing'], 'fleet':['snow','plowing','truck'],
     'cleared':['snow','plowing','sidewalk'], 'slippery':['snow','ice','salting'],
 
-    // locations — NJ
+    // locations - NJ
     'nj':['nj','new jersey','ocean','monmouth','middlesex'],
     'new jersey':['nj','ocean county','monmouth county','commercial','snow'],
     'jersey':['nj','new jersey'],
@@ -136,7 +136,7 @@
     'sayreville':['sayreville','middlesex county','nj'],
     'edison':['edison','middlesex county','nj'],
 
-    // locations — PA / Philly
+    // locations - PA / Philly
     'pa':['pennsylvania','philly','philadelphia','bensalem','levittown'],
     'pennsylvania':['pa','philly','northeast philadelphia','bensalem'],
     'philly':['philadelphia','northeast philadelphia','pa','snow'],
@@ -379,7 +379,7 @@
     const res=search(q);
     const el=document.getElementById('search-results');
     if(!q.trim()){el.innerHTML='';return;}
-    if(!res.length){el.innerHTML=`<div class="sr-empty">No results for "<strong>${q}</strong>" — try a different term.</div>`;return;}
+    if(!res.length){el.innerHTML=`<div class="sr-empty">No results for "<strong>${q}</strong>" - try a different term.</div>`;return;}
     el.innerHTML=res.map(r=>`
       <a class="sr-item" href="${r.url}">
         <div class="sr-icon">${iconFor(r.url,r.title)}</div>
@@ -401,10 +401,6 @@
     btn.addEventListener('click',openSearch);
     const quoteBtn=nav.querySelector('.nav-btn');
     if(quoteBtn) nav.insertBefore(btn,quoteBtn); else nav.appendChild(btn);
-  });
-
-  document.querySelectorAll('.yr').forEach(el=>{
-    el.textContent=new Date().getFullYear();
   });
 
 })();

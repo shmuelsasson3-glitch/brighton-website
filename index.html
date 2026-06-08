@@ -222,43 +222,7 @@
 </section>
 
 <!-- ═══════════════════════ FOOTER ═══ -->
-<footer>
-  <div class="wrap">
-    <div class="foot-grid">
-      <div class="foot-brand">
-        <img src="assets/images/logo.png" alt="Brighton Lawn & Landscape">
-        <p>Full-service landscape construction and commercial maintenance across New Jersey &amp; Pennsylvania.</p>
-      </div>
-      <div class="foot-col">
-        <h5>Services</h5>
-        <a href="#residential">Residential Construction</a>
-        <a href="commercial.html">Commercial Maintenance</a>
-        <a href="sitework.html">Site Work</a>
-      <a href="snow.html">Snow &amp; Ice</a>
-        <a href="#about">About</a>
-      </div>
-      <div class="foot-col">
-        <h5>Service Area</h5>
-        <p>New Jersey</p>
-        <p>Philadelphia &amp; Main Line, PA</p>
-        <p>Northern DE &amp; NE Maryland</p>
-      </div>
-      <div class="foot-col">
-        <h5>Contact</h5>
-        <a href="tel:8482260090">(848) 226-0090</a>
-        <a href="mailto:info@BrightonLawn.com">info@BrightonLawn.com</a>
-      </div>
-    </div>
-    <div class="foot-bottom">
-      <p class="copyright"><span class="copyright-icon" aria-hidden="true">&copy;</span> <span class="yr"></span> Brighton Lawn &amp; Landscape. All rights reserved.</p>
-      <div class="foot-social">
-        <a href="https://www.instagram.com/brighton_lawn_landscape" target="_blank" rel="noopener" aria-label="Instagram">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
-        </a>
-      </div>
-    </div>
-  </div>
-</footer>
+<div data-site-footer></div>
 
 <script>
   // Header solid on scroll
@@ -289,7 +253,7 @@
   }, { threshold: .35 });
   document.querySelectorAll('.cap-col').forEach(el=>cascadeIO.observe(el));
 
-  // Generic cascade containers (e.g. About) — stagger children in on scroll
+  // Generic cascade containers (e.g. About) - stagger children in on scroll
   const cascIO = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{
       e.target.classList.toggle('shown', e.isIntersecting);
@@ -297,7 +261,7 @@
   }, { threshold: .25 });
   document.querySelectorAll('.casc').forEach(el=>cascIO.observe(el));
 
-  // Count-up stats — re-animates every time they scroll into view
+  // Count-up stats - re-animates every time they scroll into view
   function animateNum(el){
     if (el.dataset.animating) return;
     if (el.dataset.text){ el.textContent = el.dataset.text; return; }
@@ -306,7 +270,7 @@
     const dur = 2200, start = performance.now();
     const tick = (now)=>{
       const p = Math.min((now - start) / dur, 1);
-      // easeOutExpo — fast start, long graceful slow-down at the end
+      // easeOutExpo - fast start, long graceful slow-down at the end
       const eased = p === 1 ? 1 : 1 - Math.pow(2, -10 * p);
       el.textContent = Math.round(eased * target) + suffix;
       if (p < 1) { requestAnimationFrame(tick); }
@@ -398,6 +362,7 @@
     setTimeout(() => map.invalidateSize(), 250);
   })();
 </script>
+<script src="assets/js/layout.js"></script>
 <script src="assets/js/search.js"></script>
 </body>
 </html>

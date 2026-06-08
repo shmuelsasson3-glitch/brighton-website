@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Toras Aron Project — Brighton Lawn &amp; Landscape</title>
+  <title>The Toras Aron Project - Brighton Lawn &amp; Landscape</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/styles.css">
@@ -232,43 +232,7 @@
 </div>
 
 <!-- FOOTER -->
-<footer>
-  <div class="wrap">
-    <div class="foot-grid">
-      <div class="foot-brand">
-        <img src="assets/images/logo.png" alt="Brighton Lawn & Landscape">
-        <p>Full-service landscape construction and commercial maintenance across New Jersey &amp; Pennsylvania.</p>
-      </div>
-      <div class="foot-col">
-        <h5>Services</h5>
-        <a href="residential.html">Residential Construction</a>
-        <a href="commercial.html">Commercial Maintenance</a>
-        <a href="sitework.html">Site Work</a>
-        <a href="snow.html">Snow &amp; Ice</a>
-        <a href="index.html#about">About</a>
-      </div>
-      <div class="foot-col">
-        <h5>Service Area</h5>
-        <p>New Jersey</p>
-        <p>Philadelphia &amp; Main Line, PA</p>
-        <p>Northern DE &amp; NE Maryland</p>
-      </div>
-      <div class="foot-col">
-        <h5>Contact</h5>
-        <a href="tel:8482260090">(848) 226-0090</a>
-        <a href="mailto:info@BrightonLawn.com">info@BrightonLawn.com</a>
-      </div>
-    </div>
-    <div class="foot-bottom">
-      <p class="copyright"><span class="copyright-icon" aria-hidden="true">&copy;</span> <span class="yr"></span> Brighton Lawn &amp; Landscape. All rights reserved.</p>
-      <div class="foot-social">
-        <a href="https://www.instagram.com/brighton_lawn_landscape" target="_blank" rel="noopener" aria-label="Instagram">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
-        </a>
-      </div>
-    </div>
-  </div>
-</footer>
+<div data-site-footer></div>
 
 <!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox">
@@ -310,6 +274,7 @@
   lb.addEventListener('click', e=>{ if(e.target===lb) closeLb(); });
   document.addEventListener('keydown', e=>{ if(!lb.classList.contains('open')) return; if(e.key==='ArrowLeft') shiftLb(-1); if(e.key==='ArrowRight') shiftLb(1); if(e.key==='Escape') closeLb(); });
 </script>
+<script src="assets/js/layout.js"></script>
 <script src="assets/js/search.js"></script>
 </body>
 </html>
