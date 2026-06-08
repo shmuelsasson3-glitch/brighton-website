@@ -128,6 +128,11 @@
     .mobile-nav a:hover, .mobile-nav a:active { color: var(--green); }
     .mobile-nav a.nav-btn { margin-top: 18px; padding: 14px 40px; font-size: 13px; opacity: 1; }
 
+    header.solid + .mobile-nav + .page-hero,
+    header.solid + .mobile-nav + .proj-hero {
+      margin-top: 36px;
+    }
+
     /* ─────────────────────────────── HERO ─── */
     .hero {
       position: relative; min-height: 100vh;
@@ -537,8 +542,8 @@
     footer .foot-col a:hover { color: var(--green-light); }
     footer .foot-bottom { border-top:1px solid rgba(255,255,255,.12); }
     footer .foot-bottom p { color: rgba(255,255,255,.45); }
-    footer .foot-social a { border-color: rgba(255,255,255,.2); color: rgba(255,255,255,.62); }
-    footer .foot-social a:hover { color: var(--green-light); border-color: var(--green-light); }
+    footer .foot-social a { border-color: transparent; color: rgba(255,255,255,.62); }
+    footer .foot-social a:hover { color: var(--green-light); border-color: transparent; }
     .foot-grid { display:flex; justify-content:space-between; align-items:flex-start; gap:40px; flex-wrap:wrap; margin-bottom:40px; }
     .foot-brand img { height:54px; margin-bottom:18px; filter: brightness(0) invert(1); opacity:.92; }
     .foot-brand p { color:var(--muted); font-size:14px; max-width:280px; font-weight:300; }
@@ -550,12 +555,22 @@
       display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;
     }
     .foot-bottom p { color:var(--muted-2); font-size:13px; }
+    .foot-bottom .copyright {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .copyright-icon {
+      font-size: 12px;
+      line-height: 1;
+      opacity: .72;
+    }
     .foot-social { display:flex; gap:14px; }
     .foot-social a {
-      width:38px; height:38px; border-radius:4px; border:1px solid var(--border);
+      width:38px; height:38px; border-radius:4px; border:1px solid transparent;
       display:flex; align-items:center; justify-content:center; color:var(--muted); transition: all .25s;
     }
-    .foot-social a:hover { color: var(--green-light); border-color: var(--green); }
+    .foot-social a:hover { color: var(--green-light); border-color: transparent; }
     .foot-social i { font-size:18px; }
 
     /* ─────────────── REVEAL ─── */

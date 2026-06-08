@@ -403,4 +403,8 @@
     if(quoteBtn) nav.insertBefore(btn,quoteBtn); else nav.appendChild(btn);
   });
 
+  document.querySelectorAll('.yr').forEach(el=>{
+    el.textContent=new Date().getFullYear();
+  });
+
 })();

@@ -187,9 +187,11 @@
       </div>
     </div>
     <div class="foot-bottom">
-      <p>&copy; <span class="yr"></span> Brighton Lawn &amp; Landscape. All rights reserved.</p>
+      <p class="copyright"><span class="copyright-icon" aria-hidden="true">&copy;</span> <span class="yr"></span> Brighton Lawn &amp; Landscape. All rights reserved.</p>
       <div class="foot-social">
-        <a href="https://www.instagram.com/brighton_lawn_landscape" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://www.instagram.com/brighton_lawn_landscape" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+        </a>
       </div>
     </div>
   </div>
@@ -229,7 +231,6 @@
   // Auto-filter from URL param e.g. ?filter=commercial
   const urlFilter = new URLSearchParams(location.search).get('filter');
   applyFilter(urlFilter || 'residential');
-  document.querySelectorAll('.yr').forEach(e=>e.textContent=new Date().getFullYear());
 </script>
 <script src="assets/js/search.js"></script>
 </body>
