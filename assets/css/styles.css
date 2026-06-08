@@ -93,14 +93,18 @@
     .nav a:not(.nav-btn):hover { opacity:1; color: var(--green-light); }
     .nav a:not(.nav-btn):hover::after { width:100%; }
 
-    .nav-btn {
-      background: var(--green); color:#fff !important;
-      padding: 10px 22px; border-radius: 50px; opacity:1 !important;
-      font-size: 11px !important; font-weight: 700 !important; letter-spacing: 1px;
-      transition: background .25s, transform .25s;
-      white-space: nowrap; flex-shrink: 0; line-height: 1;
+    .nav a.nav-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 10px 28px; border-radius: 50px; cursor: pointer; text-decoration: none;
+      font-family: var(--font-body); font-size: 11px; font-weight: 700;
+      letter-spacing: 1.6px; text-transform: uppercase; transition: all .28s ease;
+      background: var(--green); color: #fff;
+      white-space: nowrap; flex-shrink: 0; border: 1px solid transparent;
+      opacity: 1;
     }
-    .nav-btn:hover { background: var(--green-light); transform: translateY(-1px); }
+    .nav a.nav-btn:hover { background: var(--green-light); transform: translateY(-1px); box-shadow: 0 8px 20px rgba(82,160,60,.28); color: #fff; }
+    header.solid .nav a.nav-btn { color: #fff; }
+    header.solid .nav a.nav-btn:hover { color: #fff; }
 
     .burger { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:6px; z-index: 1100; }
     .burger span { width:26px; height:2px; background:#fff; transition: all .3s ease; display:block; }
@@ -122,17 +126,15 @@
       padding:14px 10px;
     }
     .mobile-nav a:hover, .mobile-nav a:active { color: var(--green); }
-    .mobile-nav .nav-btn {
-      font-family: var(--font-body); font-size:14px; color:#fff;
-      margin-top:18px; padding:14px 38px;
-    }
-    .mobile-nav .nav-btn:hover { color:#fff; }
+    .mobile-nav a.nav-btn { margin-top: 18px; padding: 14px 40px; font-size: 13px; opacity: 1; }
 
     /* ─────────────────────────────── HERO ─── */
     .hero {
       position: relative; min-height: 100vh;
       display: flex; align-items: center;
       overflow: hidden;
+      padding-top: 98px;
+      padding-bottom: 80px;
     }
     .hero-video {
       position:absolute; inset:0; width:100%; height:100%;
@@ -186,15 +188,7 @@
     .btn-ghost:hover { border-color: var(--green-light); color: var(--green-light); background: rgba(82,160,60,.06); }
     .btn-outline { background: transparent; color:#fff; border-color: rgba(255,255,255,.5); white-space: nowrap; }
     .btn-outline:hover { border-color:#fff; background: rgba(255,255,255,.08); }
-
-    .scroll-cue {
-      position:absolute; bottom:34px; left:50%; transform:translateX(-50%);
-      z-index:2; display:flex; flex-direction:column; align-items:center; gap:8px;
-      font-size:10px; letter-spacing:3px; text-transform:uppercase; color: rgba(255,255,255,.6);
-      animation: bob 2.4s ease-in-out infinite;
-    }
-    .scroll-cue svg { width:16px; height:16px; }
-    @keyframes bob { 0%,100%{transform:translateX(-50%) translateY(0);} 50%{transform:translateX(-50%) translateY(8px);} }
+    .btn-sm { padding: 9px 22px; font-size: 11px; }
 
     /* ─────────────────── POSITIONING STRIP ─── */
     .strip {
@@ -250,7 +244,7 @@
     .sec-head.center p { margin-left:auto; margin-right:auto; }
 
     /* ─────────────── WHAT WE DO (SPLIT) ─── */
-    .capabilities { padding: 110px 0; background: var(--bg-2); }
+    .capabilities { padding: 110px 0; background: var(--bg-2); scroll-margin-top: 70px; }
     .split { display:grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
     .cap-col {
       background: var(--card); border: 1px solid var(--border);
@@ -482,7 +476,7 @@
     @media (max-width:760px){ .service-map { height: 340px; margin-top:28px; } }
 
     /* ─────────────── CONTACT ─── */
-    .contact { padding: 110px 0; background: var(--bg-2); }
+    .contact { padding: 110px 0; background: var(--bg-2); scroll-margin-top: 70px; }
     .contact-grid { display:grid; grid-template-columns: 0.85fr 1.15fr; gap: 70px; align-items:start; }
     .contact-info h2 {
       font-family: var(--font-head); font-size: clamp(30px,3.6vw,46px); font-weight:500;
