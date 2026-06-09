@@ -352,7 +352,12 @@
     ], style).addTo(map);
 
     function label(latlng, text){
-      L.marker(latlng, { icon: L.divIcon({ className:'', html:`<div class="area-label">${text}</div>`, iconSize:[0,0] }) }).addTo(map);
+      L.marker(latlng, { icon: L.divIcon({
+        className: '',
+        html: `<div class="area-label"><span class="area-label-dot"></span>${text}</div>`,
+        iconSize: [0, 0],
+        iconAnchor: [0, 0]
+      }) }).addTo(map);
     }
     label([40.15, -74.75], 'NJ · Philly · DE · MD');
     label([41.30, -75.70], 'NE Pennsylvania');

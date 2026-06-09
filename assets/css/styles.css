@@ -473,10 +473,20 @@
     .leaflet-bar a { background:#111811 !important; color:#f0ede7 !important; border-color: var(--border) !important; }
     .leaflet-bar a:hover { background:#1B3D2B !important; }
     .area-label {
-      background: var(--green); color:#fff; font-weight:700; font-size:13px;
-      letter-spacing:.5px; padding:5px 12px; border-radius:50px;
-      border:2px solid rgba(255,255,255,.85); box-shadow:0 4px 14px rgba(0,0,0,.5);
-      white-space:nowrap;
+      display: inline-flex; align-items: center; gap: 7px;
+      background: rgba(10,14,10,.82); backdrop-filter: blur(10px) saturate(140%);
+      color: #fff; font-family: var(--font-body); font-weight: 600;
+      font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase;
+      padding: 8px 14px 8px 10px; border-radius: 50px;
+      border: 1px solid rgba(108,191,82,.45);
+      box-shadow: 0 6px 24px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.06);
+      white-space: nowrap; pointer-events: none;
+      transform: translate(-50%, -50%);
+    }
+    .area-label-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--green); flex-shrink: 0;
+      box-shadow: 0 0 6px rgba(108,191,82,.8);
     }
     @media (max-width:760px){ .service-map { height: 340px; margin-top:28px; } }
 
