@@ -39,13 +39,10 @@
   </div>
 </footer>`;
 
-  const isSnow = window.location.pathname.endsWith('snow.html');
-  const footerHtml = isSnow
-    ? footer.replace('mailto:info@BrightonLawn.com">info@BrightonLawn.com', 'mailto:snow@BrightonLawn.com">snow@BrightonLawn.com')
-    : footer;
-
   document.querySelectorAll('[data-site-footer]').forEach(target=>{
-    target.innerHTML = footerHtml;
+    const email = target.dataset.email || 'info@BrightonLawn.com';
+    target.innerHTML = footer.replace(/mailto:info@BrightonLawn\.com">info@BrightonLawn\.com/g,
+      `mailto:${email}">${email}`);
   });
 
   document.querySelectorAll('.yr').forEach(el=>{
