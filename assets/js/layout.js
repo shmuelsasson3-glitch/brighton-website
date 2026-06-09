@@ -39,8 +39,13 @@
   </div>
 </footer>`;
 
+  const isSnow = window.location.pathname.endsWith('snow.html');
+  const footerHtml = isSnow
+    ? footer.replace('mailto:info@BrightonLawn.com">info@BrightonLawn.com', 'mailto:snow@BrightonLawn.com">snow@BrightonLawn.com')
+    : footer;
+
   document.querySelectorAll('[data-site-footer]').forEach(target=>{
-    target.innerHTML = footer;
+    target.innerHTML = footerHtml;
   });
 
   document.querySelectorAll('.yr').forEach(el=>{

@@ -159,8 +159,18 @@
       .srow.rev .stext, .srow.rev .simg { grid-column:1; }
       .srow.rev .simg { grid-row:1; }
       .srow.rev .stext { grid-row:2; }
-      .routes-grid { grid-template-columns:1fr; }
+      .routes-grid { grid-template-columns:1fr 1fr; }
       .contract-band .wrap { grid-template-columns:1fr; gap:36px; }
+    }
+    @media (max-width: 480px) {
+      .big-stats { padding: 44px 0; }
+      .big-stats-grid { grid-template-columns: 1fr 1fr; }
+      .snow-intro { padding: 56px 0; }
+      .snow-services { padding: 56px 0; }
+      .srow { padding: 32px 0; gap: 20px; }
+      .routes-strip { padding: 48px 0; }
+      .routes-grid { grid-template-columns: 1fr; }
+      .contract-band { padding: 56px 0; }
     }
   </style>
 </head>

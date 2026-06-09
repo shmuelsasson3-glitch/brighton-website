@@ -89,6 +89,12 @@
       .gallery-cols { columns: 1; }
       .proj-hero { height: 55vh; }
     }
+    @media (max-width: 480px) {
+      .proj-hero { height: 44vh; min-height: 320px; }
+      .proj-hero h1 { font-size: clamp(26px, 8vw, 38px); }
+      .proj-gallery { padding: 48px 0; }
+      .cta-band { padding: 56px 0; }
+    }
   </style>
 </head>
 <body>
