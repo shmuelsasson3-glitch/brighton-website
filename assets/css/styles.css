@@ -18,7 +18,7 @@
       --font-body:   'Inter', sans-serif;
     }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
     .hero h1 em, .sec-head h2 em, .cap-col h3 em, .contact-info h2 em,
     .strip p strong { font-style: normal !important; }
     .hero h1, .sec-head h2, .contact-info h2 { font-weight: 600; letter-spacing:-1px; }

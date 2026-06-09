@@ -143,9 +143,9 @@
     /* animations */
     .casc { opacity:0; transform:translateY(40px); transition:opacity .7s ease, transform .7s ease; }
     .casc.shown { opacity:1; transform:none; }
-    .srow.casc { opacity:0; transform:translateX(-50px); transition:opacity .75s cubic-bezier(.22,1,.36,1), transform .75s cubic-bezier(.22,1,.36,1); }
-    .srow.rev.casc { transform:translateX(50px); }
-    .srow.casc.shown { opacity:1; transform:translateX(0); }
+    .srow.casc { opacity:0; transform:translateY(40px); transition:opacity .75s cubic-bezier(.22,1,.36,1), transform .75s cubic-bezier(.22,1,.36,1); }
+    .srow.rev.casc { transform:translateY(40px); }
+    .srow.casc.shown { opacity:1; transform:translateY(0); }
 
     @media (max-width: 820px) {
       .big-stats-grid { grid-template-columns:repeat(2,1fr); }
