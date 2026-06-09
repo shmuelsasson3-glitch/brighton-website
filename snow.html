@@ -147,6 +147,10 @@
     .srow.rev.casc { transform:translateY(40px); }
     .srow.casc.shown { opacity:1; transform:translateY(0); }
 
+    .cta-snow-btn { font-size: 15px; padding: 16px 40px; display: inline-block; }
+    @media (max-width: 540px) {
+      .cta-snow-btn { font-size: 13px; padding: 14px 24px; display: block; width: fit-content; margin: 0 auto; }
+    }
     @media (max-width: 820px) {
       .big-stats-grid { grid-template-columns:repeat(2,1fr); }
       .big-stat { border-right:none; border-bottom:1px solid rgba(90,158,245,.12); }
@@ -378,7 +382,7 @@
 <!-- CONTRACT CTA -->
 <div style="background:#080e2e; padding:60px 0; text-align:center; border-top:1px solid rgba(90,158,245,.15);">
   <div class="wrap">
-    <a href="index.html#contact" class="btn-snow-primary" style="font-size:17px; padding:18px 48px;">Get a Snow Contract Quote</a>
+    <a href="index.html#contact" class="btn-snow-primary cta-snow-btn">Get a Snow Contract Quote</a>
   </div>
 </div>
 
