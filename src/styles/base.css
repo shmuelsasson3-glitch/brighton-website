@@ -1,0 +1,19 @@
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; overflow-x: hidden; }
+.hero h1 em, .sec-head h2 em, .cap-col h3 em, .contact-info h2 em,
+.strip p strong { font-style: normal !important; }
+.hero h1, .sec-head h2, .contact-info h2 { font-weight: 600; letter-spacing:-1px; }
+.cap-col h3, .form-card h3 { font-weight: 600; letter-spacing:-.5px; }
+.sec-head h2, .cap-col h3, .contact-info h2, .form-card h3,
+.ba-meta h4, .portfolio-placeholder h4 { color: var(--heading); }
+.sec-head h2 em, .contact-info h2 em, .cap-col h3 em { color: var(--green); }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}

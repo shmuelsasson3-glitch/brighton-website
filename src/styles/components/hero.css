@@ -1,0 +1,56 @@
+.hero {
+  position: relative; min-height: 100vh;
+  display: flex; align-items: center;
+  overflow: hidden;
+  padding-top: 98px;
+  padding-bottom: 80px;
+}
+.hero-video {
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; object-position:center;
+}
+.hero-overlay {
+  position:absolute; inset:0;
+  background:
+    linear-gradient(100deg, rgba(8,12,8,.88) 0%, rgba(8,12,8,.55) 45%, rgba(8,12,8,.25) 75%, rgba(8,12,8,.45) 100%),
+    linear-gradient(to top, rgba(8,12,8,.95) 0%, transparent 35%);
+}
+.hero-inner {
+  position: relative; z-index:2;
+  max-width: 1240px; margin: 0 auto; padding: 0 48px; width:100%;
+}
+.hero-content { max-width: 760px; }
+.eyebrow {
+  display:inline-flex; align-items:center; gap:12px;
+  font-size:12px; letter-spacing:3.5px; text-transform:uppercase;
+  color: var(--green-light); font-weight:600; margin-bottom:28px;
+  opacity:0; animation: rise .9s ease .15s forwards;
+}
+.eyebrow::before { content:''; width:38px; height:1px; background: var(--green); }
+.hero h1 {
+  font-family: var(--font-head);
+  font-size: clamp(40px, 6vw, 76px);
+  font-weight: 500; line-height: 1.04; letter-spacing: -.5px;
+  margin-bottom: 26px; color:#fff;
+  opacity:0; animation: rise 1s ease .3s forwards;
+}
+.hero h1 em { font-style: italic; color: var(--green-light); }
+.hero p.sub {
+  font-size: clamp(16px, 1.7vw, 19px); font-weight:300;
+  color: rgba(240,237,231,.82); line-height:1.7; max-width: 620px;
+  margin-bottom: 42px;
+  opacity:0; animation: rise 1s ease .45s forwards;
+}
+.hero-cta { display:flex; gap:16px; flex-wrap:wrap; opacity:0; animation: rise 1s ease .6s forwards; }
+@keyframes rise { from{opacity:0; transform:translateY(26px);} to{opacity:1; transform:translateY(0);} }
+
+@media (max-width: 1080px) {
+  .hero-cta { flex-direction:column; align-items:flex-start; }
+  .hero-cta .btn { width:auto; }
+}
+@media (max-width: 480px) {
+  .hero { padding-top: 80px; padding-bottom: 50px; min-height: 90vh; }
+  .hero h1 { font-size: clamp(30px, 8vw, 42px); }
+  .hero p.sub { font-size: 15px; }
+  .hero-cta .btn { width: 100%; text-align: center; }
+}

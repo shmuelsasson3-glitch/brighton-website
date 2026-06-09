@@ -1,0 +1,27 @@
+.process { padding: 110px 0; background: var(--bg-2); }
+.process-grid { display:grid; grid-template-columns: repeat(3, 1fr); gap: 36px; }
+.proc-col {
+  background: var(--card); border:1px solid var(--border); border-radius:18px;
+  padding: 40px 34px; position:relative; overflow:hidden;
+  transition: transform .5s cubic-bezier(.22,1,.36,1), box-shadow .5s ease, border-color .5s ease;
+  box-shadow: 0 8px 24px rgba(27,61,43,.05);
+}
+.proc-col:hover { transform: translateY(-8px); border-color: rgba(82,160,60,.4); box-shadow: 0 24px 50px rgba(27,61,43,.12); }
+.proc-step {
+  display:inline-block; font-size:11px; letter-spacing:2.5px; text-transform:uppercase;
+  color: var(--green); font-weight:700; margin-bottom:14px;
+}
+.proc-col h3 {
+  font-family: var(--font-head); font-size: clamp(26px, 3vw, 34px); font-weight:600;
+  color: var(--heading); margin-bottom:18px; padding-bottom:18px;
+  line-height:1.1; border-bottom:1px solid var(--hair);
+}
+.proc-col p { color: var(--muted); font-size:15px; line-height:1.85; }
+
+@media (max-width: 900px) {
+  .process-grid { grid-template-columns: 1fr; gap:20px; }
+}
+@media (max-width: 480px) {
+  .process { padding: 56px 0; }
+  .proc-col { padding: 28px 22px; }
+}

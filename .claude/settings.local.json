@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(echo \"HTML files: $\\(find . -maxdepth 1 -name \"*.html\" -type f)",
+      "Bash(npm run *)"
+    ]
+  }
+}

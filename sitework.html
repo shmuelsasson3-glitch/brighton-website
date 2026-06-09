@@ -7,129 +7,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" referrerpolicy="no-referrer">
-  <link rel="stylesheet" href="assets/css/styles.css">
-  <style>
-    /* Page hero */
-    .page-hero { position:relative; min-height: 56vh; display:flex; align-items:flex-end; overflow:hidden; }
-    .page-hero .ph-bg { position:absolute; inset:0; background:#0d160d; }
-    .page-hero .ph-video {
-      position:absolute; inset:0; width:100%; height:100%;
-      object-fit:cover; object-position:center;
-    }
-    .page-hero .ph-ov { position:absolute; inset:0;
-      background: linear-gradient(to top, rgba(8,12,8,.92) 0%, rgba(8,12,8,.45) 55%, rgba(8,12,8,.35) 100%); }
-    .page-hero .ph-inner { position:relative; z-index:2; width:100%; padding-bottom:56px; }
-    .ph-kicker { display:inline-block; font-size:12px; letter-spacing:3.5px; text-transform:uppercase;
-      color: var(--green-light); font-weight:700; margin-bottom:16px; }
-    .page-hero h1 { font-family: var(--font-head); color:#fff; font-weight:600;
-      font-size: clamp(40px, 6vw, 74px); line-height:1.03; letter-spacing:-1px; margin-bottom:18px; }
-    .page-hero h1 em { font-style:normal; color: var(--green-light); }
-    .page-hero p { color: rgba(255,255,255,.82); font-weight:300; font-size: clamp(16px,1.7vw,19px); max-width: 620px; }
-
-    /* Intro strip */
-    .intro-strip { background: var(--dark-green); padding: 56px 0; }
-    .intro-strip .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-    .intro-strip h2 { font-family: var(--font-head); color: #fff; font-weight: 600;
-      font-size: clamp(26px, 3.5vw, 40px); line-height: 1.1; letter-spacing: -.5px; margin-bottom: 0; }
-    .intro-strip h2 em { font-style: normal; color: var(--green-light); }
-    .intro-strip p { color: rgba(255,255,255,.75); font-weight: 300; font-size: 16px; line-height: 1.8; margin: 0; }
-
-    /* Services rows */
-    .services-page { padding: 100px 0; background: var(--bg); }
-    .prow { display:grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items:center; padding: 56px 0; }
-    .prow + .prow { border-top: 1px solid var(--hair); }
-    .prow.rev .ptext { grid-column: 2; grid-row: 1; }
-    .prow.rev .pimg  { grid-column: 1; grid-row: 1; }
-    .pimg {
-      aspect-ratio: 4/3; border-radius: 18px; overflow:hidden;
-      background: linear-gradient(150deg, #1B3D2B, #2a5c3f);
-      display:flex; align-items:center; justify-content:center; position:relative;
-      box-shadow: 0 24px 56px rgba(27,61,43,.16);
-    }
-    .pimg::after { content:''; position:absolute; inset:0;
-      background: radial-gradient(circle at 72% 18%, rgba(82,160,60,.25), transparent 60%); }
-    .pimg svg { width:54px; height:54px; color: rgba(255,255,255,.4); position:relative; z-index:1; }
-    .pimg img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:2; }
-    .pstep { display:inline-block; font-size:12px; letter-spacing:2.5px; text-transform:uppercase;
-      color: var(--green); font-weight:700; margin-bottom:14px; }
-    .ptext h2 { font-family: var(--font-head); color: var(--heading); font-weight:600;
-      font-size: clamp(28px, 3.5vw, 44px); line-height:1.08; letter-spacing:-.5px; margin-bottom:16px; }
-    .ptext p { color: var(--muted); font-size:16.5px; line-height:1.9; margin-bottom: 20px; }
-    .ptext ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
-    .ptext ul li { display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: 15px; }
-    .ptext ul li::before { content:''; width:6px; height:6px; border-radius:50%; background: var(--green-light); flex-shrink:0; }
-
-    /* Row slide-in animation */
-    .prow.casc { opacity: 0; transform: translateY(40px); transition: opacity .7s ease, transform .7s ease; }
-    .prow.casc.shown { opacity: 1; transform: none; }
-
-    /* Stats bar */
-    .stats-bar { background: #0d160d; padding: 60px 0; border-top: 1px solid rgba(255,255,255,.05); }
-    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; text-align: center; }
-    .stat-num { font-family: var(--font-head); font-size: clamp(36px, 5vw, 56px); font-weight: 700;
-      color: var(--green-light); line-height: 1; margin-bottom: 8px; }
-    .stat-label { font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
-      color: rgba(255,255,255,.5); font-weight: 600; }
-
-    /* CTA band */
-    .cta-band { background: var(--dark-green); padding: 90px 0; text-align:center; }
-    .cta-band h2 { font-family: var(--font-head); color:#fff; font-weight:600;
-      font-size: clamp(28px,4vw,48px); margin-bottom:14px; letter-spacing:-.5px; }
-    .cta-band h2 em { font-style:normal; color: var(--green-light); }
-    .cta-band p { color: rgba(255,255,255,.72); font-weight:300; font-size:17px; margin-bottom:34px;
-      max-width:540px; margin-left:auto; margin-right:auto; }
-
-    @media (max-width: 820px) {
-      .intro-strip .wrap { grid-template-columns: 1fr; gap: 24px; }
-      .services-page { padding: 64px 0; }
-      .prow { grid-template-columns: 1fr; gap: 26px; padding: 40px 0; }
-      .prow.rev .ptext, .prow.rev .pimg { grid-column: 1; }
-      .prow.rev .pimg { grid-row: 1; }
-      .prow.rev .ptext { grid-row: 2; }
-      .prow .pimg { grid-row: 1; }
-      .prow .ptext { grid-row: 2; }
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 480px) {
-      .intro-strip { padding: 40px 0; }
-      .services-page { padding: 48px 0; }
-      .prow { padding: 32px 0; gap: 20px; }
-      .stats-bar { padding: 44px 0; }
-      .stats-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
-      .cta-band { padding: 56px 0; }
-    }
-  </style>
+  <link rel="stylesheet" href="/src/main.css">
 </head>
 <body>
 
-<!-- HEADER -->
-<header id="header" class="solid">
-  <div class="header-inner">
-    <a href="index.html" class="brand"><img src="assets/images/logo.png" alt="Brighton Lawn & Landscape"></a>
-    <nav class="nav">
-      <a href="residential.html">Residential</a>
-      <a href="commercial.html">Commercial</a>
-      <a href="sitework.html" class="active">Site Work</a>
-      <a href="index.html#about">About</a>
-      <a href="index.html#contact" class="nav-btn">Get a Quote</a>
-    </nav>
-    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
-  </div>
-</header>
+<div id="site-nav"></div>
 
-<div class="mobile-nav" id="mobileNav">
-  <button class="mobile-nav-close" onclick="closeNav()" aria-label="Close menu">
-    <i class="fa-solid fa-xmark"></i>
-  </button>
-  <a href="residential.html" onclick="closeNav()">Residential</a>
-  <a href="commercial.html" onclick="closeNav()">Commercial</a>
-  <a href="sitework.html" onclick="closeNav()">Site Work</a>
-  <a href="snow.html" onclick="closeNav()">Snow &amp; Ice</a>
-  <a href="index.html#about" onclick="closeNav()">About</a>
-  <a href="index.html#contact" class="nav-btn" onclick="closeNav()">Get a Quote</a>
-</div>
-
-<!-- HERO -->
 <section class="page-hero">
   <div class="ph-bg"></div>
   <video class="ph-video" autoplay muted loop playsinline>
@@ -145,7 +28,6 @@
   </div>
 </section>
 
-<!-- INTRO STRIP -->
 <div class="intro-strip casc">
   <div class="wrap">
     <h2>No Job Too <em>Small</em></h2>
@@ -153,17 +35,15 @@
   </div>
 </div>
 
-<!-- SERVICES -->
 <section class="services-page">
   <div class="wrap">
 
-    <div class="sec-head center casc" style="margin-bottom:30px;">
+    <div class="sec-head center casc sec-head--tight">
       <span class="kicker">What We Do</span>
       <h2>Four Services. <em>One Crew.</em></h2>
       <p>We self-perform everything - no subs, no handoffs. Our site work crews handle each phase with the same standard we apply to every Brighton project.</p>
     </div>
 
-    <!-- Asphalt -->
     <div id="asphalt" class="prow casc">
       <div class="pimg">
         <img src="projects/sitework/asphalt.jpg" alt="Asphalt Paving">
@@ -183,7 +63,6 @@
       </div>
     </div>
 
-    <!-- Concrete -->
     <div id="concrete" class="prow rev casc">
       <div class="pimg">
         <img src="projects/sitework/concrete.jpg" alt="Concrete Work">
@@ -203,7 +82,6 @@
       </div>
     </div>
 
-    <!-- Drainage -->
     <div id="drainage" class="prow casc">
       <div class="pimg">
         <img src="projects/sitework/drainage.jpg" alt="Drainage">
@@ -223,7 +101,6 @@
       </div>
     </div>
 
-    <!-- Land Clearing -->
     <div id="land-clearing" class="prow rev casc">
       <div class="pimg">
         <img src="projects/sitework/landclearing.jpg" alt="Land Clearing">
@@ -243,7 +120,6 @@
       </div>
     </div>
 
-    <!-- Tree Removal & Pruning -->
     <div id="tree-removal" class="prow casc">
       <div class="pimg">
         <img src="projects/sitework/tree.jpg" alt="Tree Removal & Pruning">
@@ -266,7 +142,6 @@
   </div>
 </section>
 
-<!-- STATS BAR -->
 <div class="stats-bar casc">
   <div class="wrap">
     <div class="stats-grid">
@@ -290,7 +165,6 @@
   </div>
 </div>
 
-<!-- CTA -->
 <div class="cta-band">
   <div class="wrap">
     <h2>Got Something That <em>Needs Fixing?</em></h2>
@@ -299,52 +173,8 @@
   </div>
 </div>
 
-<!-- FOOTER -->
 <div data-site-footer></div>
 
-<script>
-  document.getElementById('header').classList.add('solid');
-
-  // Mobile nav
-  const burger = document.getElementById('burger');
-  const mobileNav = document.getElementById('mobileNav');
-  burger.addEventListener('click', () => {
-    const open = mobileNav.classList.toggle('open');
-    burger.classList.toggle('open', open);
-    document.body.style.overflow = open ? 'hidden' : '';
-  });
-  function closeNav(){ mobileNav.classList.remove('open'); burger.classList.remove('open'); document.body.style.overflow=''; }
-
-  // Scroll reveal - fade/slide in sections as they enter view
-  const cascIO = new IntersectionObserver((es)=>{ es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('shown'); cascIO.unobserve(e.target); } }); }, { threshold:.08 });
-  document.querySelectorAll('.casc').forEach(el=>cascIO.observe(el));
-
-  // Count-up animation for stats bar
-  function animateNum(el){
-    if(el.dataset.animating) return;
-    if(el.dataset.text){ el.textContent = el.dataset.text; return; }
-    el.dataset.animating = '1';
-    const target = +el.dataset.count, suffix = el.dataset.suffix || '';
-    const dur = 2000, start = performance.now();
-    const tick = (now)=>{
-      const p = Math.min((now - start) / dur, 1);
-      const eased = p === 1 ? 1 : 1 - Math.pow(2, -10 * p);
-      el.textContent = Math.round(eased * target) + suffix;
-      if(p < 1){ requestAnimationFrame(tick); }
-      else { delete el.dataset.animating; }
-    };
-    requestAnimationFrame(tick);
-  }
-  const statIO = new IntersectionObserver((es)=>{
-    es.forEach(e=>{
-      const el = e.target;
-      if(e.isIntersecting){ animateNum(el); }
-      else if(!el.dataset.text){ delete el.dataset.animating; el.textContent = '0'; }
-    });
-  }, { threshold:.55 });
-  document.querySelectorAll('.sw-num').forEach(el=>statIO.observe(el));
-</script>
-<script src="assets/js/layout.js"></script>
-<script src="assets/js/search.js"></script>
+<script type="module" src="/src/js/pages/sitework.js"></script>
 </body>
 </html>

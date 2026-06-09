@@ -1,0 +1,94 @@
+footer { background: var(--dark-green); border-top:1px solid rgba(255,255,255,.1); padding: 56px 0 30px; }
+footer .foot-brand p { color: rgba(255,255,255,.62); }
+footer .foot-col h5 { color:#fff; }
+footer .foot-col a, footer .foot-col p { color: rgba(255,255,255,.62); }
+footer .foot-col a:hover { color: var(--green-light); }
+footer .foot-bottom { border-top:1px solid rgba(255,255,255,.12); }
+footer .foot-bottom p { color: rgba(255,255,255,.45); }
+footer .foot-social a { border-color: transparent; color: rgba(255,255,255,.62); }
+footer .foot-social a:hover { color: var(--green-light); border-color: transparent; }
+.foot-grid { display:flex; justify-content:space-between; align-items:flex-start; gap:40px; flex-wrap:wrap; margin-bottom:40px; }
+.foot-brand img { height:54px; margin-bottom:18px; filter: brightness(0) invert(1); opacity:.92; }
+.foot-brand p { color:var(--muted); font-size:14px; max-width:280px; font-weight:300; }
+.foot-col h5 { font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--text); margin-bottom:16px; font-weight:700; }
+.foot-col a, .foot-col p { display:block; color:var(--muted); font-size:14px; text-decoration:none; margin-bottom:10px; transition:color .25s; }
+.foot-col a:hover { color: var(--green-light); }
+.foot-bottom {
+  border-top:1px solid var(--hair); padding-top:24px;
+  display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;
+}
+.foot-bottom p { color:var(--muted-2); font-size:13px; }
+.foot-bottom .copyright {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.site-credit {
+  display: inline-flex;
+  align-items: center;
+  font-size: 13px;
+}
+.credit-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 3px 16px;
+  background: var(--dark-green);
+  border: 1px solid rgba(255,255,255,.22);
+  border-radius: 999px;
+  box-shadow: none;
+  white-space: nowrap;
+}
+.credit-label {
+  color: #f4fbef;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .6px;
+  text-transform: uppercase;
+}
+.site-credit img {
+  width: auto;
+  display: block;
+}
+.site-credit .adamate-logo {
+  height: 18px;
+}
+.site-credit .blue-collar-logo {
+  height: 18px;
+}
+.credit-divider {
+  width: 1px;
+  height: 24px;
+  background: rgba(255,255,255,.22);
+}
+.site-credit a {
+  display: inline-flex;
+  align-items: center;
+  transition: opacity .25s;
+}
+.site-credit a:hover { opacity: .9; }
+.copyright-icon {
+  font-size: 12px;
+  line-height: 1;
+  opacity: .72;
+}
+.foot-social { display:flex; gap:14px; }
+.foot-social a {
+  width:38px; height:38px; border-radius:4px; border:1px solid transparent;
+  display:flex; align-items:center; justify-content:center; color:var(--muted); transition: all .25s;
+}
+.foot-social a:hover { color: var(--green-light); border-color: transparent; }
+.foot-social i { font-size:18px; }
+
+@media (max-width: 1080px) {
+  .foot-grid { flex-direction:column; gap:32px; }
+  .site-credit { flex-wrap: wrap; }
+  .credit-pill { min-height: 40px; gap: 7px; padding: 3px 12px; }
+  .credit-label { font-size: 10px; }
+  .site-credit .adamate-logo { height: 15px; }
+  .site-credit .blue-collar-logo { height: 15px; }
+}
+@media (max-width: 480px) {
+  .foot-bottom { flex-direction: column; align-items: flex-start; gap: 14px; }
+}

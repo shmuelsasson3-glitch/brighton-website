@@ -1,0 +1,102 @@
+.capabilities { padding: 110px 0; background: var(--bg-2); scroll-margin-top: 70px; }
+.split { display:grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.cap-col {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 20px; padding: 38px 34px 34px; position:relative; overflow:hidden;
+  transition: transform .55s cubic-bezier(.22,1,.36,1),
+              border-color .55s ease,
+              box-shadow .55s cubic-bezier(.22,1,.36,1);
+  box-shadow: 0 8px 24px rgba(27,61,43,.05);
+  will-change: transform;
+}
+.cap-col:hover {
+  transform: translateY(-10px);
+  border-color: rgba(82,160,60,.4);
+  box-shadow: 0 28px 56px rgba(27,61,43,.14);
+}
+.cap-col::after {
+  content:''; position:absolute; top:-40%; right:-30%;
+  width:60%; height:80%; border-radius:50%;
+  background: radial-gradient(circle, rgba(82,160,60,.10), transparent 70%);
+  opacity:0; transition: opacity .5s ease; pointer-events:none;
+}
+.cap-col:hover::after { opacity:1; }
+
+.cap-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:26px; }
+.cap-icon {
+  width:56px; height:56px; border-radius:16px;
+  display:flex; align-items:center; justify-content:center;
+  background: rgba(82,160,60,.10); color: var(--green);
+  transition: background .45s ease, color .45s ease, transform .45s cubic-bezier(.34,1.56,.64,1);
+}
+.cap-icon i { font-size:22px; }
+.cap-num {
+  font-family: var(--font-head); font-size:30px; font-weight:600;
+  color: rgba(27,61,43,.10); line-height:1; letter-spacing:0;
+  transition: color .45s ease;
+}
+#residential .cap-icon { background: rgba(27,61,43,.10); color: var(--dark-green); }
+#residential:hover .cap-icon { background: var(--dark-green); color:#fff; transform: translateY(-3px); }
+#commercial .cap-icon { background: rgba(82,160,60,.12); color: var(--green); }
+#commercial:hover .cap-icon { background: var(--green); color:#fff; transform: translateY(-3px); }
+#sitework .cap-icon { background: rgba(42,92,63,.12); color: var(--mid-green); }
+#sitework:hover .cap-icon { background: var(--mid-green); color:#fff; transform: translateY(-3px); }
+.cap-col:hover .cap-num { color: rgba(82,160,60,.30); }
+.cap-tag {
+  font-size:11px; letter-spacing:2.5px; text-transform:uppercase;
+  color: var(--green); font-weight:700; margin-bottom:10px; display:block;
+}
+.cap-col h3 {
+  font-family: var(--font-head); font-size: clamp(23px, 2.1vw, 28px); font-weight:600;
+  margin-bottom: 22px; line-height:1.15; padding-bottom:22px;
+  border-bottom: 1px solid var(--hair);
+}
+.cap-list { list-style:none; }
+.cap-list li {
+  display:flex; align-items:center; gap:13px;
+  padding: 11px 0;
+  font-size:15px; color: var(--text); font-weight:500;
+}
+.cap-list li i {
+  width:22px; height:22px; padding:5px; box-sizing:border-box;
+  border-radius:50%; background: rgba(82,160,60,.12); color: var(--green);
+  flex-shrink:0; display:inline-flex; align-items:center; justify-content:center; font-size:12px;
+}
+
+.cap-col .cap-list li {
+  opacity: 0;
+  transform: translateY(-16px);
+  transition: opacity .6s cubic-bezier(.22,1,.36,1),
+              transform .6s cubic-bezier(.22,1,.36,1);
+}
+.cap-col .cap-list li i {
+  opacity: 0;
+  transform: scale(.6);
+  transition: opacity .5s ease, transform .5s cubic-bezier(.34,1.56,.64,1);
+}
+.cap-col.cascade .cap-list li { opacity: 1; transform: translateY(0); }
+.cap-col.cascade .cap-list li i { opacity: 1; transform: scale(1); }
+.cap-col.cascade .cap-list li:nth-child(1) { transition-delay: .08s; }
+.cap-col.cascade .cap-list li:nth-child(2) { transition-delay: .17s; }
+.cap-col.cascade .cap-list li:nth-child(3) { transition-delay: .26s; }
+.cap-col.cascade .cap-list li:nth-child(4) { transition-delay: .35s; }
+.cap-col.cascade .cap-list li:nth-child(5) { transition-delay: .44s; }
+.cap-col.cascade .cap-list li:nth-child(6) { transition-delay: .53s; }
+.cap-col.cascade .cap-list li:nth-child(1) i { transition-delay: .20s; }
+.cap-col.cascade .cap-list li:nth-child(2) i { transition-delay: .29s; }
+.cap-col.cascade .cap-list li:nth-child(3) i { transition-delay: .38s; }
+.cap-col.cascade .cap-list li:nth-child(4) i { transition-delay: .47s; }
+.cap-col.cascade .cap-list li:nth-child(5) i { transition-delay: .56s; }
+.cap-col.cascade .cap-list li:nth-child(6) i { transition-delay: .65s; }
+
+@media (max-width: 980px) {
+  .split { grid-template-columns:1fr; }
+}
+@media (max-width: 1080px) {
+  .capabilities, .showcase, .contact { padding:80px 0; }
+  .cap-col { padding:34px 26px; }
+}
+@media (max-width: 480px) {
+  .capabilities, .showcase, .contact { padding: 56px 0; }
+  .cap-col { padding: 26px 18px; }
+}

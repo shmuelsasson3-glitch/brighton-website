@@ -1,4 +1,4 @@
-(function(){
+export function initFooter() {
   const footer = `
 <footer>
   <div class="wrap">
@@ -39,13 +39,13 @@
   </div>
 </footer>`;
 
-  document.querySelectorAll('[data-site-footer]').forEach(target=>{
+  document.querySelectorAll('[data-site-footer]').forEach(target => {
     const email = target.dataset.email || 'info@BrightonLawn.com';
     target.innerHTML = footer.replace(/mailto:info@BrightonLawn\.com">info@BrightonLawn\.com/g,
       `mailto:${email}">${email}`);
   });
 
-  document.querySelectorAll('.yr').forEach(el=>{
+  document.querySelectorAll('.yr').forEach(el => {
     el.textContent = new Date().getFullYear();
   });
-})();
+}

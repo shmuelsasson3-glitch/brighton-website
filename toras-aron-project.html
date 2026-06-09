@@ -6,142 +6,12 @@
   <title>The Toras Aron Project - Brighton Lawn &amp; Landscape</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/styles.css">
-  <style>
-    .proj-hero {
-      position: relative; height: 70vh; min-height: 480px; overflow: hidden;
-      display: flex; align-items: flex-end;
-    }
-    .proj-hero-img {
-      position: absolute; inset: 0;
-      width: 100%; height: 100%; object-fit: cover; object-position: center 45%;
-    }
-    .proj-hero-ov {
-      position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(8,12,8,.88) 0%, rgba(8,12,8,.3) 55%, rgba(8,12,8,.2) 100%);
-    }
-    .proj-hero-inner { position: relative; z-index: 2; width: 100%; padding-bottom: 52px; }
-    .back-link {
-      display: inline-flex; align-items: center; gap: 8px;
-      color: rgba(255,255,255,.75); font-size: 13px; font-weight: 600;
-      letter-spacing: 1px; text-transform: uppercase; text-decoration: none;
-      margin-bottom: 24px; transition: color .25s;
-    }
-    .back-link:hover { color: var(--green-light); }
-    .back-link svg { width: 16px; height: 16px; }
-    .proj-tag {
-      display: inline-block; font-size: 11px; letter-spacing: 3px;
-      text-transform: uppercase; color: var(--green-light); font-weight: 700; margin-bottom: 14px;
-    }
-    .proj-hero h1 {
-      font-family: var(--font-head); color: #fff; font-weight: 600;
-      font-size: clamp(36px, 5vw, 64px); line-height: 1.05; letter-spacing: -.5px;
-    }
-
-    .proj-overview { background: var(--dark-green); padding: 64px 0; }
-    .proj-overview-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
-    }
-    .proj-overview h2 {
-      font-family: var(--font-head); color: #fff; font-weight: 600;
-      font-size: clamp(28px, 3.5vw, 44px); line-height: 1.1; letter-spacing: -.5px; margin-bottom: 18px;
-    }
-    .proj-overview h2 em { font-style: normal; color: var(--green-light); }
-    .proj-overview p { color: rgba(255,255,255,.72); font-size: 16px; line-height: 1.7; font-weight: 300; }
-    .proj-stats-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-    .proj-stat-box {
-      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
-      border-radius: 14px; padding: 24px 22px;
-    }
-    .proj-stat-num {
-      font-family: var(--font-head); font-size: 36px; font-weight: 700;
-      color: var(--green-light); letter-spacing: -1px; line-height: 1;
-    }
-    .proj-stat-label {
-      font-size: 13px; color: rgba(255,255,255,.6); font-weight: 500; margin-top: 6px; letter-spacing: .3px;
-    }
-
-    .proj-gallery { padding: 80px 0; background: var(--bg); }
-    .gallery-cols { columns: 2; column-gap: 16px; }
-    .gallery-item {
-      break-inside: avoid; margin-bottom: 16px; border-radius: 12px;
-      overflow: hidden; cursor: pointer; position: relative;
-    }
-    .gallery-item img { width: 100%; display: block; transition: transform .55s cubic-bezier(.22,1,.36,1); }
-    .gallery-item:hover img { transform: scale(1.04); }
-    .gallery-item-overlay {
-      position: absolute; inset: 0; background: rgba(27,61,43,.55);
-      opacity: 0; transition: opacity .3s; border-radius: 12px;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .gallery-item:hover .gallery-item-overlay { opacity: 1; }
-    .gallery-item-overlay svg { width: 36px; height: 36px; color: #fff; }
-
-    .lightbox {
-      display: none; position: fixed; inset: 0; z-index: 2000;
-      background: rgba(0,0,0,.95); align-items: center; justify-content: center;
-    }
-    .lightbox.open { display: flex; }
-    .lightbox img { max-width: 92vw; max-height: 90vh; object-fit: contain; border-radius: 6px; }
-    .lb-close {
-      position: absolute; top: 22px; right: 28px; font-size: 28px;
-      color: #fff; cursor: pointer; background: none; border: none; opacity: .7; transition: opacity .2s;
-    }
-    .lb-close:hover { opacity: 1; }
-    .lb-prev, .lb-next {
-      position: absolute; top: 50%; transform: translateY(-50%);
-      background: rgba(255,255,255,.12); border: none; color: #fff; cursor: pointer;
-      width: 48px; height: 48px; border-radius: 50%; font-size: 20px;
-      display: flex; align-items: center; justify-content: center; transition: background .25s;
-    }
-    .lb-prev:hover, .lb-next:hover { background: rgba(255,255,255,.25); }
-    .lb-prev { left: 20px; }
-    .lb-next { right: 20px; }
-
-    .cta-band { background: var(--dark-green); padding: 80px 0; text-align: center; }
-    .cta-band h2 { font-family: var(--font-head); color: #fff; font-weight: 600;
-      font-size: clamp(28px,4vw,44px); margin-bottom: 12px; letter-spacing: -.5px; }
-    .cta-band h2 em { font-style: normal; color: var(--green-light); }
-    .cta-band p { color: rgba(255,255,255,.72); font-weight: 300; font-size: 16px; margin-bottom: 30px; }
-
-    @media (max-width: 768px) { .proj-overview-grid { grid-template-columns: 1fr; gap: 40px; } }
-    @media (max-width: 640px) { .gallery-cols { columns: 1; } .proj-hero { height: 55vh; } }
-    @media (max-width: 480px) {
-      .proj-hero { height: 44vh; min-height: 320px; }
-      .proj-hero h1 { font-size: clamp(26px, 8vw, 38px); }
-      .proj-gallery { padding: 48px 0; }
-      .cta-band { padding: 56px 0; }
-    }
-  </style>
+  <link rel="stylesheet" href="/src/main.css">
 </head>
 <body>
 
-<!-- HEADER -->
-<header id="header" class="solid">
-  <div class="header-inner">
-    <a href="index.html" class="brand"><img src="assets/images/logo.png" alt="Brighton Lawn & Landscape"></a>
-    <nav class="nav">
-      <a href="residential.html">Residential</a>
-      <a href="commercial.html">Commercial</a>
-      <a href="sitework.html">Site Work</a>
-      <a href="snow.html">Snow &amp; Ice</a>
-      <a href="index.html#about">About</a>
-      <a href="index.html#contact" class="nav-btn">Get a Quote</a>
-    </nav>
-    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
-  </div>
-</header>
+<div id="site-nav"></div>
 
-<div class="mobile-nav" id="mobileNav"><button class="mobile-nav-close" onclick="closeNav()" aria-label="Close menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-  <a href="residential.html" onclick="closeNav()">Residential</a>
-  <a href="commercial.html" onclick="closeNav()">Commercial</a>
-  <a href="sitework.html" onclick="closeNav()">Site Work</a>
-  <a href="snow.html" onclick="closeNav()">Snow &amp; Ice</a>
-  <a href="index.html#about" onclick="closeNav()">About</a>
-  <a href="index.html#contact" class="nav-btn" onclick="closeNav()">Get a Quote</a>
-</div>
-
-<!-- HERO -->
 <section class="proj-hero">
   <img class="proj-hero-img" src="projects/toras-aron/dji_fly_20250821_143958_122_1755801612096_photo_optimized.jpg" alt="Toras Aron" style="image-orientation:from-image;">
   <div class="proj-hero-ov"></div>
@@ -157,12 +27,11 @@
   </div>
 </section>
 
-<!-- PROJECT OVERVIEW -->
 <section class="proj-overview">
   <div class="wrap">
     <div class="proj-overview-grid">
       <div>
-        <span class="kicker" style="color:var(--green-light);">About the Project</span>
+        <span class="kicker kicker--light">About the Project</span>
         <h2>A Full Grounds <em>Revamp.</em></h2>
         <p>Brighton came into Toras Aron at 500 Summer Avenue and brought the entire property back to life. The playground area was fully refreshed, overgrown trees were pruned and cleaned up, and all the mulch beds were stripped and remulched throughout the grounds. The main signage areas were replanted with fresh, clean plantings to give the property a sharp, welcoming look from every angle.</p>
       </div>
@@ -188,7 +57,6 @@
   </div>
 </section>
 
-<!-- GALLERY -->
 <section class="proj-gallery">
   <div class="wrap">
     <div class="sec-head casc" style="max-width:600px; margin-bottom:44px;">
@@ -196,31 +64,31 @@
       <h2>The <em>Work</em></h2>
     </div>
     <div class="gallery-cols casc">
-      <div class="gallery-item" onclick="openLb(0)">
+      <div class="gallery-item">
         <img src="projects/toras-aron/dji_fly_20250821_143958_122_1755801612096_photo_optimized.jpg" alt="Toras Aron aerial" style="image-orientation:from-image;">
         <div class="gallery-item-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
       </div>
-      <div class="gallery-item" onclick="openLb(1)">
+      <div class="gallery-item">
         <img src="projects/toras-aron/dji_fly_20250822_123250_149_1755880471887_photo_optimized.jpg" alt="Toras Aron drone view" style="image-orientation:from-image;">
         <div class="gallery-item-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
       </div>
-      <div class="gallery-item" onclick="openLb(2)">
+      <div class="gallery-item">
         <img src="projects/toras-aron/dji_fly_20250821_140924_114_1755801571465_photo_optimized.jpg" alt="Toras Aron grounds" style="image-orientation:from-image;">
         <div class="gallery-item-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
       </div>
-      <div class="gallery-item" onclick="openLb(3)">
+      <div class="gallery-item">
         <img src="projects/toras-aron/dji_fly_20250821_143708_117_1755801592331_photo_optimized.jpg" alt="Toras Aron landscaping" style="image-orientation:from-image;">
         <div class="gallery-item-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
       </div>
-      <div class="gallery-item" onclick="openLb(4)">
+      <div class="gallery-item">
         <img src="projects/toras-aron/dji_fly_20250821_151246_138_1755803708546_photo_optimized.jpg" alt="Toras Aron property" style="image-orientation:from-image;">
         <div class="gallery-item-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
       </div>
-      <div class="gallery-item" onclick="openLb(5)">
+      <div class="gallery-item">
         <img src="projects/toras-aron/IMG_0613.jpg" alt="Toras Aron detail" style="image-orientation:from-image;">
         <div class="gallery-item-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
       </div>
-      <div class="gallery-item" onclick="openLb(6)">
+      <div class="gallery-item">
         <img src="projects/toras-aron/IMG_0883.jpg" alt="Toras Aron detail" style="image-orientation:from-image;">
         <div class="gallery-item-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
       </div>
@@ -228,7 +96,6 @@
   </div>
 </section>
 
-<!-- CTA -->
 <div class="cta-band">
   <div class="wrap">
     <h2>Want a Result Like <em>This?</em></h2>
@@ -237,50 +104,15 @@
   </div>
 </div>
 
-<!-- FOOTER -->
 <div data-site-footer></div>
 
-<!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox">
-  <button class="lb-close" onclick="closeLb()">✕</button>
-  <button class="lb-prev" onclick="shiftLb(-1)">&#8592;</button>
+  <button class="lb-close" id="lb-close">&#10005;</button>
+  <button class="lb-prev">&#8592;</button>
   <img id="lbImg" src="" alt="">
-  <button class="lb-next" onclick="shiftLb(1)">&#8594;</button>
+  <button class="lb-next">&#8594;</button>
 </div>
 
-<script>
-  document.getElementById('header').classList.add('solid');
-  const burger = document.getElementById('burger');
-  const mobileNav = document.getElementById('mobileNav');
-  burger.addEventListener('click', () => {
-    const open = mobileNav.classList.toggle('open');
-    burger.classList.toggle('open', open);
-    document.body.style.overflow = open ? 'hidden' : '';
-  });
-  function closeNav(){ mobileNav.classList.remove('open'); burger.classList.remove('open'); document.body.style.overflow=''; }
-
-  const cascIO = new IntersectionObserver((es)=>{ es.forEach(e=>{ e.target.classList.toggle('shown', e.isIntersecting); }); }, { threshold:.15 });
-  document.querySelectorAll('.casc').forEach(el=>cascIO.observe(el));
-
-  const imgs = [
-    'projects/toras-aron/dji_fly_20250821_143958_122_1755801612096_photo_optimized.jpg',
-    'projects/toras-aron/dji_fly_20250822_123250_149_1755880471887_photo_optimized.jpg',
-    'projects/toras-aron/dji_fly_20250821_140924_114_1755801571465_photo_optimized.jpg',
-    'projects/toras-aron/dji_fly_20250821_143708_117_1755801592331_photo_optimized.jpg',
-    'projects/toras-aron/dji_fly_20250821_151246_138_1755803708546_photo_optimized.jpg',
-    'projects/toras-aron/IMG_0613.jpg',
-    'projects/toras-aron/IMG_0883.jpg',
-  ];
-  let cur = 0;
-  const lb = document.getElementById('lightbox');
-  const lbImg = document.getElementById('lbImg');
-  function openLb(i){ cur=i; lbImg.src=imgs[i]; lb.classList.add('open'); document.body.style.overflow='hidden'; }
-  function closeLb(){ lb.classList.remove('open'); document.body.style.overflow=''; }
-  function shiftLb(d){ cur=(cur+d+imgs.length)%imgs.length; lbImg.src=imgs[cur]; }
-  lb.addEventListener('click', e=>{ if(e.target===lb) closeLb(); });
-  document.addEventListener('keydown', e=>{ if(!lb.classList.contains('open')) return; if(e.key==='ArrowLeft') shiftLb(-1); if(e.key==='ArrowRight') shiftLb(1); if(e.key==='Escape') closeLb(); });
-</script>
-<script src="assets/js/layout.js"></script>
-<script src="assets/js/search.js"></script>
+<script type="module" src="/src/js/pages/toras-aron-project.js"></script>
 </body>
 </html>

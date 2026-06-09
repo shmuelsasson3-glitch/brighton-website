@@ -1,0 +1,14 @@
+.btn {
+  display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  padding: 16px 40px; border-radius:50px; cursor:pointer; text-decoration:none;
+  font-family: var(--font-body); font-size:13px; font-weight:700;
+  letter-spacing:1.6px; text-transform:uppercase; transition: all .28s ease;
+  border: 1px solid transparent;
+}
+.btn-primary { background: var(--green); color:#fff; white-space: nowrap; }
+.btn-primary:hover { background: var(--green-light); transform: translateY(-2px); box-shadow: 0 14px 34px rgba(82,160,60,.28); }
+.btn-ghost { background: rgba(255,255,255,.04); color:#fff; border-color: rgba(255,255,255,.28); white-space: nowrap; }
+.btn-ghost:hover { border-color: var(--green-light); color: var(--green-light); background: rgba(82,160,60,.06); }
+.btn-outline { background: transparent; color:#fff; border-color: rgba(255,255,255,.5); white-space: nowrap; }
+.btn-outline:hover { border-color:#fff; background: rgba(255,255,255,.08); }
+.btn-sm { padding: 9px 22px; font-size: 11px; }

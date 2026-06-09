@@ -1,0 +1,39 @@
+.proj-hero {
+  position: relative; height: 70vh; min-height: 480px; overflow: hidden;
+  display: flex; align-items: flex-end;
+}
+.proj-hero-img {
+  position: absolute; inset: 0;
+  background: url('projects/arlington/p1.jpg') center 40%/cover no-repeat;
+}
+.proj-hero-ov {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(8,12,8,.88) 0%, rgba(8,12,8,.3) 55%, rgba(8,12,8,.2) 100%);
+}
+.proj-hero-inner {
+  position: relative; z-index: 2; width: 100%; padding-bottom: 52px;
+}
+.back-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  color: rgba(255,255,255,.75); font-size: 13px; font-weight: 600;
+  letter-spacing: 1px; text-transform: uppercase; text-decoration: none;
+  margin-bottom: 24px; transition: color .25s;
+}
+.back-link:hover { color: var(--green-light); }
+.back-link svg { width: 16px; height: 16px; }
+.proj-tag {
+  display: inline-block; font-size: 11px; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--green-light); font-weight: 700; margin-bottom: 14px;
+}
+.proj-hero h1 {
+  font-family: var(--font-head); color: #fff; font-weight: 600;
+  font-size: clamp(36px, 5vw, 64px); line-height: 1.05; letter-spacing: -.5px;
+}
+
+@media (max-width: 640px) {
+  .proj-hero { height: 55vh; }
+}
+@media (max-width: 480px) {
+  .proj-hero { height: 44vh; min-height: 320px; }
+  .proj-hero h1 { font-size: clamp(26px, 8vw, 38px); }
+}

@@ -1,0 +1,22 @@
+:root {
+  --bg:          #ffffff;
+  --bg-2:        #f3f6f1;
+  --card:        #ffffff;
+  --dark-green:  #1B3D2B;
+  --mid-green:   #2a5c3f;
+  --green:       #52A03C;
+  --green-light: #6cbf52;
+  --text:        #233029;
+  --heading:     #1B3D2B;
+  --muted:       #5f6f63;
+  --muted-2:     #8a978a;
+  --border:      rgba(27,61,43,0.14);
+  --hair:        rgba(27,61,43,0.10);
+  --font-head:   'Space Grotesk', sans-serif;
+  --font-body:   'Inter', sans-serif;
+  --snow-blue: #1a52d4;
+  --snow-blue-light: #5a9ef5;
+  --snow-dark: #080e2e;
+  --snow-mid: #0e1f4a;
+  --snow-mid-2: #122060;
+}

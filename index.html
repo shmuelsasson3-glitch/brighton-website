@@ -8,36 +8,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" referrerpolicy="no-referrer">
-  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="/src/main.css">
 </head>
 <body>
 
-<!-- ═══════════════════════════════ HEADER ═══ -->
-<header id="header">
-  <div class="header-inner">
-    <a href="#top" class="brand"><img src="assets/images/logo.png" alt="Brighton Lawn & Landscape"></a>
-    <nav class="nav">
-      <a href="residential.html">Residential</a>
-      <a href="commercial.html">Commercial</a>
-      <a href="sitework.html">Site Work</a>
-      <a href="snow.html">Snow &amp; Ice</a>
-      <a href="#about">About</a>
-      <a href="#contact" class="nav-btn">Get a Quote</a>
-    </nav>
-    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
-  </div>
-</header>
+<div id="site-nav"></div>
 
-<div class="mobile-nav" id="mobileNav"><button class="mobile-nav-close" onclick="closeNav()" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></button>
-  <a href="residential.html" onclick="closeNav()">Residential</a>
-  <a href="commercial.html" onclick="closeNav()">Commercial</a>
-  <a href="sitework.html" onclick="closeNav()">Site Work</a>
-  <a href="snow.html" onclick="closeNav()">Snow &amp; Ice</a>
-  <a href="#about" onclick="closeNav()">About</a>
-  <a href="#contact" class="nav-btn" onclick="closeNav()">Get a Quote</a>
-</div>
-
-<!-- ═══════════════════════════════ HERO ═══ -->
 <section class="hero" id="top">
   <video class="hero-video" id="heroVideo" autoplay muted loop playsinline poster="assets/images/go-over.jpg">
     <source src="assets/videos/hero.mp4" type="video/mp4">
@@ -56,14 +32,12 @@
   </div>
 </section>
 
-<!-- ═══════════════════════ POSITIONING STRIP ═══ -->
 <div class="strip">
   <div class="wrap">
     <p>From complete residential backyard builds to <strong>large-scale commercial maintenance services.</strong></p>
   </div>
 </div>
 
-<!-- ═══════════════════════════════ STATS ═══ -->
 <section class="stats">
   <div class="wrap">
     <div class="stats-grid">
@@ -83,7 +57,6 @@
   </div>
 </section>
 
-<!-- ═══════════════════════ CAPABILITIES (SPLIT) ═══ -->
 <section class="capabilities" id="services">
   <div class="wrap">
     <div class="sec-head center casc">
@@ -130,8 +103,6 @@
   </div>
 </section>
 
-
-<!-- ═══════════════════════ SERVICE AREA ═══ -->
 <div class="trust" id="service-area">
   <div class="wrap">
     <div class="service-band casc">
@@ -143,21 +114,19 @@
   </div>
 </div>
 
-<!-- ═══════════════════════ ABOUT (anchor) ═══ -->
-<section class="capabilities" id="about" style="background:var(--bg);">
+<section class="capabilities" id="about">
   <div class="wrap">
-    <div class="sec-head casc" style="max-width:760px;">
+    <div class="sec-head casc sec-head--wide">
       <span class="kicker">About Brighton</span>
       <h2>Small enough to care, <em>big enough to deliver.</em></h2>
-      <p style="font-size:17px; line-height:1.8; max-width:760px;">At Brighton, we're a local team that takes pride in our work. We show up, work hard, and focus on the details that matter.</p>
-      <p style="font-size:17px; line-height:1.8; max-width:760px; margin-top:18px;">We handle everything from backyard projects to larger commercial properties, all in-house, with no subcontractors. Just our team doing the job right from start to finish.</p>
-      <p style="font-size:17px; line-height:1.8; max-width:760px; margin-top:18px;">We do what we say we'll do. Whether it's building a patio, upgrading a property, or ongoing maintenance, we treat every job like it matters.</p>
-      <p style="font-size:17px; line-height:1.8; max-width:760px; margin-top:18px;">We're here for people who want a reliable team: good communication, solid work, and no runaround.</p>
+      <p class="about-text">At Brighton, we're a local team that takes pride in our work. We show up, work hard, and focus on the details that matter.</p>
+      <p class="about-text">We handle everything from backyard projects to larger commercial properties, all in-house, with no subcontractors. Just our team doing the job right from start to finish.</p>
+      <p class="about-text">We do what we say we'll do. Whether it's building a patio, upgrading a property, or ongoing maintenance, we treat every job like it matters.</p>
+      <p class="about-text">We're here for people who want a reliable team: good communication, solid work, and no runaround.</p>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════ CONTACT ═══ -->
 <section class="contact" id="contact">
   <div class="wrap">
     <div class="contact-grid">
@@ -182,7 +151,7 @@
       <div class="form-card reveal">
         <h3>Get My Estimate</h3>
         <p>Typical response within one business day.</p>
-        <form class="form" id="quoteForm" onsubmit="submitForm(event)">
+        <form class="form" id="quoteForm">
           <div class="row2">
             <div class="field"><label>Name</label><input id="qName" type="text" required placeholder="Full name"></div>
             <div class="field"><label>Phone</label><input id="qPhone" type="tel" required placeholder="(000) 000-0000"></div>
@@ -221,153 +190,9 @@
   </div>
 </section>
 
-<!-- ═══════════════════════ FOOTER ═══ -->
 <div data-site-footer></div>
 
-<script>
-  // Header solid on scroll
-  const header = document.getElementById('header');
-  addEventListener('scroll', () => header.classList.toggle('solid', scrollY > 40));
-
-  // Mobile nav
-  const burger = document.getElementById('burger');
-  const mobileNav = document.getElementById('mobileNav');
-  burger.addEventListener('click', () => {
-    const open = mobileNav.classList.toggle('open');
-    burger.classList.toggle('open', open);
-    document.body.style.overflow = open ? 'hidden' : '';
-  });
-  function closeNav(){ mobileNav.classList.remove('open'); burger.classList.remove('open'); document.body.style.overflow=''; }
-
-  // Reveal on scroll
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
-  }, { threshold: .15 });
-  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-
-  // Mobile: cascade the capability lists as each card scrolls into view (replays)
-  const cascadeIO = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      e.target.classList.toggle('cascade', e.isIntersecting);
-    });
-  }, { threshold: .35 });
-  document.querySelectorAll('.cap-col').forEach(el=>cascadeIO.observe(el));
-
-  // Generic cascade containers (e.g. About) - stagger children in on scroll
-  const cascIO = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      e.target.classList.toggle('shown', e.isIntersecting);
-    });
-  }, { threshold: .25 });
-  document.querySelectorAll('.casc').forEach(el=>cascIO.observe(el));
-
-  // Count-up stats - re-animates every time they scroll into view
-  function animateNum(el){
-    if (el.dataset.animating) return;
-    if (el.dataset.text){ el.textContent = el.dataset.text; return; }
-    el.dataset.animating = '1';
-    const target = +el.dataset.count, suffix = el.dataset.suffix || '';
-    const dur = 2200, start = performance.now();
-    const tick = (now)=>{
-      const p = Math.min((now - start) / dur, 1);
-      // easeOutExpo - fast start, long graceful slow-down at the end
-      const eased = p === 1 ? 1 : 1 - Math.pow(2, -10 * p);
-      el.textContent = Math.round(eased * target) + suffix;
-      if (p < 1) { requestAnimationFrame(tick); }
-      else { delete el.dataset.animating; }
-    };
-    requestAnimationFrame(tick);
-  }
-  const statIO = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      const el = e.target;
-      if (e.isIntersecting){
-        animateNum(el);
-      } else if (!el.dataset.text) {
-        // reset numeric stats so they count up again next time (leave text stats as-is)
-        delete el.dataset.animating;
-        el.textContent = '0';
-      }
-    });
-  }, { threshold: .55 });
-  document.querySelectorAll('.num').forEach(el=>statIO.observe(el));
-
-  // Form
-  function submitForm(e){
-    e.preventDefault();
-    const name    = document.getElementById('qName').value;
-    const phone   = document.getElementById('qPhone').value;
-    const email   = document.getElementById('qEmail').value;
-    const ptype   = document.querySelector('input[name="ptype"]:checked').nextElementSibling.textContent;
-    const service = document.getElementById('qService').value || 'Not specified';
-    const details = document.getElementById('qDetails').value || 'None provided';
-
-    const subject = encodeURIComponent('New Quote Request | Brighton Lawn & Landscape');
-    const body = encodeURIComponent(
-      'New quote request from the website:\n\n' +
-      'Name: ' + name + '\n' +
-      'Phone: ' + phone + '\n' +
-      'Email: ' + email + '\n' +
-      'Property Type: ' + ptype + '\n' +
-      'Service Needed: ' + service + '\n\n' +
-      'Project Details:\n' + details
-    );
-
-    window.location.href = 'mailto:info@BrightonLawn.com?subject=' + subject + '&body=' + body;
-
-    document.getElementById('quoteForm').style.display='none';
-    document.getElementById('formSuccess').style.display='block';
-  }
-</script>
-
-<!-- Service-area map -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script>
-  (function(){
-    if (typeof L === 'undefined') return;
-    const map = L.map('serviceMap', {
-      zoomControl: true, scrollWheelZoom: false, dragging: true, attributionControl: true
-    });
-    // Dark basemap (no API key)
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; OpenStreetMap &copy; CARTO', subdomains: 'abcd', maxZoom: 19
-    }).addTo(map);
-
-    const style = { color: '#6cbf52', weight: 2, opacity: 1, fillColor: '#52A03C', fillOpacity: 0.26 };
-
-    // Primary coverage region: NJ, Philadelphia + Main Line, NE Pennsylvania,
-    // northern Delaware, and the NE tip of Maryland.
-    const primary = L.polygon([
-      [41.45, -75.78],  // NE Pennsylvania (Scranton / Poconos)
-      [41.30, -74.10],  // North NJ (NY border)
-      [40.95, -73.90],  // NJ at NYC
-      [40.10, -73.95],  // Jersey Shore (central)
-      [39.35, -74.40],  // South Jersey shore (Atlantic City)
-      [38.92, -74.92],  // Cape May
-      [39.45, -75.55],  // Northern Delaware (Wilmington / New Castle)
-      [39.55, -76.05],  // NE Maryland (Cecil County)
-      [40.05, -76.15],  // SE Pennsylvania (Lancaster / west Main Line)
-      [40.65, -75.55],  // Lehigh Valley (Allentown)
-      [41.10, -75.95]   // back toward NE PA
-    ], style).addTo(map);
-
-    function label(latlng, text){
-      L.marker(latlng, { icon: L.divIcon({
-        className: '',
-        html: `<div class="area-label"><span class="area-label-dot"></span>${text}</div>`,
-        iconSize: [0, 0],
-        iconAnchor: [0, 0]
-      }) }).addTo(map);
-    }
-    label([40.15, -74.75], 'NJ · Philly · DE · MD');
-    label([41.30, -75.70], 'NE Pennsylvania');
-
-    // Frame the coverage region (polygon bounds are projection-free)
-    map.fitBounds(primary.getBounds().pad(0.12));
-    setTimeout(() => map.invalidateSize(), 250);
-  })();
-</script>
-<script src="assets/js/layout.js"></script>
-<script src="assets/js/search.js"></script>
+<script type="module" src="/src/js/pages/index.js"></script>
 </body>
 </html>

@@ -1,0 +1,20 @@
+.lightbox {
+  display: none; position: fixed; inset: 0; z-index: 2000;
+  background: rgba(0,0,0,.95); align-items: center; justify-content: center;
+}
+.lightbox.open { display: flex; }
+.lightbox img { max-width: 92vw; max-height: 90vh; object-fit: contain; border-radius: 6px; image-orientation: none; }
+.lb-close {
+  position: absolute; top: 22px; right: 28px; font-size: 28px;
+  color: #fff; cursor: pointer; background: none; border: none; opacity: .7; transition: opacity .2s;
+}
+.lb-close:hover { opacity: 1; }
+.lb-prev, .lb-next {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  background: rgba(255,255,255,.12); border: none; color: #fff; cursor: pointer;
+  width: 48px; height: 48px; border-radius: 50%; font-size: 20px;
+  display: flex; align-items: center; justify-content: center; transition: background .25s;
+}
+.lb-prev:hover, .lb-next:hover { background: rgba(255,255,255,.25); }
+.lb-prev { left: 20px; }
+.lb-next { right: 20px; }

@@ -1,0 +1,30 @@
+section { position: relative; }
+.sec-head { margin-bottom: 56px; }
+.sec-head.center { text-align:center; max-width: 720px; margin-left:auto; margin-right:auto; }
+.kicker {
+  display:inline-block; font-size:12px; letter-spacing:3px; text-transform:uppercase;
+  color: var(--green); font-weight:700; margin-bottom:18px;
+}
+.sec-head h2 {
+  font-family: var(--font-head);
+  font-size: clamp(30px, 4vw, 52px); font-weight:500; line-height:1.12; letter-spacing:-.5px;
+}
+.kicker--light { color: var(--green-light); }
+.sec-head h2 em { font-style:italic; color: var(--green-light); }
+.sec-head p { color: var(--muted); font-size:16px; font-weight:300; margin-top:18px; max-width:620px; }
+.sec-head.center p { margin-left:auto; margin-right:auto; }
+
+.showcase { padding: 110px 0; background: var(--bg); }
+
+.portfolio-placeholder {
+  text-align:center; padding: 80px 30px;
+  border: 1px dashed var(--border); border-radius: 8px; background: var(--card);
+}
+.portfolio-placeholder svg { width:48px; height:48px; color: var(--green); opacity:.7; margin-bottom:22px; }
+.portfolio-placeholder h4 { font-family: var(--font-head); font-size:26px; font-weight:600; margin-bottom:10px; }
+.portfolio-placeholder p { color: var(--muted); font-size:15px; max-width:440px; margin:0 auto; }
+
+@media (max-width: 480px) {
+  .sec-head { margin-bottom: 36px; }
+  .sec-head h2 { font-size: clamp(24px, 7vw, 34px); }
+}
