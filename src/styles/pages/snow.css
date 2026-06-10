@@ -10,6 +10,8 @@
 .snow-theme footer .foot-social a:hover { color: var(--snow-blue-light) !important; border-color: var(--snow-blue-light) !important; }
 .snow-theme footer .credit-pill { background: var(--snow-mid-2) !important; border-color: rgba(90,158,245,.22) !important; }
 .snow-theme .brand img { height: 52px; filter: none; }
+.snow-theme .mobile-nav-close { background: var(--snow-blue); box-shadow: 0 4px 16px rgba(26,82,212,.35); }
+.snow-theme .mobile-nav-close:hover, .snow-theme .mobile-nav-close:active { background: var(--snow-blue-light); }
 
 
 .snow-theme .page-hero { min-height:62vh; }

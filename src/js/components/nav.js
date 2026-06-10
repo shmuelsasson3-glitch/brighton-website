@@ -4,7 +4,7 @@ export function initNav(options = {}) {
   const logoAlt = isSnow ? 'Brighton Snow Division' : 'Brighton Lawn & Landscape';
   const ctaText = isSnow ? 'Get a Snow Contract' : 'Get a Quote';
   const ctaHref = 'index.html#contact';
-  const closeIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`;
+  const closeIcon = `<i class="fa-solid fa-xmark"></i>`;
 
   const navContainer = document.getElementById('site-nav');
   if (!navContainer) return;
