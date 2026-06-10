@@ -12,8 +12,8 @@
 .hero-overlay {
   position:absolute; inset:0;
   background:
-    linear-gradient(100deg, rgba(8,12,8,.88) 0%, rgba(8,12,8,.55) 45%, rgba(8,12,8,.25) 75%, rgba(8,12,8,.45) 100%),
-    linear-gradient(to top, rgba(8,12,8,.95) 0%, transparent 35%);
+    linear-gradient(100deg, rgba(8,12,8,.62) 0%, rgba(8,12,8,.35) 45%, rgba(8,12,8,.12) 75%, rgba(8,12,8,.28) 100%),
+    linear-gradient(to top, rgba(8,12,8,.78) 0%, transparent 35%);
 }
 .hero-inner {
   position: relative; z-index:2;
@@ -58,8 +58,8 @@
   }
   .hero-overlay {
     background:
-      linear-gradient(100deg, rgba(8,12,8,.94) 0%, rgba(8,12,8,.74) 54%, rgba(8,12,8,.38) 100%),
-      linear-gradient(to top, rgba(8,12,8,.98) 0%, rgba(8,12,8,.72) 42%, rgba(8,12,8,.26) 100%);
+      linear-gradient(100deg, rgba(8,12,8,.68) 0%, rgba(8,12,8,.42) 54%, rgba(8,12,8,.18) 100%),
+      linear-gradient(to top, rgba(8,12,8,.82) 0%, rgba(8,12,8,.48) 42%, rgba(8,12,8,.10) 100%);
   }
   .hero-content {
     max-width: 100%;
@@ -73,24 +73,25 @@
     transform: none;
   }
   .eyebrow {
-    align-items: flex-start;
-    gap: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0;
+    background: rgba(108,191,82,.14);
+    border: 1px solid rgba(108,191,82,.38);
+    border-radius: 50px;
+    padding: 6px 14px;
     font-size: 11px;
-    letter-spacing: 1.8px;
-    line-height: 1.45;
-    margin-bottom: 22px;
+    letter-spacing: 1.6px;
+    line-height: 1.4;
+    margin-bottom: 20px;
+    backdrop-filter: blur(6px);
   }
-  .eyebrow::before {
-    width: 28px;
-    margin-top: .75em;
-    flex: 0 0 28px;
-  }
+  .eyebrow::before { display: none; }
   .eyebrow-copy {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
+    display: inline;
   }
-  .eyebrow-copy span + span::before { content: none; }
+  .eyebrow-copy span { display: inline; }
+  .eyebrow-copy span + span::before { content: ' · '; opacity: .6; }
   .hero h1 {
     font-size: clamp(30px, 8.1vw, 38px);
     line-height: 1.08;

@@ -1,17 +1,17 @@
-.trust { padding: 56px 0; background: var(--dark-green); }
+.trust { padding: 56px 0; background: var(--bg-2); border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair); }
 .trust-grid {
   display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;
 }
 .trust-item {
   display:flex; align-items:center; gap:14px;
-  font-size:14px; font-weight:600; letter-spacing:.5px; color:var(--white); flex:1; justify-content:center;
+  font-size:14px; font-weight:600; letter-spacing:.5px; color:var(--text); flex:1; justify-content:center;
 }
-.trust-item i { font-size:22px; color: var(--green-light); flex-shrink:0; }
-.trust-item + .trust-item { border-left:1px solid rgba(255,255,255,.12); }
+.trust-item i { font-size:22px; color: var(--green); flex-shrink:0; }
+.trust-item + .trust-item { border-left:1px solid var(--hair); }
 .service-band { text-align:center; }
-.service-band > i { font-size:28px; color: var(--green-light); margin-bottom:14px; display:block; }
-.service-kicker { display:block; font-size:12px; letter-spacing:3px; text-transform:uppercase; color: var(--green-light); font-weight:700; margin-bottom:12px; }
-.service-band h3 { font-family: var(--font-head); font-size: clamp(24px,3vw,38px); font-weight:600; color:var(--white); letter-spacing:-.5px; }
+.service-band > i { font-size:28px; color: var(--green); margin-bottom:14px; display:block; }
+.service-kicker { display:block; font-size:12px; letter-spacing:3px; text-transform:uppercase; color: var(--green); font-weight:700; margin-bottom:12px; }
+.service-band h3 { font-family: var(--font-head); font-size: clamp(24px,3vw,38px); font-weight:600; color:var(--heading); letter-spacing:-.5px; }
 .service-map {
   margin-top: 38px; height: 440px; width: 100%;
   border-radius: 10px; overflow: hidden;
