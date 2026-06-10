@@ -10,18 +10,12 @@
 .snow-theme .brand img { height: 52px; filter: none; }
 
 
-.page-hero { position:relative; min-height:62vh; display:flex; align-items:flex-end; overflow:hidden; }
-.page-hero .ph-bg { position:absolute; inset:0;
-  background: linear-gradient(135deg, #080e2e 0%, #0e1f4a 50%, #122060 100%); }
-.page-hero .ph-ov { position:absolute; inset:0;
-  background: linear-gradient(to top, rgba(8,14,46,.95) 0%, rgba(8,14,46,.4) 60%, rgba(8,14,46,.3) 100%); }
-.page-hero .ph-inner { position:relative; z-index:2; width:100%; padding-bottom:60px; }
-.ph-kicker { display:inline-block; font-size:12px; letter-spacing:3.5px; text-transform:uppercase;
-  color:#5a9ef5; font-weight:700; margin-bottom:16px; }
-.page-hero h1 { font-family:var(--font-head); color:#fff; font-weight:600;
-  font-size:clamp(40px,6vw,74px); line-height:1.03; letter-spacing:-1px; margin-bottom:18px; }
-.page-hero h1 em { font-style:normal; color:#5a9ef5; }
-.page-hero p { color:rgba(255,255,255,.82); font-weight:300; font-size:clamp(16px,1.7vw,19px); max-width:640px; }
+.snow-theme .page-hero { min-height:62vh; }
+.snow-theme .page-hero .ph-bg { background: linear-gradient(135deg, #080e2e 0%, #0e1f4a 50%, #122060 100%); }
+.snow-theme .page-hero .ph-ov { background: linear-gradient(to top, rgba(8,14,46,.95) 0%, rgba(8,14,46,.4) 60%, rgba(8,14,46,.3) 100%); }
+.snow-theme .page-hero .ph-inner { padding-bottom:60px; }
+.snow-theme .ph-kicker { color:#5a9ef5; }
+.snow-theme .page-hero h1 em { color:#5a9ef5; }
 
 .snow-particles { position:absolute; inset:0; overflow:hidden; pointer-events:none; }
 .flake { position:absolute; top:-20px; color:rgba(255,255,255,.25); animation: fall linear infinite; font-size:16px; }
