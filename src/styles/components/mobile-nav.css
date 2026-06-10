@@ -1,5 +1,5 @@
 .burger { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:6px; z-index: 1100; }
-.burger span { width:26px; height:2px; background:#fff; transition: all .3s ease; display:block; }
+.burger span { width:26px; height:2px; background:var(--white); transition: all .3s ease; display:block; }
 header.solid .burger span { background: var(--heading); }
 .burger.open span:nth-child(1){ transform: translateY(7px) rotate(45deg); }
 .burger.open span:nth-child(2){ opacity:0; }
@@ -10,7 +10,7 @@ header.solid .burger span { background: var(--heading); }
   background: rgba(255,255,255,.98); backdrop-filter: blur(16px) saturate(140%);
   display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
   opacity:0; pointer-events:none; transition: opacity .35s ease;
-  padding-top: 60px;
+  padding: 72px 20px 32px;
 }
 .mobile-nav.open { opacity:1; pointer-events:auto; }
 .mobile-nav a {
@@ -29,7 +29,7 @@ header.solid + .mobile-nav + .proj-hero {
 .mobile-nav-close {
   position: absolute; top: 24px; right: 24px;
   width: 44px; height: 44px; border-radius: 50%;
-  background: var(--dark-green); color: #fff; border: none; cursor: pointer;
+  background: var(--dark-green); color: var(--white); border: none; cursor: pointer;
   font-size: 22px; display: flex; align-items: center; justify-content: center;
   box-shadow: 0 4px 16px rgba(27,61,43,.25); transition: background .25s, transform .25s;
   line-height: 1;
@@ -42,5 +42,27 @@ header.solid + .mobile-nav + .proj-hero {
   .burger { display:flex; }
 }
 @media (max-width: 480px) {
-  .mobile-nav a { font-size: 26px; padding: 10px 10px; }
+  .mobile-nav {
+    gap: 4px;
+    justify-content: flex-start;
+    overflow-y: auto;
+  }
+  .mobile-nav a {
+    width: 100%;
+    max-width: 320px;
+    font-size: 25px;
+    line-height: 1.1;
+    padding: 11px 10px;
+    text-align: center;
+  }
+  .mobile-nav a.nav-btn {
+    width: 100%;
+    max-width: 280px;
+    margin-top: 14px;
+    padding: 14px 24px;
+  }
+  .mobile-nav-close {
+    top: 18px;
+    right: 18px;
+  }
 }

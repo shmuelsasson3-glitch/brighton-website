@@ -21,3 +21,16 @@
 .img-natural { image-orientation: from-image; }
 .img-bottom { object-position: center 80%; }
 .hidden { display: none !important; }
+
+@media (max-width: 640px) {
+  .btn-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn-group .btn {
+    width: 100%;
+  }
+
+  .text-center-mt { margin-top: 28px; }
+}

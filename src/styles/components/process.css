@@ -23,5 +23,20 @@
 }
 @media (max-width: 480px) {
   .process { padding: 56px 0; }
-  .proc-col { padding: 28px 22px; }
+  .proc-col {
+    padding: 28px 20px;
+    border-radius: 8px;
+  }
+  .proc-step {
+    font-size: 10px;
+    letter-spacing: 2px;
+  }
+  .proc-col h3 {
+    font-size: clamp(24px, 8vw, 32px);
+    letter-spacing: 0;
+  }
+  .proc-col p {
+    font-size: 14.5px;
+    line-height: 1.75;
+  }
 }

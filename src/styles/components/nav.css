@@ -1,6 +1,6 @@
 .nav { display: flex; align-items: center; gap: clamp(14px, 2.2vw, 40px); }
 .nav a {
-  color: #fff; text-decoration: none;
+  color: var(--white); text-decoration: none;
   font-size: clamp(10px, 1vw, 12.5px); font-weight: 600; letter-spacing: 1.2px;
   text-transform: uppercase; opacity: .95; white-space: nowrap;
   position: relative; padding: 4px 0; transition: opacity .25s, color .25s;
@@ -8,10 +8,10 @@
 .nav a:hover { color: var(--green-light); opacity: 1; }
 header.solid .nav a { color: var(--heading); }
 header.solid .nav a:hover { color: var(--green); }
-.nav a[href="snow.html"] { color: #7ab8ff; }
-header.solid .nav a[href="snow.html"] { color: #1a52d4; }
-.nav a[href="snow.html"]:hover { color: #5a9ef5 !important; }
-header.solid .nav a[href="snow.html"]:hover { color: #1a52d4 !important; }
+.nav a[href="snow.html"] { color: var(--snow-nav); }
+header.solid .nav a[href="snow.html"] { color: var(--snow-blue); }
+.nav a[href="snow.html"]:hover { color: var(--snow-blue-light) !important; }
+header.solid .nav a[href="snow.html"]:hover { color: var(--snow-blue) !important; }
 .nav a:not(.nav-btn)::after {
   content:''; position:absolute; left:0; bottom:-3px;
   width:0; height:1.5px; background: var(--green); transition: width .3s ease;
@@ -24,13 +24,13 @@ header.solid .nav a[href="snow.html"]:hover { color: #1a52d4 !important; }
   padding: 10px 28px; border-radius: 50px; cursor: pointer; text-decoration: none;
   font-family: var(--font-body); font-size: 11px; font-weight: 700;
   letter-spacing: 1.6px; text-transform: uppercase; transition: all .28s ease;
-  background: var(--green); color: #fff;
+  background: var(--green); color: var(--white);
   white-space: nowrap; flex-shrink: 0; border: 1px solid transparent;
   opacity: 1;
 }
-.nav a.nav-btn:hover { background: var(--green-light); transform: translateY(-1px); box-shadow: 0 8px 20px rgba(82,160,60,.28); color: #fff; }
-header.solid .nav a.nav-btn { color: #fff; }
-header.solid .nav a.nav-btn:hover { color: #fff; }
+.nav a.nav-btn:hover { background: var(--green-light); transform: translateY(-1px); box-shadow: 0 8px 20px rgba(82,160,60,.28); color: var(--white); }
+header.solid .nav a.nav-btn { color: var(--white); }
+header.solid .nav a.nav-btn:hover { color: var(--white); }
 
 @media (max-width: 1080px) {
   .nav { display:none; }

@@ -15,7 +15,7 @@
   display: flex; align-items: center; justify-content: center;
 }
 .gallery-item:hover .gallery-item-overlay { opacity: 1; }
-.gallery-item-overlay svg { width: 36px; height: 36px; color: #fff; }
+.gallery-item-overlay svg { width: 36px; height: 36px; color: var(--white); }
 
 @media (max-width: 640px) {
   .gallery-cols { columns: 1; }

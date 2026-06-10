@@ -7,7 +7,7 @@
 .proj-card:hover { transform: translateY(-8px); box-shadow: 0 26px 52px rgba(27,61,43,.14); }
 .proj-img {
   aspect-ratio: 4/3; display:flex; align-items:center; justify-content:center;
-  background: linear-gradient(150deg, #1B3D2B, #2a5c3f);
+  background: linear-gradient(150deg, var(--dark-green), var(--mid-green));
   position:relative; overflow:hidden;
 }
 .proj-img::after {
@@ -26,5 +26,20 @@
   .proj-grid { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 600px) {
-  .proj-grid { grid-template-columns: 1fr; }
+  .proj-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .proj-card { border-radius: 8px; }
+  .proj-body {
+    padding: 18px;
+  }
+  .proj-body h4 {
+    font-size: 20px;
+    line-height: 1.2;
+  }
+  .proj-body span {
+    display: block;
+    line-height: 1.5;
+  }
 }

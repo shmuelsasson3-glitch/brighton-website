@@ -5,10 +5,20 @@
   letter-spacing:1.6px; text-transform:uppercase; transition: all .28s ease;
   border: 1px solid transparent;
 }
-.btn-primary { background: var(--green); color:#fff; white-space: nowrap; }
+.btn-primary { background: var(--green); color:var(--white); white-space: nowrap; }
 .btn-primary:hover { background: var(--green-light); transform: translateY(-2px); box-shadow: 0 14px 34px rgba(82,160,60,.28); }
-.btn-ghost { background: rgba(255,255,255,.04); color:#fff; border-color: rgba(255,255,255,.28); white-space: nowrap; }
+.btn-ghost { background: rgba(255,255,255,.04); color:var(--white); border-color: rgba(255,255,255,.28); white-space: nowrap; }
 .btn-ghost:hover { border-color: var(--green-light); color: var(--green-light); background: rgba(82,160,60,.06); }
-.btn-outline { background: transparent; color:#fff; border-color: rgba(255,255,255,.5); white-space: nowrap; }
-.btn-outline:hover { border-color:#fff; background: rgba(255,255,255,.08); }
+.btn-outline { background: transparent; color:var(--white); border-color: rgba(255,255,255,.5); white-space: nowrap; }
+.btn-outline:hover { border-color:var(--white); background: rgba(255,255,255,.08); }
 .btn-sm { padding: 9px 22px; font-size: 11px; }
+
+@media (max-width: 640px) {
+  .btn {
+    width: 100%;
+    min-height: 50px;
+    padding: 14px 18px;
+    white-space: normal;
+    text-align: center;
+  }
+}

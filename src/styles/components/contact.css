@@ -26,4 +26,27 @@
 @media (max-width: 480px) {
   .capabilities, .showcase, .contact { padding: 56px 0; }
   .contact-grid { gap: 32px; }
+  .contact-info h2 {
+    font-size: clamp(26px, 8vw, 34px);
+    line-height: 1.14;
+    letter-spacing: 0;
+  }
+  .contact-info > p {
+    font-size: 15px;
+    line-height: 1.75;
+    margin-bottom: 30px;
+  }
+  .ci-item {
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .ci-icon {
+    width: 40px;
+    height: 40px;
+  }
+  .ci-item a,
+  .ci-item span {
+    font-size: 15px;
+    overflow-wrap: anywhere;
+  }
 }

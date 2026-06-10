@@ -38,6 +38,30 @@
   .row2 { grid-template-columns:1fr; }
 }
 @media (max-width: 480px) {
-  .form-card { padding: 24px 16px; }
-  .form-card h3 { font-size: 21px; }
+  .form-card {
+    padding: 24px 16px;
+    border-radius: 8px;
+  }
+  .form-card h3 {
+    font-size: 22px;
+    letter-spacing: 0;
+  }
+  .form-card > p {
+    margin-bottom: 22px;
+    line-height: 1.6;
+  }
+  .form { gap: 16px; }
+  .seg {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .seg label {
+    min-height: 46px;
+  }
+  .field input,
+  .field select,
+  .field textarea {
+    min-height: 46px;
+    font-size: 16px;
+  }
 }

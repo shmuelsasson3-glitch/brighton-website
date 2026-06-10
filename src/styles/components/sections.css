@@ -26,5 +26,21 @@ section { position: relative; }
 
 @media (max-width: 480px) {
   .sec-head { margin-bottom: 36px; }
-  .sec-head h2 { font-size: clamp(24px, 7vw, 34px); }
+  .sec-head h2 {
+    font-size: clamp(26px, 8vw, 34px);
+    line-height: 1.14;
+    letter-spacing: 0;
+  }
+  .sec-head p {
+    font-size: 15px;
+    line-height: 1.75;
+  }
+  .kicker {
+    font-size: 11px;
+    letter-spacing: 2px;
+    line-height: 1.4;
+  }
+  .portfolio-placeholder {
+    padding: 48px 18px;
+  }
 }

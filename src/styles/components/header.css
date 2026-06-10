@@ -27,3 +27,16 @@ header.solid {
 .brand img { height: 46px; width: auto; display: block; transition: height .45s ease;
   filter: brightness(0) invert(1); }
 header.solid .brand img { height: 38px; filter: none; }
+
+@media (max-width: 480px) {
+  header {
+    padding: 18px 0;
+  }
+
+  header.solid {
+    padding: 10px 0;
+  }
+
+  .brand img { height: 40px; }
+  header.solid .brand img { height: 34px; }
+}

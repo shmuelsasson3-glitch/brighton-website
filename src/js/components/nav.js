@@ -44,10 +44,21 @@ export function initNav(options = {}) {
     header.classList.add('solid');
   }
 
-  window.addEventListener('scroll', () => {
+  function syncHeader() {
     header.classList.toggle('solid', window.scrollY > 40);
     if (!isIndex) header.classList.add('solid');
-  });
+  }
+
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      syncHeader();
+      ticking = false;
+    });
+  }, { passive: true });
+  syncHeader();
 
   function closeNav() {
     mobileNav.classList.remove('open');

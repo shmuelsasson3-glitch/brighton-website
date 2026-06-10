@@ -17,3 +17,11 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
+
+img, video, svg { max-width: 100%; }
+
+a, button, input, select, textarea { font: inherit; }
+
+p, h1, h2, h3, h4, h5, h6, a, span, li {
+  overflow-wrap: anywhere;
+}

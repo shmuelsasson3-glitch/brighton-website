@@ -1,6 +1,6 @@
 footer { background: var(--dark-green); border-top:1px solid rgba(255,255,255,.1); padding: 56px 0 30px; }
 footer .foot-brand p { color: rgba(255,255,255,.62); }
-footer .foot-col h5 { color:#fff; }
+footer .foot-col h5 { color:var(--white); }
 footer .foot-col a, footer .foot-col p { color: rgba(255,255,255,.62); }
 footer .foot-col a:hover { color: var(--green-light); }
 footer .foot-bottom { border-top:1px solid rgba(255,255,255,.12); }
@@ -41,7 +41,7 @@ footer .foot-social a:hover { color: var(--green-light); border-color: transpare
   white-space: nowrap;
 }
 .credit-label {
-  color: #f4fbef;
+  color: var(--white-soft);
   font-size: 10px;
   font-weight: 700;
   letter-spacing: .6px;
@@ -83,11 +83,6 @@ footer .foot-social a:hover { color: var(--green-light); border-color: transpare
 
 @media (max-width: 1080px) {
   .foot-grid { flex-direction:column; gap:32px; }
-  .site-credit { flex-wrap: wrap; }
-  .credit-pill { min-height: 40px; gap: 7px; padding: 3px 12px; }
-  .credit-label { font-size: 10px; }
-  .site-credit .adamate-logo { height: 15px; }
-  .site-credit .blue-collar-logo { height: 15px; }
 }
 @media (max-width: 480px) {
   .foot-bottom {
@@ -100,23 +95,15 @@ footer .foot-social a:hover { color: var(--green-light); border-color: transpare
     justify-content: center;
     line-height: 1.45;
   }
-  .site-credit {
-    width: 100%;
-    justify-content: center;
-  }
+  .site-credit { justify-content: center; }
   .credit-pill {
-    max-width: 100%;
-    justify-content: center;
-    gap: 8px;
-    padding: 6px 12px;
-    white-space: normal;
+    gap: 6px;
+    padding: 4px 12px;
+    min-height: 36px;
   }
-  .credit-label {
-    flex: 0 0 100%;
-    text-align: center;
-  }
-  .credit-divider { height: 20px; }
-  .site-credit .adamate-logo { height: 14px; }
+  .credit-label { font-size: 9px; letter-spacing: .4px; }
+  .credit-divider { height: 18px; }
   .site-credit .blue-collar-logo { height: 14px; }
+  .site-credit .adamate-logo { height: 14px; }
   .foot-social { justify-content: center; }
 }

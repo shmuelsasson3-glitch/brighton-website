@@ -1,21 +1,23 @@
 .area-label {
+  position: absolute;
   display: inline-flex; align-items: center; gap: 7px;
-  background: rgba(10,14,10,.82); backdrop-filter: blur(10px) saturate(140%);
-  color: #fff; font-family: var(--font-body); font-weight: 600;
+  background: var(--overlay-dark); backdrop-filter: blur(10px) saturate(140%);
+  color: var(--white); font-family: var(--font-body); font-weight: 600;
   font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase;
   padding: 8px 14px 8px 10px; border-radius: 50px;
   border: 1px solid rgba(108,191,82,.45);
   box-shadow: 0 6px 24px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.06);
   white-space: nowrap; pointer-events: none;
   transform: translate(-50%, -50%);
+  left: 0; top: 0;
 }
 .area-label-dot {
   width: 8px; height: 8px; border-radius: 50%;
   background: var(--green); flex-shrink: 0;
   box-shadow: 0 0 6px rgba(108,191,82,.8);
 }
-.leaflet-container { background: #0a0e0a !important; font-family: var(--font-body); }
-.leaflet-control-attribution { background: rgba(8,12,8,.7) !important; color: #6b7d6b !important; }
-.leaflet-control-attribution a { color: #8a978a !important; }
-.leaflet-bar a { background:#111811 !important; color:#f0ede7 !important; border-color: var(--border) !important; }
-.leaflet-bar a:hover { background:#1B3D2B !important; }
+.leaflet-container { background: var(--map-dark) !important; font-family: var(--font-body); }
+.leaflet-control-attribution { background: rgba(8,12,8,.7) !important; color: var(--map-attribution) !important; }
+.leaflet-control-attribution a { color: var(--muted-2) !important; }
+.leaflet-bar a { background:var(--map-control) !important; color:var(--white-soft) !important; border-color: var(--border) !important; }
+.leaflet-bar a:hover { background:var(--dark-green) !important; }
