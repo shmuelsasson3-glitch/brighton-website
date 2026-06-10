@@ -13,7 +13,7 @@ export function initAnimations() {
     entries.forEach(e => {
       e.target.classList.toggle('shown', e.isIntersecting);
     });
-  }, { threshold: 0.25 });
+  }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.casc').forEach(el => cascIO.observe(el));
 
   const capColIO = new IntersectionObserver((entries) => {
