@@ -19,6 +19,7 @@ body {
 }
 
 img, video, svg { max-width: 100%; }
+img { image-orientation: from-image; }
 
 a, button, input, select, textarea { font: inherit; }
 
