@@ -16,10 +16,17 @@
 
 .snow-theme .page-hero { min-height:62vh; }
 .snow-theme .page-hero .ph-bg { background: linear-gradient(135deg, var(--snow-dark) 0%, var(--snow-mid) 50%, var(--snow-mid-2) 100%); }
-.snow-theme .page-hero .ph-ov { background: linear-gradient(to top, rgba(8,14,46,.95) 0%, rgba(8,14,46,.4) 60%, rgba(8,14,46,.3) 100%); }
+.snow-theme .page-hero .ph-ov { background: linear-gradient(to top, rgba(8,14,46,.97) 0%, rgba(8,14,46,.72) 55%, rgba(8,14,46,.55) 100%); }
 .snow-theme .page-hero .ph-inner { padding-bottom:60px; }
 .snow-theme .ph-kicker { color:var(--snow-blue-light); }
 .snow-theme .page-hero h1 em { color:var(--snow-blue-light); }
+
+.snow-hero-rule {
+  width: 48px; height: 2px;
+  background: var(--snow-blue-light);
+  margin: 22px 0 20px;
+  border-radius: 2px;
+}
 
 .snow-particles { position:absolute; inset:0; overflow:hidden; pointer-events:none; }
 .flake { position:absolute; top:-20px; color:rgba(255,255,255,.25); animation: fall linear infinite; font-size:16px; }
