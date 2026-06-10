@@ -21,8 +21,10 @@ footer .foot-social a:hover { color: var(--green-light); border-color: transpare
 .foot-bottom .copyright {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  flex-wrap: wrap;
+  gap: 4px 6px;
 }
+.copyright-text { white-space: nowrap; }
 .site-credit {
   display: inline-flex;
   align-items: center;
@@ -93,8 +95,9 @@ footer .foot-social a:hover { color: var(--green-light); border-color: transpare
   }
   .foot-bottom .copyright {
     justify-content: center;
-    line-height: 1.45;
+    text-align: center;
   }
+  .copyright-text { white-space: normal; text-align: center; }
   .site-credit { justify-content: center; }
   .credit-pill {
     gap: 6px;

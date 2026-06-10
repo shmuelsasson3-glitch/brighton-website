@@ -28,7 +28,7 @@ export function initFooter() {
       </div>
     </div>
     <div class="foot-bottom">
-      <p class="copyright"><span class="copyright-icon" aria-hidden="true">&copy;</span> <span class="yr"></span> Brighton Lawn &amp; Landscape. All rights reserved.</p>
+      <p class="copyright"><span class="copyright-icon" aria-hidden="true">&copy;</span><span class="yr"></span><span class="copyright-text">Brighton Lawn &amp; Landscape. All rights reserved.</span></p>
       <span class="site-credit"><span class="credit-pill"><span class="credit-label">Website by</span><img class="blue-collar-logo" src="assets/images/bluecollarmedia.png" alt="Blue Collar Media"><span class="credit-divider" aria-hidden="true"></span><a href="https://adamate.ai" target="_blank" rel="noopener" aria-label="Adamate.ai"><img class="adamate-logo" src="https://adamate.ai/Logo-B2.png" alt="Adamate.ai"></a></span></span>
       <div class="foot-social">
         <a href="https://www.instagram.com/brighton_lawn_landscape" target="_blank" rel="noopener" aria-label="Instagram">
