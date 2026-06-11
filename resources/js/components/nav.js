@@ -1,52 +1,14 @@
-export function initNav(options = {}) {
-  const isSnow = options.variant === 'snow';
-  const logo = isSnow ? 'assets/images/snow-logo-crop.png' : 'assets/images/logo.png';
-  const logoAlt = isSnow ? 'Brighton Snow Division' : 'Brighton Lawn & Landscape';
-  const ctaText = isSnow ? 'Get a Snow Contract' : 'Get a Quote';
-  const ctaHref = 'index.html#contact';
-  const closeIcon = `<i class="fa-solid fa-xmark"></i>`;
-
-  const navContainer = document.getElementById('site-nav');
-  if (!navContainer) return;
-
-  navContainer.innerHTML = `
-<header id="header">
-  <div class="header-inner">
-    <a href="index.html" class="brand"><img src="${logo}" alt="${logoAlt}"></a>
-    <nav class="nav">
-      <a href="residential.html">Residential</a>
-      <a href="commercial.html">Commercial</a>
-      <a href="sitework.html">Site Work</a>
-      <a href="snow.html">Snow &amp; Ice</a>
-      <a href="index.html#about">About</a>
-      <a href="${ctaHref}" class="nav-btn">${ctaText}</a>
-    </nav>
-    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
-  </div>
-</header>
-<div class="mobile-nav" id="mobileNav">
-  <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close menu">${closeIcon}</button>
-  <a href="residential.html">Residential</a>
-  <a href="commercial.html">Commercial</a>
-  <a href="sitework.html">Site Work</a>
-  <a href="snow.html">Snow &amp; Ice</a>
-  <a href="index.html#about">About</a>
-  <a href="${ctaHref}" class="nav-btn">${ctaText}</a>
-</div>`;
-
+export function initNav() {
   const header = document.getElementById('header');
   const burger = document.getElementById('burger');
   const mobileNav = document.getElementById('mobileNav');
   const mobileNavClose = document.getElementById('mobileNavClose');
+  if (!header || !burger || !mobileNav) return;
 
-  const isIndex = window.location.pathname.endsWith('index.html') || window.location.pathname === '/';
-  if (!isIndex) {
-    header.classList.add('solid');
-  }
+  const startsSolid = header.classList.contains('solid');
 
   function syncHeader() {
-    header.classList.toggle('solid', window.scrollY > 40);
-    if (!isIndex) header.classList.add('solid');
+    header.classList.toggle('solid', startsSolid || window.scrollY > 40);
   }
 
   let ticking = false;
@@ -76,13 +38,5 @@ export function initNav(options = {}) {
 
   mobileNav.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', closeNav);
-  });
-
-  const path = window.location.pathname;
-  navContainer.querySelectorAll('.nav a, .mobile-nav a').forEach(link => {
-    const href = link.getAttribute('href');
-    if (href && !href.includes('#') && path.endsWith(href)) {
-      link.classList.add('active');
-    }
   });
 }

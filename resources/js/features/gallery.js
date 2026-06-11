@@ -1,4 +1,5 @@
-export function initGallery(images) {
+export function initGallery() {
+  const images = [...document.querySelectorAll('.gallery-item img')].map(img => img.src);
   let cur = 0;
   let touchStartX = 0;
   const lb = document.getElementById('lightbox');
