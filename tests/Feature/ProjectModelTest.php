@@ -30,11 +30,11 @@ class ProjectModelTest extends TestCase
         $this->assertSame(1, Project::published()->count());
     }
 
-    public function test_image_url_resolves_public_and_storage_paths(): void
+    public function test_image_url_resolves_paths_relative_to_public_root(): void
     {
         $this->assertStringEndsWith('/projects/beige/cover.jpg', ImageUrl::resolve('projects/beige/cover.jpg'));
         $this->assertStringEndsWith('/assets/images/logo.png', ImageUrl::resolve('assets/images/logo.png'));
-        $this->assertStringEndsWith('/storage/project-images/upload.jpg', ImageUrl::resolve('project-images/upload.jpg'));
+        $this->assertStringEndsWith('/project-images/upload.jpg', ImageUrl::resolve('project-images/upload.jpg'));
     }
 
     public function test_overview_presence_is_derived_from_body(): void

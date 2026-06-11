@@ -43,6 +43,22 @@ Seeding creates the full current portfolio (10 projects with galleries and stats
 - **Email:** `admin@brightonlawn.com` (override with `ADMIN_EMAIL`)
 - **Password:** `password` (override with `ADMIN_PASSWORD` — change it in production)
 
+## Email notifications
+
+New contact form submissions are emailed to `CONTACT_NOTIFICATION_EMAIL` with a branded template. Configure SMTP in `.env`:
+
+```dotenv
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.yourprovider.com
+MAIL_PORT=587
+MAIL_USERNAME=your-username
+MAIL_PASSWORD=your-password
+MAIL_FROM_ADDRESS=no-reply@brightonlawn.com
+CONTACT_NOTIFICATION_EMAIL=info@BrightonLawn.com
+```
+
+Submissions are always stored in the admin panel, even if sending fails.
+
 ## Admin panel
 
 Visit `/admin`:

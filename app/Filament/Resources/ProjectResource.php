@@ -19,12 +19,23 @@ class ProjectResource extends Resource
 
     protected static ?string $navigationGroup = 'Content';
 
+    protected static ?string $modelLabel = 'work project';
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Project')
+                Forms\Components\Section::make('Hero')
+                    ->description('The cover image, title, and tag shown at the top of the project page and on the Our Work grid.')
+                    ->icon('heroicon-o-photo')
                     ->schema([
+                        Forms\Components\FileUpload::make('cover_image')
+                            ->disk('site')
+                            ->directory('project-images')
+                            ->image()
+                            ->imageEditor()
+                            ->required()
+                            ->columnSpanFull(),
                         Forms\Components\TextInput::make('title')
                             ->required()
                             ->maxLength(255)
@@ -34,41 +45,47 @@ class ProjectResource extends Resource
                             ->required()
                             ->maxLength(255)
                             ->unique(ignoreRecord: true)
-                            ->helperText('Used in the page URL: /work/{slug}'),
+                            ->prefix('/work/'),
                         Forms\Components\Select::make('category')
                             ->options([
                                 'residential' => 'Residential',
                                 'commercial' => 'Commercial',
                             ])
-                            ->required(),
+                            ->required()
+                            ->native(false),
                         Forms\Components\TextInput::make('tag')
                             ->required()
                             ->maxLength(255)
                             ->placeholder('Residential - NJ')
-                            ->helperText('Shown on the project card and hero.'),
+                            ->helperText('Shown under the title and on the project card.'),
                         Forms\Components\TextInput::make('location')
                             ->maxLength(255),
-                        Forms\Components\FileUpload::make('cover_image')
-                            ->image()
-                            ->directory('project-images')
-                            ->required(),
                         Forms\Components\Toggle::make('is_published')
-                            ->default(true),
+                            ->default(true)
+                            ->inline(false)
+                            ->helperText('Unpublished projects are hidden from the site.'),
                     ])
                     ->columns(2),
 
                 Forms\Components\Section::make('Overview')
-                    ->description('Optional. The overview section only appears when a body is set.')
+                    ->description('Optional "About the Project" section with up to four stat boxes. It only appears on the page when a body is set.')
+                    ->icon('heroicon-o-document-text')
+                    ->collapsible()
+                    ->collapsed(fn (?Project $record): bool => $record !== null && ! $record->hasOverview())
                     ->schema([
                         Forms\Components\TextInput::make('overview_kicker')
+                            ->label('Kicker')
                             ->placeholder('About the Project')
                             ->maxLength(255),
                         Forms\Components\TextInput::make('overview_heading')
+                            ->label('Heading')
                             ->placeholder('17 Homes. Fully <em>Landscaped.</em>')
-                            ->helperText('Supports <em> for the accent style.')
+                            ->helperText('Wrap words in <em> for the green accent style.')
                             ->maxLength(255),
                         Forms\Components\Textarea::make('overview_body')
-                            ->rows(5),
+                            ->label('Body')
+                            ->rows(5)
+                            ->columnSpanFull(),
                         Forms\Components\Repeater::make('stats')
                             ->relationship()
                             ->schema([
@@ -79,26 +96,36 @@ class ProjectResource extends Resource
                             ->orderColumn('sort_order')
                             ->reorderable()
                             ->defaultItems(0)
-                            ->maxItems(4),
-                    ]),
+                            ->maxItems(4)
+                            ->addActionLabel('Add stat box')
+                            ->columnSpanFull(),
+                    ])
+                    ->columns(2),
 
                 Forms\Components\Section::make('Gallery')
+                    ->description('Photos shown in the project gallery, in order. Drag to reorder.')
+                    ->icon('heroicon-o-squares-2x2')
                     ->schema([
                         Forms\Components\Repeater::make('images')
                             ->relationship()
+                            ->hiddenLabel()
                             ->schema([
                                 Forms\Components\FileUpload::make('path')
-                                    ->image()
+                                    ->hiddenLabel()
+                                    ->disk('site')
                                     ->directory('project-images')
+                                    ->image()
+                                    ->imageEditor()
                                     ->required(),
                                 Forms\Components\TextInput::make('alt')
-                                    ->label('Alt text')
+                                    ->label('Description (alt text)')
                                     ->maxLength(255),
                             ])
                             ->orderColumn('sort_order')
                             ->reorderable()
                             ->grid(2)
-                            ->defaultItems(0),
+                            ->defaultItems(0)
+                            ->addActionLabel('Add photo'),
                     ]),
             ]);
     }
@@ -108,16 +135,23 @@ class ProjectResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\ImageColumn::make('cover_image')
-                    ->state(fn (Project $record): string => $record->coverUrl()),
+                    ->label('Cover')
+                    ->state(fn (Project $record): string => $record->coverUrl())
+                    ->size(56)
+                    ->square(),
                 Tables\Columns\TextColumn::make('title')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->description(fn (Project $record): string => $record->tag),
                 Tables\Columns\TextColumn::make('category')
                     ->badge()
                     ->color(fn (string $state): string => $state === 'commercial' ? 'info' : 'success'),
-                Tables\Columns\TextColumn::make('images_count')
-                    ->counts('images')
-                    ->label('Photos'),
+                Tables\Columns\ImageColumn::make('gallery')
+                    ->state(fn (Project $record): array => $record->images->map->url()->all())
+                    ->circular()
+                    ->stacked()
+                    ->limit(4)
+                    ->limitedRemainingText(),
                 Tables\Columns\ToggleColumn::make('is_published')
                     ->label('Published'),
             ])
@@ -129,6 +163,10 @@ class ProjectResource extends Resource
                     ]),
             ])
             ->actions([
+                Tables\Actions\Action::make('view')
+                    ->icon('heroicon-o-eye')
+                    ->url(fn (Project $record): string => route('work.show', $record))
+                    ->openUrlInNewTab(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])

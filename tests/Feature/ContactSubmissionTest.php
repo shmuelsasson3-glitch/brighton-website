@@ -2,7 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Mail\ContactSubmissionReceived;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
 class ContactSubmissionTest extends TestCase
@@ -11,6 +13,8 @@ class ContactSubmissionTest extends TestCase
 
     public function test_valid_submission_is_stored_and_confirmed(): void
     {
+        Mail::fake();
+
         $response = $this->post('/contact', [
             'name' => 'Jane Smith',
             'phone' => '(848) 226-0090',
@@ -25,6 +29,24 @@ class ContactSubmissionTest extends TestCase
             'email' => 'jane@example.com',
             'status' => 'new',
         ]);
+        Mail::assertSent(ContactSubmissionReceived::class, function (ContactSubmissionReceived $mail): bool {
+            return $mail->hasTo(config('mail.contact_to'))
+                && $mail->hasReplyTo('jane@example.com');
+        });
+    }
+
+    public function test_notification_failure_does_not_lose_the_submission(): void
+    {
+        Mail::shouldReceive('to')->andThrow(new \RuntimeException('SMTP down'));
+
+        $this->post('/contact', [
+            'name' => 'Jane Smith',
+            'phone' => '(848) 226-0090',
+            'email' => 'jane@example.com',
+            'property_type' => 'residential',
+        ])->assertRedirect(route('home').'#contact');
+
+        $this->assertDatabaseCount('contact_submissions', 1);
     }
 
     public function test_invalid_submission_is_rejected(): void

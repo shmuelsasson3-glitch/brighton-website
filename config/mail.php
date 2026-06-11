@@ -115,4 +115,16 @@ return [
         'name' => env('MAIL_FROM_NAME', env('APP_NAME', 'Laravel')),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Contact Form Notifications
+    |--------------------------------------------------------------------------
+    |
+    | New contact form submissions are emailed to this address. Leave it
+    | empty to store submissions in the admin panel without sending mail.
+    |
+    */
+
+    'contact_to' => env('CONTACT_NOTIFICATION_EMAIL', 'info@BrightonLawn.com'),
+
 ];
