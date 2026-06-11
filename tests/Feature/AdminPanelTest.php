@@ -1,0 +1,31 @@
+<?php
+
+namespace Tests\Feature;
+
+use App\Models\ContactSubmission;
+use App\Models\Project;
+use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
+
+class AdminPanelTest extends TestCase
+{
+    use RefreshDatabase;
+
+    public function test_guests_are_redirected_to_login(): void
+    {
+        $this->get('/admin')->assertRedirect('/admin/login');
+    }
+
+    public function test_admin_sees_dashboard_and_resources(): void
+    {
+        $admin = User::factory()->create();
+        Project::factory()->create(['title' => 'Seeded Project']);
+        ContactSubmission::factory()->create();
+
+        $this->actingAs($admin)->get('/admin')->assertOk();
+        $this->actingAs($admin)->get('/admin/projects')->assertOk()->assertSee('Seeded Project');
+        $this->actingAs($admin)->get('/admin/contact-submissions')->assertOk();
+        $this->actingAs($admin)->get('/admin/users')->assertOk();
+    }
+}
