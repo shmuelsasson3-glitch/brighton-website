@@ -24,7 +24,10 @@ class AdminPanelTest extends TestCase
         ContactSubmission::factory()->create();
 
         $this->actingAs($admin)->get('/admin')->assertOk();
-        $this->actingAs($admin)->get('/admin/projects')->assertOk()->assertSee('Seeded Project');
+        $this->actingAs($admin)->get('/admin/projects')
+            ->assertOk()
+            ->assertSee('Seeded Project')
+            ->assertSee('projects/example/cover.jpg');
         $this->actingAs($admin)->get('/admin/contact-submissions')->assertOk();
         $this->actingAs($admin)->get('/admin/users')->assertOk();
     }
