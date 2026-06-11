@@ -28,6 +28,9 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             ->brandName('Brighton Admin')
+            ->brandLogo(fn (): string => asset('assets/images/logo.png'))
+            ->brandLogoHeight('2.5rem')
+            ->favicon(asset('assets/images/brighton-icon.png'))
             ->colors([
                 'primary' => Color::Green,
             ])
