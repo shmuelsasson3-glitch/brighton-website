@@ -11,7 +11,7 @@ class PageVisit extends Model
     protected function casts(): array
     {
         return [
-            'visited_at' => 'date',
+            'visited_at' => 'date:Y-m-d',
         ];
     }
 
