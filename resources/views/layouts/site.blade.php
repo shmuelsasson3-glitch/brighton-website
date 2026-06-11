@@ -12,13 +12,13 @@
   @stack('head')
   @vite(['resources/css/main.css', 'resources/js/app.js'])
 </head>
-<body>
+<body @class(['snow-theme' => request()->routeIs('snow')])>
 
 <x-nav :snow="request()->routeIs('snow')" />
 
 @yield('content')
 
-<x-footer />
+<x-footer :email="request()->routeIs('snow') ? 'snow@BrightonLawn.com' : 'info@BrightonLawn.com'" />
 
 @stack('scripts')
 </body>

@@ -1,3 +1,5 @@
+@props(['email' => 'info@BrightonLawn.com'])
+
 <footer>
   <div class="wrap">
     <div class="foot-grid">
@@ -22,7 +24,7 @@
       <div class="foot-col">
         <h5>Contact</h5>
         <a href="tel:8482260090">(848) 226-0090</a>
-        <a href="mailto:info@BrightonLawn.com">info@BrightonLawn.com</a>
+        <a href="mailto:{{ $email }}">{{ $email }}</a>
       </div>
     </div>
     <div class="foot-bottom">

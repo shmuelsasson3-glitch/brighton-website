@@ -1,24 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/png" href="/assets/images/brighton-icon.png">
-  <link rel="apple-touch-icon" href="/assets/images/brighton-icon.png">
-  <title>Brighton Lawn & Landscape | Landscape Construction & Commercial Maintenance in NJ & PA</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+@extends('layouts.site')
+
+@section('title', 'Brighton Lawn & Landscape | Landscape Construction & Commercial Maintenance in NJ & PA')
+
+@push('head')
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" referrerpolicy="no-referrer">
-  <link rel="stylesheet" href="/src/main.css">
-</head>
-<body>
+@endpush
 
-<div id="site-nav"></div>
-
+@section('content')
 <section class="hero" id="top">
-  <video class="hero-video" id="heroVideo" autoplay muted loop playsinline poster="assets/images/go-over.jpg">
-    <source src="assets/videos/hero.mp4" type="video/mp4">
+  <video class="hero-video" id="heroVideo" autoplay muted loop playsinline poster="{{ asset('assets/images/go-over.jpg') }}">
+    <source src="{{ asset('assets/videos/hero.mp4') }}" type="video/mp4">
   </video>
   <div class="hero-overlay"></div>
   <div class="hero-inner">
@@ -33,7 +24,7 @@
       <p class="sub">Full-service landscape construction and maintenance built on quality, precision, and long-term performance.</p>
       <div class="hero-cta">
         <a href="#contact" class="btn btn-primary">Request a Quote</a>
-        <a href="work.html" class="btn btn-ghost">View Our Work</a>
+        <a href="{{ route('work.index') }}" class="btn btn-ghost">View Our Work</a>
       </div>
     </div>
   </div>
@@ -158,48 +149,48 @@
       <div class="form-card reveal">
         <h3>Get My Estimate</h3>
         <p>Typical response within one business day.</p>
-        <form class="form" id="quoteForm">
-          <div class="row2">
-            <div class="field"><label>Name</label><input id="qName" type="text" required placeholder="Full name"></div>
-            <div class="field"><label>Phone</label><input id="qPhone" type="tel" required placeholder="(000) 000-0000"></div>
+        @if (session('contact-success'))
+          <div class="form-success active">
+            Thank you. Your request has been received.
+            <small>We'll be in touch within one business day.</small>
           </div>
-          <div class="field"><label>Email</label><input id="qEmail" type="email" required placeholder="you@email.com"></div>
-          <div class="field">
-            <label>Property Type</label>
-            <div class="seg">
-              <input type="radio" name="ptype" id="pres" checked><label for="pres">Residential</label>
-              <input type="radio" name="ptype" id="pcom"><label for="pcom">Commercial</label>
+        @else
+          <form class="form" id="quoteForm" method="POST" action="{{ route('contact.store') }}">
+            @csrf
+            <div class="row2">
+              <div class="field"><label>Name</label><input name="name" type="text" required placeholder="Full name" value="{{ old('name') }}"></div>
+              <div class="field"><label>Phone</label><input name="phone" type="tel" required placeholder="(000) 000-0000" value="{{ old('phone') }}"></div>
             </div>
-          </div>
-          <div class="field">
-            <label>Service Needed</label>
-            <select id="qService">
-              <option value="">Select a service...</option>
-              <option>Backyard Design &amp; Build</option>
-              <option>Pavers / Patios / Walkways</option>
-              <option>Turf &amp; Sod Installation</option>
-              <option>Landscape Lighting &amp; Planting</option>
-              <option>Commercial Property Maintenance</option>
-              <option>Seasonal Cleanup Contract</option>
-              <option>Snow &amp; Storm Response</option>
-              <option>Other / Multiple</option>
-            </select>
-          </div>
-          <div class="field"><label>Project Details</label><textarea id="qDetails" placeholder="Tell us about your property, scope, and timeline."></textarea></div>
-          <button type="submit" class="btn btn-primary">Submit Request</button>
-        </form>
-        <div class="form-success" id="formSuccess">
-          Thank you. Your request has been received.
-          <small>We'll be in touch within one business day.</small>
-        </div>
+            <div class="field"><label>Email</label><input name="email" type="email" required placeholder="you@email.com" value="{{ old('email') }}"></div>
+            <div class="field">
+              <label>Property Type</label>
+              <div class="seg">
+                <input type="radio" name="property_type" value="residential" id="pres" @checked(old('property_type', 'residential') === 'residential')><label for="pres">Residential</label>
+                <input type="radio" name="property_type" value="commercial" id="pcom" @checked(old('property_type') === 'commercial')><label for="pcom">Commercial</label>
+              </div>
+            </div>
+            <div class="field">
+              <label>Service Needed</label>
+              <select name="service">
+                <option value="">Select a service...</option>
+                @foreach (['Backyard Design & Build', 'Pavers / Patios / Walkways', 'Turf & Sod Installation', 'Landscape Lighting & Planting', 'Commercial Property Maintenance', 'Seasonal Cleanup Contract', 'Snow & Storm Response', 'Other / Multiple'] as $service)
+                  <option @selected(old('service') === $service)>{{ $service }}</option>
+                @endforeach
+              </select>
+            </div>
+            <div class="field"><label>Project Details</label><textarea name="details" placeholder="Tell us about your property, scope, and timeline.">{{ old('details') }}</textarea></div>
+            @if ($errors->any())
+              <div class="form-error">{{ $errors->first() }}</div>
+            @endif
+            <button type="submit" class="btn btn-primary">Submit Request</button>
+          </form>
+        @endif
       </div>
     </div>
   </div>
 </section>
+@endsection
 
-<div data-site-footer></div>
-
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script type="module" src="/src/js/pages/index.js"></script>
-</body>
-</html>
+@push('scripts')
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+@endpush

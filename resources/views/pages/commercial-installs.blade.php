@@ -1,23 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/png" href="/assets/images/brighton-icon.png">
-  <link rel="apple-touch-icon" href="/assets/images/brighton-icon.png">
-  <title>Commercial Installs - Brighton Lawn &amp; Landscape</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" referrerpolicy="no-referrer">
-  <link rel="stylesheet" href="/src/main.css">
-</head>
-<body>
+@extends('layouts.site')
 
-<div id="site-nav"></div>
+@section('title', 'Commercial Installs - Brighton Lawn & Landscape')
 
+@section('content')
 <section class="page-hero">
   <div class="ph-bg">
-    <img src="assets/images/install-header.jpg" alt="Commercial Installs" class="ph-video img-natural">
+    <img src="{{ asset('assets/images/install-header.jpg') }}" alt="Commercial Installs" class="ph-video img-natural">
   </div>
   <div class="ph-ov"></div>
   <div class="ph-inner">
@@ -170,7 +158,7 @@
   <div class="wrap">
     <h2>See What We've <em>Built</em></h2>
     <p>Browse completed commercial installation projects - before and after shots, site photos, and the full scope of what Brighton's crews deliver on the commercial side.</p>
-    <a href="work.html?filter=commercial" class="btn btn-primary">View Commercial Work</a>
+    <a href="{{ route('work.index', ['filter' => 'commercial']) }}" class="btn btn-primary">View Commercial Work</a>
   </div>
 </div>
 
@@ -179,14 +167,9 @@
     <h2>Let's <em>Start Your Project</em></h2>
     <p>Tell us about your property and what you're looking to build. We'll walk the site, put together a plan, and give you a straight number.</p>
     <div class="btn-group btn-group--center">
-      <a href="index.html#contact" class="btn btn-primary">Request a Quote</a>
-      <a href="commercial.html" class="btn btn-outline">Back to Commercial</a>
+      <a href="{{ route('home') }}#contact" class="btn btn-primary">Request a Quote</a>
+      <a href="{{ route('commercial') }}" class="btn btn-outline">Back to Commercial</a>
     </div>
   </div>
 </div>
-
-<div data-site-footer></div>
-
-<script type="module" src="/src/js/pages/commercial-installs.js"></script>
-</body>
-</html>
+@endsection

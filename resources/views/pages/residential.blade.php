@@ -1,24 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/png" href="/assets/images/brighton-icon.png">
-  <link rel="apple-touch-icon" href="/assets/images/brighton-icon.png">
-  <title>Residential | Brighton Lawn &amp; Landscape</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" referrerpolicy="no-referrer">
-  <link rel="stylesheet" href="/src/main.css">
-</head>
-<body>
+@extends('layouts.site')
 
-<div id="site-nav"></div>
+@section('title', 'Residential | Brighton Lawn & Landscape')
 
+@section('content')
 <section class="page-hero">
   <div class="ph-bg"></div>
   <video class="ph-video" autoplay muted loop playsinline>
-    <source src="assets/videos/residential-hero.mp4" type="video/mp4">
+    <source src="{{ asset('assets/videos/residential-hero.mp4') }}" type="video/mp4">
   </video>
   <div class="ph-ov"></div>
   <div class="ph-inner">
@@ -40,7 +28,7 @@
 
     <div id="design" class="prow casc">
       <div class="pimg">
-        <img src="assets/images/res-design.jpg" alt="Design">
+        <img src="{{ asset('assets/images/res-design.jpg') }}" alt="Design">
       </div>
       <div class="ptext">
         <span class="pstep">Step 01: Design</span>
@@ -51,7 +39,7 @@
 
     <div id="build" class="prow rev casc">
       <div class="pimg">
-        <img src="assets/images/res-build.jpg" alt="Build">
+        <img src="{{ asset('assets/images/res-build.jpg') }}" alt="Build">
       </div>
       <div class="ptext">
         <span class="pstep">Step 02 - Build</span>
@@ -62,7 +50,7 @@
 
     <div id="maintain" class="prow casc">
       <div class="pimg">
-        <img src="assets/images/res-maintain.jpg" alt="Maintain">
+        <img src="{{ asset('assets/images/res-maintain.jpg') }}" alt="Maintain">
       </div>
       <div class="ptext">
         <span class="pstep">Step 03 - Maintain</span>
@@ -77,12 +65,7 @@
   <div class="wrap">
     <h2>See What We <em>Build</em></h2>
     <p>Browse a portfolio of completed residential transformations across NJ &amp; PA.</p>
-    <a href="work.html" class="btn btn-primary">View Our Work</a>
+    <a href="{{ route('work.index') }}" class="btn btn-primary">View Our Work</a>
   </div>
 </div>
-
-<div data-site-footer></div>
-
-<script type="module" src="/src/js/pages/residential.js"></script>
-</body>
-</html>
+@endsection

@@ -1,24 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/png" href="/assets/images/brighton-icon.png">
-  <link rel="apple-touch-icon" href="/assets/images/brighton-icon.png">
-  <title>Snow &amp; Ice Management - Brighton Lawn &amp; Landscape</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" referrerpolicy="no-referrer">
-  <link rel="stylesheet" href="/src/main.css">
-</head>
-<body class="snow-theme">
+@extends('layouts.site')
 
-<div id="site-nav"></div>
+@section('title', 'Snow & Ice Management - Brighton Lawn & Landscape')
 
+@section('content')
 <section class="page-hero">
   <div class="ph-bg">
     <video class="ph-video" autoplay muted loop playsinline>
-      <source src="assets/videos/snow-hero.mp4" type="video/mp4">
+      <source src="{{ asset('assets/videos/snow-hero.mp4') }}" type="video/mp4">
     </video>
     <div class="snow-particles" id="snowParticles"></div>
   </div>
@@ -64,7 +52,7 @@
       <p>Every property is staked before the season. Every route is mapped. Every crew knows exactly where to be and when. That's how we've grown into one of the most relied-upon snow contractors in the region.</p>
     </div>
     <div class="intro-visual">
-      <img src="assets/images/not-a-side.jpg" alt="Cleared Before You Clock In" class="intro-visual-img" style="filter:brightness(1.3);">
+      <img src="{{ asset('assets/images/not-a-side.jpg') }}" alt="Cleared Before You Clock In" class="intro-visual-img" style="filter:brightness(1.3);">
     </div>
   </div>
 </div>
@@ -88,7 +76,7 @@
 
     <div id="plowing" class="srow casc">
       <div class="simg">
-        <img src="assets/images/plow.jpg" alt="Plowing & Snow Stacking" class="img-natural">
+        <img src="{{ asset('assets/images/plow.jpg') }}" alt="Plowing & Snow Stacking" class="img-natural">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8zM5.5 21a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM18.5 21a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"/></svg>
       </div>
       <div class="stext">
@@ -108,7 +96,7 @@
 
     <div id="salting" class="srow rev casc">
       <div class="simg">
-        <img src="assets/images/salting.jpg" alt="Salting & De-Icing" class="img-natural img-bottom">
+        <img src="{{ asset('assets/images/salting.jpg') }}" alt="Salting & De-Icing" class="img-natural img-bottom">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
       </div>
       <div class="stext">
@@ -128,7 +116,7 @@
 
     <div id="sidewalks" class="srow casc">
       <div class="simg">
-        <img src="assets/images/sidewalk-snow.jpg" alt="Sidewalk Clearing" class="img-natural">
+        <img src="{{ asset('assets/images/sidewalk-snow.jpg') }}" alt="Sidewalk Clearing" class="img-natural">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M3 12h18M3 6l9-3 9 3M3 18l9 3 9-3"/></svg>
       </div>
       <div class="stext">
@@ -148,7 +136,7 @@
 
     <div id="planning" class="srow rev casc">
       <div class="simg">
-        <img src="assets/images/go-over.jpg" alt="Pre-Storm Planning" class="img-natural">
+        <img src="{{ asset('assets/images/go-over.jpg') }}" alt="Pre-Storm Planning" class="img-natural">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 2v15M8 17l4 5 4-5"/><path d="M6 9h12"/></svg>
       </div>
       <div class="stext">
@@ -196,12 +184,7 @@
 
 <div class="snow-contract-band">
   <div class="wrap">
-    <a href="index.html#contact" class="btn-snow-primary cta-snow-btn">Get a Snow Contract Quote</a>
+    <a href="{{ route('home') }}#contact" class="btn-snow-primary cta-snow-btn">Get a Snow Contract Quote</a>
   </div>
 </div>
-
-<div data-site-footer data-email="snow@BrightonLawn.com"></div>
-
-<script type="module" src="/src/js/pages/snow.js"></script>
-</body>
-</html>
+@endsection

@@ -1,24 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/png" href="/assets/images/brighton-icon.png">
-  <link rel="apple-touch-icon" href="/assets/images/brighton-icon.png">
-  <title>Commercial - Brighton Lawn &amp; Landscape</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" referrerpolicy="no-referrer">
-  <link rel="stylesheet" href="/src/main.css">
-</head>
-<body>
+@extends('layouts.site')
 
-<div id="site-nav"></div>
+@section('title', 'Commercial - Brighton Lawn & Landscape')
 
+@section('content')
 <section class="page-hero">
   <div class="ph-bg"></div>
   <video class="ph-video" autoplay muted loop playsinline>
-    <source src="assets/videos/commercial-hero.mp4" type="video/mp4">
+    <source src="{{ asset('assets/videos/commercial-hero.mp4') }}" type="video/mp4">
   </video>
   <div class="ph-ov"></div>
   <div class="ph-inner">
@@ -48,7 +36,7 @@
 
     <div id="lawn-maintenance" class="prow casc">
       <div class="pimg">
-        <img src="assets/images/commercial-maintenance.jpg" alt="Commercial Lawn Maintenance" class="img-natural">
+        <img src="{{ asset('assets/images/commercial-maintenance.jpg') }}" alt="Commercial Lawn Maintenance" class="img-natural">
         <i class="fa-solid fa-house"></i>
       </div>
       <div class="ptext">
@@ -63,7 +51,7 @@
           <li>Spring &amp; fall cleanups</li>
           <li>Seasonal color &amp; mulching</li>
         </ul>
-        <a href="index.html#contact" class="btn btn-primary mt-2">Get a Maintenance Quote</a>
+        <a href="{{ route('home') }}#contact" class="btn btn-primary mt-2">Get a Maintenance Quote</a>
       </div>
     </div>
 
@@ -81,11 +69,11 @@
             <li>Irrigation system installation</li>
           </ul>
           <div class="btn-group">
-            <a href="work.html?filter=commercial" class="btn btn-primary">View Our Work</a>
+            <a href="{{ route('work.index', ['filter' => 'commercial']) }}" class="btn btn-primary">View Our Work</a>
           </div>
         </div>
         <div class="pimg">
-          <img src="assets/images/install-header.jpg" alt="Commercial Installs" class="img-natural">
+          <img src="{{ asset('assets/images/install-header.jpg') }}" alt="Commercial Installs" class="img-natural">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 22V12M12 12C12 7 7 3 3 3s9 4 9 9zM12 12c0-5 5-9 9-9s-9 4-9 9z"/></svg>
         </div>
       </div>
@@ -94,7 +82,7 @@
     <div class="snow-card casc">
       <div class="snow-inner">
         <div class="snow-visual">
-          <img src="assets/images/snow-section.jpg" alt="Snow & Ice Management" class="img-natural">
+          <img src="{{ asset('assets/images/snow-section.jpg') }}" alt="Snow & Ice Management" class="img-natural">
         </div>
         <div class="snow-text">
           <span class="snow-badge">03 - Snow &amp; Ice Management</span>
@@ -118,7 +106,7 @@
               <div class="snow-stat-label">Stakes Installed</div>
             </div>
           </div>
-          <a href="snow.html" class="btn-snow">See the Full Snow Division &rarr;</a>
+          <a href="{{ route('snow') }}" class="btn-snow">See the Full Snow Division &rarr;</a>
         </div>
       </div>
     </div>
@@ -152,9 +140,13 @@
       <h2>Work We're <em>Proud Of</em></h2>
       <p>From HOA grounds to shopping center renovations - a look at what Brighton builds on the commercial side.</p>
     </div>
-    <div class="proj-grid" id="commGrid"></div>
+    <div class="proj-grid" id="commGrid">
+      @foreach ($commercialProjects as $project)
+        <x-project-card :project="$project" />
+      @endforeach
+    </div>
     <div class="text-center-mt">
-      <a href="work.html?filter=commercial" class="btn btn-primary">View All Commercial Work</a>
+      <a href="{{ route('work.index', ['filter' => 'commercial']) }}" class="btn btn-primary">View All Commercial Work</a>
     </div>
   </div>
 </section>
@@ -164,14 +156,9 @@
     <h2>Ready to <em>Get Started?</em></h2>
     <p>Tell us about your property and we'll put together a plan that fits your schedule and budget.</p>
     <div class="btn-group btn-group--center">
-      <a href="index.html#contact" class="btn btn-primary">Request a Quote</a>
-      <a href="snow.html" class="btn btn-outline">Snow &amp; Ice Division</a>
+      <a href="{{ route('home') }}#contact" class="btn btn-primary">Request a Quote</a>
+      <a href="{{ route('snow') }}" class="btn btn-outline">Snow &amp; Ice Division</a>
     </div>
   </div>
 </div>
-
-<div data-site-footer></div>
-
-<script type="module" src="/src/js/pages/commercial.js"></script>
-</body>
-</html>
+@endsection

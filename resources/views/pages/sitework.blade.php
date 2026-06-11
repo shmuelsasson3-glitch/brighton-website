@@ -1,24 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/png" href="/assets/images/brighton-icon.png">
-  <link rel="apple-touch-icon" href="/assets/images/brighton-icon.png">
-  <title>Site Work | Brighton Lawn &amp; Landscape</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" referrerpolicy="no-referrer">
-  <link rel="stylesheet" href="/src/main.css">
-</head>
-<body>
+@extends('layouts.site')
 
-<div id="site-nav"></div>
+@section('title', 'Site Work | Brighton Lawn & Landscape')
 
+@section('content')
 <section class="page-hero">
   <div class="ph-bg"></div>
   <video class="ph-video" autoplay muted loop playsinline>
-    <source src="assets/videos/sitework-hero.mp4" type="video/mp4">
+    <source src="{{ asset('assets/videos/sitework-hero.mp4') }}" type="video/mp4">
   </video>
   <div class="ph-ov"></div>
   <div class="ph-inner">
@@ -48,7 +36,7 @@
 
     <div id="asphalt" class="prow casc">
       <div class="pimg">
-        <img src="projects/sitework/asphalt.jpg" alt="Asphalt Paving">
+        <img src="{{ asset('projects/sitework/asphalt.jpg') }}" alt="Asphalt Paving">
       </div>
       <div class="ptext">
         <span class="pstep">01 - Asphalt</span>
@@ -67,7 +55,7 @@
 
     <div id="concrete" class="prow rev casc">
       <div class="pimg">
-        <img src="projects/sitework/concrete.jpg" alt="Concrete Work">
+        <img src="{{ asset('projects/sitework/concrete.jpg') }}" alt="Concrete Work">
       </div>
       <div class="ptext">
         <span class="pstep">02 - Concrete</span>
@@ -86,7 +74,7 @@
 
     <div id="drainage" class="prow casc">
       <div class="pimg">
-        <img src="projects/sitework/drainage.jpg" alt="Drainage">
+        <img src="{{ asset('projects/sitework/drainage.jpg') }}" alt="Drainage">
       </div>
       <div class="ptext">
         <span class="pstep">03 - Drainage</span>
@@ -105,7 +93,7 @@
 
     <div id="land-clearing" class="prow rev casc">
       <div class="pimg">
-        <img src="projects/sitework/landclearing.jpg" alt="Land Clearing">
+        <img src="{{ asset('projects/sitework/landclearing.jpg') }}" alt="Land Clearing">
       </div>
       <div class="ptext">
         <span class="pstep">04 - Land Clearing</span>
@@ -124,7 +112,7 @@
 
     <div id="tree-removal" class="prow casc">
       <div class="pimg">
-        <img src="projects/sitework/tree.jpg" alt="Tree Removal & Pruning">
+        <img src="{{ asset('projects/sitework/tree.jpg') }}" alt="Tree Removal & Pruning">
       </div>
       <div class="ptext">
         <span class="pstep">05 - Tree Work</span>
@@ -167,16 +155,5 @@
   </div>
 </div>
 
-<div class="cta-band">
-  <div class="wrap">
-    <h2>Got Something That <em>Needs Fixing?</em></h2>
-    <p>Big or small - tell us what's going on and we'll come take a look. No pressure, no overselling. Just an honest assessment and a fair price to get it done.</p>
-    <a href="index.html#contact" class="btn btn-primary">Request a Quote</a>
-  </div>
-</div>
-
-<div data-site-footer></div>
-
-<script type="module" src="/src/js/pages/sitework.js"></script>
-</body>
-</html>
+<x-cta-band heading="Got Something That <em>Needs Fixing?</em>" copy="Big or small - tell us what's going on and we'll come take a look. No pressure, no overselling. Just an honest assessment and a fair price to get it done." />
+@endsection
