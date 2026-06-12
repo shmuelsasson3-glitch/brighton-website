@@ -31,4 +31,23 @@ class AdminPanelTest extends TestCase
         $this->actingAs($admin)->get('/admin/contact-submissions')->assertOk();
         $this->actingAs($admin)->get('/admin/users')->assertOk();
     }
+
+    public function test_admin_panel_uses_spa_navigation_and_brighton_theme(): void
+    {
+        $admin = User::factory()->create();
+
+        $this->assertTrue(\Filament\Facades\Filament::getPanel('admin')->hasSpaMode());
+
+        $this->actingAs($admin)->get('/admin')
+            ->assertOk()
+            ->assertSee('bw-fade-up', false)
+            ->assertSee('View website');
+    }
+
+    public function test_login_page_is_branded(): void
+    {
+        $this->get('/admin/login')
+            ->assertOk()
+            ->assertSee('Admin Login');
+    }
 }

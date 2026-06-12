@@ -5,7 +5,8 @@
       "Bash(npm run *)",
       "PowerShell(Start-Process -FilePath C:\\\\xampp\\\\mysql\\\\bin\\\\mysqld.exe -WindowStyle Hidden; Start-Sleep -Seconds 4; & C:\\\\xampp\\\\mysql\\\\bin\\\\mysql.exe -u root -e \"SELECT VERSION\\(\\);\")",
       "PowerShell(git *)",
-      "PowerShell(Get-ChildItem public -Recurse | Select-Object -First 20 FullName; \\(Get-Content .scaffold\\\\composer.json | ConvertFrom-Json\\).require)"
+      "PowerShell(Get-ChildItem public -Recurse | Select-Object -First 20 FullName; \\(Get-Content .scaffold\\\\composer.json | ConvertFrom-Json\\).require)",
+      "PowerShell(php artisan optimize:clear; php -l app/Filament/Widgets/StatsOverview.php; php -l app/Filament/Widgets/VisitsChart.php; php -l app/Providers/Filament/AdminPanelProvider.php)"
     ]
   }
 }

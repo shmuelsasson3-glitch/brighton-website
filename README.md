@@ -28,6 +28,8 @@ DB_USERNAME=root
 DB_PASSWORD=
 ```
 
+Set `APP_URL` to the address you actually browse on (e.g. `http://localhost:8000` for `php artisan serve`) — admin image previews are built from it.
+
 Then:
 
 ```bash

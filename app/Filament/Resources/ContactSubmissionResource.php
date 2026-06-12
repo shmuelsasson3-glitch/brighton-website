@@ -18,7 +18,7 @@ class ContactSubmissionResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-envelope';
 
-    protected static ?string $navigationGroup = 'Inbox';
+    protected static ?int $navigationSort = 2;
 
     public static function getNavigationBadge(): ?string
     {
