@@ -320,6 +320,52 @@
         box-shadow: 0 10px 24px -8px rgba(82, 160, 60, 0.7);
     }
 
+    /* ---- Mobile topbar ---- */
+    @media (max-width: 1023px) {
+        /* Dark green topbar to match sidebar */
+        .fi-topbar > nav {
+            background: linear-gradient(135deg, #14301f, var(--bw-dark-green)) !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+            height: 3.75rem;
+        }
+
+        /* White logo on dark bg */
+        .fi-topbar .fi-brand img {
+            filter: brightness(0) invert(1);
+            height: 2rem;
+        }
+
+        /* Hide text brand name — logo is enough */
+        .fi-topbar .fi-brand span,
+        .fi-topbar .fi-brand-name {
+            display: none !important;
+        }
+
+        /* Hamburger and topbar icon buttons white */
+        .fi-topbar .fi-icon-btn,
+        .fi-topbar button[aria-label] {
+            color: rgba(255, 255, 255, 0.8) !important;
+        }
+
+        .fi-topbar .fi-icon-btn:hover,
+        .fi-topbar button[aria-label]:hover {
+            color: #fff !important;
+            background-color: rgba(255, 255, 255, 0.1) !important;
+        }
+
+        /* User avatar ring on dark bg */
+        .fi-topbar .fi-user-menu .fi-avatar {
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.25);
+        }
+
+        /* Page content doesn't get chopped */
+        .fi-body {
+            padding-top: 3.75rem;
+        }
+    }
+
     /* ---- Mobile polish ---- */
     @media (max-width: 768px) {
         .fi-page {
