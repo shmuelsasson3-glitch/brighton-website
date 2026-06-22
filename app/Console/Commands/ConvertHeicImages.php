@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Project;
 use App\Models\ProjectImage;
+use App\Support\HeicConverter;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 
@@ -15,8 +16,8 @@ class ConvertHeicImages extends Command
 
     public function handle(): int
     {
-        if (! extension_loaded('imagick')) {
-            $this->error('php-imagick extension is not loaded. Install it first: dnf install php-imagick libheif');
+        if (! HeicConverter::isAvailable()) {
+            $this->error('No HEIC conversion tool found. Install libheif-tools: sudo dnf install -y libheif-tools');
             return self::FAILURE;
         }
 
@@ -34,16 +35,8 @@ class ConvertHeicImages extends Command
         foreach (Project::all() as $project) {
             $result = $this->convertPath($project->cover_image, $dryRun);
 
-            if ($result === null) {
-                $skipped++;
-                continue;
-            }
-
-            if ($result === false) {
-                $failed++;
-                $this->warn("  FAIL  {$project->cover_image}");
-                continue;
-            }
+            if ($result === null) { $skipped++; continue; }
+            if ($result === false) { $failed++; $this->warn("  FAIL  {$project->cover_image}"); continue; }
 
             if (! $dryRun) {
                 $project->update(['cover_image' => $result]);
@@ -57,16 +50,8 @@ class ConvertHeicImages extends Command
         foreach (ProjectImage::all() as $image) {
             $result = $this->convertPath($image->path, $dryRun);
 
-            if ($result === null) {
-                $skipped++;
-                continue;
-            }
-
-            if ($result === false) {
-                $failed++;
-                $this->warn("  FAIL  {$image->path}");
-                continue;
-            }
+            if ($result === null) { $skipped++; continue; }
+            if ($result === false) { $failed++; $this->warn("  FAIL  {$image->path}"); continue; }
 
             if (! $dryRun) {
                 $image->update(['path' => $result]);
@@ -99,17 +84,19 @@ class ConvertHeicImages extends Command
         $newPath = pathinfo($path, PATHINFO_DIRNAME) . '/' . pathinfo($path, PATHINFO_FILENAME) . '.jpg';
 
         if (! $dryRun) {
-            try {
-                $imagick = new \Imagick(public_path($path));
-                $imagick->setImageFormat('jpeg');
-                $imagick->setImageCompressionQuality(85);
-                Storage::disk('site')->put($newPath, $imagick->getImageBlob());
-                $imagick->clear();
-                Storage::disk('site')->delete($path);
-            } catch (\Exception $e) {
-                $this->error("  ERROR  {$path}: {$e->getMessage()}");
+            $result = HeicConverter::storeConvertedFile(
+                public_path($path),
+                'site',
+                pathinfo($path, PATHINFO_DIRNAME),
+                pathinfo($path, PATHINFO_FILENAME),
+            );
+
+            if ($result === false) {
+                $this->error("  ERROR  {$path}: conversion failed");
                 return false;
             }
+
+            Storage::disk('site')->delete($path);
         }
 
         return $newPath;

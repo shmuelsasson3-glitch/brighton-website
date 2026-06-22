@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProjectResource\Pages;
 use App\Models\Project;
+use App\Support\HeicConverter;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -226,17 +227,13 @@ class ProjectResource extends Resource
     ): string {
         $isHeic = in_array(strtolower($file->getClientOriginalExtension()), ['heic', 'heif']);
 
-        if ($isHeic && extension_loaded('imagick')) {
-            $imagick = new \Imagick($file->getRealPath());
-            $imagick->setImageFormat('jpeg');
-            $imagick->setImageCompressionQuality(85);
+        if ($isHeic && HeicConverter::isAvailable()) {
+            $basename = pathinfo($file->hashName(), PATHINFO_FILENAME);
+            $converted = HeicConverter::storeConvertedFile($file->getRealPath(), $disk, $directory, $basename);
 
-            $filename = pathinfo($file->hashName(), PATHINFO_FILENAME) . '.jpg';
-            $path = $directory . '/' . $filename;
-            Storage::disk($disk)->put($path, $imagick->getImageBlob());
-            $imagick->clear();
-
-            return $path;
+            if ($converted !== false) {
+                return $converted;
+            }
         }
 
         return $file->storeAs($directory, $file->hashName(), $disk);
