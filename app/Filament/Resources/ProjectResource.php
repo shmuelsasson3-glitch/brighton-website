@@ -11,6 +11,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 class ProjectResource extends Resource
 {
@@ -35,10 +36,13 @@ class ProjectResource extends Resource
                             ->directory('project-images')
                             ->image()
                             ->imageEditor()
+                            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/heic', 'image/heif'])
                             ->required()
                             ->getUploadedFileUsing(fn (string $file): ?array => Storage::disk('site')->exists($file)
                                 ? ['name' => basename($file), 'size' => Storage::disk('site')->size($file), 'type' => 'image/jpeg', 'url' => asset($file)]
                                 : null)
+                            ->saveUploadedFileUsing(fn (TemporaryUploadedFile $file, string $storageDisk, string $storagePath): string
+                                => static::storeProjectImage($file, $storageDisk, $storagePath))
                             ->columnSpanFull(),
                         Forms\Components\Select::make('cover_image_position')
                             ->label('Image focal point')
@@ -137,10 +141,13 @@ class ProjectResource extends Resource
                                     ->directory('project-images')
                                     ->image()
                                     ->imageEditor()
+                                    ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/heic', 'image/heif'])
                                     ->required()
                                     ->getUploadedFileUsing(fn (string $file): ?array => Storage::disk('site')->exists($file)
                                         ? ['name' => basename($file), 'size' => Storage::disk('site')->size($file), 'type' => 'image/jpeg', 'url' => asset($file)]
-                                        : null),
+                                        : null)
+                                    ->saveUploadedFileUsing(fn (TemporaryUploadedFile $file, string $storageDisk, string $storagePath): string
+                                        => static::storeProjectImage($file, $storageDisk, $storagePath)),
                                 Forms\Components\TextInput::make('alt')
                                     ->label('Description (alt text)')
                                     ->maxLength(255),
@@ -210,5 +217,28 @@ class ProjectResource extends Resource
             'create' => Pages\CreateProject::route('/create'),
             'edit' => Pages\EditProject::route('/{record}/edit'),
         ];
+    }
+
+    private static function storeProjectImage(
+        TemporaryUploadedFile $file,
+        string $disk,
+        string $directory,
+    ): string {
+        $isHeic = in_array(strtolower($file->getClientOriginalExtension()), ['heic', 'heif']);
+
+        if ($isHeic && extension_loaded('imagick')) {
+            $imagick = new \Imagick($file->getRealPath());
+            $imagick->setImageFormat('jpeg');
+            $imagick->setImageCompressionQuality(85);
+
+            $filename = pathinfo($file->hashName(), PATHINFO_FILENAME) . '.jpg';
+            $path = $directory . '/' . $filename;
+            Storage::disk($disk)->put($path, $imagick->getImageBlob());
+            $imagick->clear();
+
+            return $path;
+        }
+
+        return $file->storeAs($directory, $file->hashName(), $disk);
     }
 }
