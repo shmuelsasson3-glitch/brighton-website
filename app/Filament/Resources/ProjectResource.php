@@ -167,9 +167,9 @@ class ProjectResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\ImageColumn::make('cover_image')
-                    ->label('Cover')
+                    ->label('')
                     ->state(fn (Project $record): string => $record->coverUrl())
-                    ->size(56)
+                    ->size(40)
                     ->square()
                     ->extraImgAttributes(['loading' => 'lazy']),
                 Tables\Columns\TextColumn::make('title')
@@ -179,13 +179,11 @@ class ProjectResource extends Resource
                 Tables\Columns\TextColumn::make('category')
                     ->badge()
                     ->color(fn (string $state): string => $state === 'commercial' ? 'info' : 'success'),
-                Tables\Columns\ImageColumn::make('gallery')
-                    ->state(fn (Project $record): array => $record->images->map->url()->all())
-                    ->circular()
-                    ->stacked()
-                    ->limit(3)
-                    ->limitedRemainingText()
-                    ->extraImgAttributes(['loading' => 'lazy']),
+                Tables\Columns\TextColumn::make('images_count')
+                    ->label('Photos')
+                    ->counts('images')
+                    ->badge()
+                    ->color('gray'),
                 Tables\Columns\ToggleColumn::make('is_published')
                     ->label('Published'),
             ])
@@ -211,11 +209,6 @@ class ProjectResource extends Resource
             ])
             ->reorderable('sort_order')
             ->defaultSort('sort_order');
-    }
-
-    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
-    {
-        return parent::getEloquentQuery()->with('images');
     }
 
     public static function getPages(): array
