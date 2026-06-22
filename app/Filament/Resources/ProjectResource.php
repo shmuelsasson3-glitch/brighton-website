@@ -36,6 +36,23 @@ class ProjectResource extends Resource
                             ->imageEditor()
                             ->required()
                             ->columnSpanFull(),
+                        Forms\Components\Select::make('cover_image_position')
+                            ->label('Image focal point')
+                            ->options([
+                                'top left'      => 'Top Left',
+                                'top center'    => 'Top Center',
+                                'top right'     => 'Top Right',
+                                'center left'   => 'Center Left',
+                                'center center' => 'Center (default)',
+                                'center right'  => 'Center Right',
+                                'bottom left'   => 'Bottom Left',
+                                'bottom center' => 'Bottom Center',
+                                'bottom right'  => 'Bottom Right',
+                            ])
+                            ->default('center center')
+                            ->native(false)
+                            ->helperText('Controls which part of the cover image stays visible in the hero header.')
+                            ->columnSpanFull(),
                         Forms\Components\TextInput::make('title')
                             ->required()
                             ->maxLength(255)

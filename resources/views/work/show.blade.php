@@ -4,7 +4,7 @@
 
 @section('content')
 <section class="proj-hero">
-  <img class="proj-hero-img" src="{{ $project->coverUrl() }}" alt="{{ $project->title }}">
+  <img class="proj-hero-img" src="{{ $project->coverUrl() }}" alt="{{ $project->title }}" style="object-position: {{ $project->coverImagePosition() }}">
   <div class="proj-hero-ov"></div>
   <div class="proj-hero-inner">
     <div class="wrap">

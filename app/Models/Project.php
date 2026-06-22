@@ -42,6 +42,11 @@ class Project extends Model
         return ImageUrl::resolve($this->cover_image);
     }
 
+    public function coverImagePosition(): string
+    {
+        return $this->cover_image_position ?? 'center center';
+    }
+
     public function hasOverview(): bool
     {
         return filled($this->overview_body);
