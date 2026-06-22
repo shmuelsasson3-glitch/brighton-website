@@ -51,4 +51,13 @@ class WorkPagesTest extends TestCase
 
         $this->get("/work/{$project->slug}")->assertNotFound();
     }
+
+    public function test_project_hero_applies_stored_focal_point(): void
+    {
+        $project = Project::factory()->create(['cover_image_position' => 'top right']);
+
+        $this->get("/work/{$project->slug}")
+            ->assertOk()
+            ->assertSee('object-position: top right', false);
+    }
 }

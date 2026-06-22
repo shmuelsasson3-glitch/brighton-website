@@ -42,4 +42,16 @@ class ProjectModelTest extends TestCase
         $this->assertFalse(Project::factory()->create()->hasOverview());
         $this->assertTrue(Project::factory()->withOverview()->create()->hasOverview());
     }
+
+    public function test_cover_image_position_defaults_to_center_center(): void
+    {
+        $this->assertSame('center center', Project::factory()->create()->coverImagePosition());
+    }
+
+    public function test_cover_image_position_returns_stored_value(): void
+    {
+        $project = Project::factory()->create(['cover_image_position' => 'top right']);
+
+        $this->assertSame('top right', $project->coverImagePosition());
+    }
 }
