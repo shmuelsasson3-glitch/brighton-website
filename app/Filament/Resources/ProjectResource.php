@@ -42,8 +42,8 @@ class ProjectResource extends Resource
                             ->getUploadedFileUsing(fn (string $file): ?array => Storage::disk('site')->exists($file)
                                 ? ['name' => basename($file), 'size' => Storage::disk('site')->size($file), 'type' => 'image/jpeg', 'url' => asset($file)]
                                 : null)
-                            ->saveUploadedFileUsing(fn (TemporaryUploadedFile $file, string $storageDisk, string $storagePath): string
-                                => static::storeProjectImage($file, $storageDisk, $storagePath))
+                            ->saveUploadedFileUsing(fn (TemporaryUploadedFile $file): string
+                                => static::storeProjectImage($file, 'site', 'project-images'))
                             ->columnSpanFull(),
                         Forms\Components\Select::make('cover_image_position')
                             ->label('Image focal point')
@@ -147,8 +147,8 @@ class ProjectResource extends Resource
                                     ->getUploadedFileUsing(fn (string $file): ?array => Storage::disk('site')->exists($file)
                                         ? ['name' => basename($file), 'size' => Storage::disk('site')->size($file), 'type' => 'image/jpeg', 'url' => asset($file)]
                                         : null)
-                                    ->saveUploadedFileUsing(fn (TemporaryUploadedFile $file, string $storageDisk, string $storagePath): string
-                                        => static::storeProjectImage($file, $storageDisk, $storagePath)),
+                                    ->saveUploadedFileUsing(fn (TemporaryUploadedFile $file): string
+                                        => static::storeProjectImage($file, 'site', 'project-images')),
                                 Forms\Components\TextInput::make('alt')
                                     ->label('Description (alt text)')
                                     ->maxLength(255),
