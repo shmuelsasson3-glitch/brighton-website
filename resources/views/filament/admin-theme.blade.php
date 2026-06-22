@@ -4,6 +4,7 @@
         --bw-mid-green: #2a5c3f;
         --bw-green: #52A03C;
         --bw-green-light: #6cbf52;
+        --bw-topbar-h: 3.75rem;
     }
 
     /* ---- Motion primitives ---- */
@@ -320,15 +321,28 @@
         box-shadow: 0 10px 24px -8px rgba(82, 160, 60, 0.7);
     }
 
-    /* ---- Mobile topbar ---- */
+    /* ============================================================
+       MOBILE / TABLET  ≤1023px — sidebar becomes overlay
+       ============================================================ */
     @media (max-width: 1023px) {
-        /* Dark green topbar to match sidebar */
+
+        /* --- Topbar: fixed to top, correct z-index --- */
+        .fi-topbar {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            z-index: 40 !important;
+            height: var(--bw-topbar-h) !important;
+        }
+
         .fi-topbar > nav {
             background: linear-gradient(135deg, #14301f, var(--bw-dark-green)) !important;
             backdrop-filter: none !important;
             -webkit-backdrop-filter: none !important;
             border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-            height: 3.75rem;
+            height: var(--bw-topbar-h) !important;
+            width: 100% !important;
         }
 
         /* White logo on dark bg */
@@ -337,13 +351,13 @@
             height: 2rem;
         }
 
-        /* Hide text brand name — logo is enough */
+        /* Hide text brand name */
         .fi-topbar .fi-brand span,
         .fi-topbar .fi-brand-name {
             display: none !important;
         }
 
-        /* Hamburger and topbar icon buttons white */
+        /* Hamburger / icon buttons white */
         .fi-topbar .fi-icon-btn,
         .fi-topbar button[aria-label] {
             color: rgba(255, 255, 255, 0.8) !important;
@@ -355,14 +369,57 @@
             background-color: rgba(255, 255, 255, 0.1) !important;
         }
 
-        /* User avatar ring on dark bg */
+        /* Avatar ring on dark bg */
         .fi-topbar .fi-user-menu .fi-avatar {
             box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.25);
         }
 
-        /* Page content doesn't get chopped */
-        .fi-body {
-            padding-top: 3.75rem;
+        /* --- Main content: offset for fixed topbar --- */
+        .fi-layout-main,
+        .fi-main,
+        body > .fi-body {
+            padding-top: var(--bw-topbar-h) !important;
+        }
+
+        /* Filament v3 wraps content in this on mobile */
+        .fi-layout > .fi-main {
+            padding-top: var(--bw-topbar-h) !important;
+            margin-top: 0 !important;
+        }
+
+        /* --- Sidebar: below topbar, correct z-index --- */
+        .fi-sidebar {
+            top: var(--bw-topbar-h) !important;
+            height: calc(100dvh - var(--bw-topbar-h)) !important;
+            z-index: 39 !important;
+        }
+
+        /* Sidebar overlay/backdrop */
+        .fi-sidebar-close-overlay,
+        [x-ref="sidebarOverlay"] {
+            z-index: 38 !important;
+            top: var(--bw-topbar-h) !important;
+        }
+
+        /* --- Modals: above topbar --- */
+        .fi-modal-window {
+            z-index: 50 !important;
+        }
+
+        /* Modal backdrop */
+        .fi-modal-close-overlay,
+        .fi-overlay {
+            z-index: 49 !important;
+        }
+
+        /* --- Notifications: above everything, below topbar top edge --- */
+        .fi-notifications,
+        [x-data*="notification"] > div {
+            position: fixed !important;
+            top: calc(var(--bw-topbar-h) + 0.5rem) !important;
+            right: 0.75rem !important;
+            z-index: 60 !important;
+            max-width: calc(100vw - 1.5rem) !important;
         }
     }
 
