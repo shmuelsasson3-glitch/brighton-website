@@ -9,6 +9,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ProjectResource extends Resource
@@ -35,6 +36,9 @@ class ProjectResource extends Resource
                             ->image()
                             ->imageEditor()
                             ->required()
+                            ->getUploadedFileUsing(fn (string $file): ?array => Storage::disk('site')->exists($file)
+                                ? ['name' => basename($file), 'size' => Storage::disk('site')->size($file), 'type' => 'image/jpeg', 'url' => asset($file)]
+                                : null)
                             ->columnSpanFull(),
                         Forms\Components\Select::make('cover_image_position')
                             ->label('Image focal point')
@@ -133,7 +137,10 @@ class ProjectResource extends Resource
                                     ->directory('project-images')
                                     ->image()
                                     ->imageEditor()
-                                    ->required(),
+                                    ->required()
+                                    ->getUploadedFileUsing(fn (string $file): ?array => Storage::disk('site')->exists($file)
+                                        ? ['name' => basename($file), 'size' => Storage::disk('site')->size($file), 'type' => 'image/jpeg', 'url' => asset($file)]
+                                        : null),
                                 Forms\Components\TextInput::make('alt')
                                     ->label('Description (alt text)')
                                     ->maxLength(255),
