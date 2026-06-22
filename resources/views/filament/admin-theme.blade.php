@@ -423,24 +423,119 @@
         }
     }
 
-    /* ---- Mobile polish ---- */
-    @media (max-width: 768px) {
+    /* ============================================================
+       PHONE  ≤640px — stack everything
+       ============================================================ */
+    @media (max-width: 640px) {
+
+        /* --- Page animations: shorter on slow devices --- */
         .fi-page {
-            animation-duration: 0.25s;
+            animation-duration: 0.15s;
         }
 
-        .fi-header {
-            gap: 0.5rem;
+        /* --- Page header: stack heading + actions vertically --- */
+        .fi-page-header {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            gap: 0.75rem !important;
+            padding: 1rem !important;
         }
 
+        .fi-page-header-heading {
+            font-size: 1.25rem !important;
+        }
+
+        .fi-page-header-actions {
+            width: 100% !important;
+            flex-wrap: wrap !important;
+            gap: 0.5rem !important;
+        }
+
+        /* --- Tables: horizontal scroll --- */
+        .fi-ta-ctn {
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch !important;
+        }
+
+        .fi-ta-table {
+            min-width: 600px;
+        }
+
+        /* --- Forms: single column --- */
+        .fi-fo-grid,
+        .fi-fo-layout-grid {
+            grid-template-columns: 1fr !important;
+        }
+
+        .fi-fo-field-wrp {
+            width: 100% !important;
+        }
+
+        /* --- Touch targets: min 44px per WCAG --- */
+        .fi-btn {
+            min-height: 44px !important;
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
+        }
+
+        .fi-icon-btn {
+            min-width: 44px !important;
+            min-height: 44px !important;
+        }
+
+        .fi-sidebar-item-button {
+            min-height: 44px !important;
+        }
+
+        /* --- Stat widgets: single column --- */
+        .fi-wi-stats-overview {
+            grid-template-columns: 1fr !important;
+        }
+
+        /* Disable hover lift on touch — no hover state on mobile */
         .fi-wi-stats-overview-stat:hover,
         .fi-wi-chart:hover {
-            transform: none;
+            transform: none !important;
+            box-shadow: none !important;
         }
 
+        /* --- Section / card padding: tighter on small screens --- */
+        .fi-section-content {
+            padding: 0.75rem !important;
+        }
+
+        .fi-section-header {
+            padding: 0.75rem !important;
+        }
+
+        /* --- Modal: full-screen minus topbar --- */
+        .fi-modal-window {
+            top: var(--bw-topbar-h) !important;
+            height: calc(100dvh - var(--bw-topbar-h)) !important;
+            max-height: calc(100dvh - var(--bw-topbar-h)) !important;
+            border-radius: 0 !important;
+            margin: 0 !important;
+            max-width: 100vw !important;
+            width: 100vw !important;
+        }
+
+        .fi-modal-content {
+            max-height: calc(100dvh - var(--bw-topbar-h) - 4rem) !important;
+            overflow-y: auto !important;
+        }
+
+        /* --- Login page: hide blobs on tiny screens --- */
         .fi-simple-layout::before,
         .fi-simple-layout::after {
             display: none;
+        }
+
+        /* --- Notifications: full width on phone --- */
+        .fi-notifications,
+        [x-data*="notification"] > div {
+            right: 0.5rem !important;
+            left: 0.5rem !important;
+            max-width: 100% !important;
         }
     }
 
