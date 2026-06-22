@@ -47,7 +47,13 @@ class HeicConverter
 
     private static function heifConvertBinary(): string
     {
-        return trim((string) shell_exec('which heif-convert 2>/dev/null'));
+        foreach (['/usr/local/bin/heif-dec', '/usr/local/bin/heif-convert', '/usr/bin/heif-dec', '/usr/bin/heif-convert'] as $bin) {
+            if (is_executable($bin)) {
+                return $bin;
+            }
+        }
+
+        return '';
     }
 
     private static function hasImagickWithHeic(): bool
