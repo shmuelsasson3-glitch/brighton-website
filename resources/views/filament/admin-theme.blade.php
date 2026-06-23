@@ -493,21 +493,8 @@
 
     /* ── Colour mode row ── */
     .bw-um-modes {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 0.5rem;
-        padding: 0.5rem 0.75rem;
+        padding: 0.5rem 0.375rem;
     }
-
-    .bw-um-modes-label {
-        font-size: 0.75rem;
-        font-weight: 500;
-        color: #6b7280;
-        white-space: nowrap;
-    }
-
-    .dark .bw-um-modes-label { color: #9ca3af; }
 
     .bw-um-modes-btns {
         display: flex;
@@ -515,6 +502,7 @@
         padding: 0.125rem;
         border-radius: 0.5rem;
         background: rgba(0, 0, 0, 0.05);
+        width: 100%;
     }
 
     .dark .bw-um-modes-btns { background: rgba(255, 255, 255, 0.07); }
@@ -522,8 +510,10 @@
     .bw-um-mode-btn {
         display: flex;
         align-items: center;
+        justify-content: center;
         gap: 0.25rem;
-        padding: 0.3rem 0.5rem;
+        flex: 1;
+        padding: 0.375rem 0.25rem;
         border: none;
         border-radius: 0.375rem;
         background: transparent;
