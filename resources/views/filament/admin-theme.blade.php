@@ -189,9 +189,9 @@
     }
 
     /* ---- Dropdowns (account menu, table actions) ---- */
+    /* No animation here — Filament uses Alpine x-transition on dropdowns;
+       adding our own animation conflicts and can leave the panel at opacity:0 */
     .fi-dropdown-panel {
-        animation: bw-pop 0.18s cubic-bezier(0.22, 1, 0.36, 1) both;
-        transform-origin: top right;
         border-radius: 0.875rem !important;
         box-shadow: 0 18px 45px -18px rgba(27, 61, 43, 0.45) !important;
     }
@@ -357,17 +357,22 @@
             display: none !important;
         }
 
-        /* Hamburger / icon buttons white */
-        .fi-topbar .fi-icon-btn,
-        .fi-topbar button[aria-label] {
+        /* Hamburger / icon buttons white — .fi-icon-btn only, NOT the user menu button */
+        .fi-topbar .fi-icon-btn {
             color: rgba(255, 255, 255, 0.8) !important;
         }
 
-        .fi-topbar .fi-icon-btn:hover,
-        .fi-topbar button[aria-label]:hover {
+        .fi-topbar .fi-icon-btn:hover {
             color: #fff !important;
             background-color: rgba(255, 255, 255, 0.1) !important;
             border-radius: 9999px !important;
+        }
+
+        /* User menu button: transparent, no hover box — avatar ring is the indicator */
+        .fi-topbar .fi-user-menu button,
+        .fi-topbar .fi-user-menu button:hover {
+            background-color: transparent !important;
+            color: inherit !important;
         }
 
         /* Avatar ring on dark bg */
@@ -416,22 +421,9 @@
             max-width: calc(100vw - 1.5rem) !important;
         }
 
-        /* Ensure dropdown panels inside topbar render above topbar stacking context */
-        .fi-topbar {
-            overflow: visible !important;
-        }
-
-        .fi-topbar .fi-dropdown-panel {
+        /* Dropdown panels are x-teleport'd to <body> — must target globally */
+        .fi-dropdown-panel {
             z-index: 50 !important;
-        }
-
-        /* Reset color inside topbar dropdowns — don't inherit white text on light bg */
-        .fi-topbar .fi-dropdown-panel,
-        .fi-topbar .fi-dropdown-panel button,
-        .fi-topbar .fi-dropdown-panel a,
-        .fi-topbar .fi-dropdown-list-item,
-        .fi-topbar .fi-dropdown-list-item-label {
-            color: unset !important;
         }
     }
 
@@ -560,7 +552,6 @@
         .fi-page,
         .fi-header,
         .fi-wi > div > *,
-        .fi-dropdown-panel,
         .fi-simple-main,
         .fi-simple-layout::before,
         .fi-simple-layout::after {
