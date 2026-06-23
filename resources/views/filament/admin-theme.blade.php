@@ -346,38 +346,107 @@
         align-items: center;
     }
 
-    /* ── Trigger ── */
+    /* ── Trigger chip ── */
     .bw-um-trigger {
         display: flex;
         align-items: center;
-        justify-content: center;
-        padding: 0;
-        border: none;
-        background: transparent;
-        cursor: pointer;
+        gap: 0.5rem;
+        padding: 0.25rem 0.625rem 0.25rem 0.25rem;
+        border: 1px solid rgba(255, 255, 255, 0.14);
         border-radius: 9999px;
+        background: rgba(255, 255, 255, 0.08);
+        cursor: pointer;
+        transition: background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .bw-um-trigger:hover {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: rgba(255, 255, 255, 0.28);
     }
 
     .bw-um-avatar {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 2.125rem;
-        height: 2.125rem;
+        width: 1.75rem;
+        height: 1.75rem;
         border-radius: 9999px;
-        background: linear-gradient(135deg, var(--bw-green), var(--bw-mid-green));
+        background: var(--bw-green);
         color: #fff;
-        font-size: 0.8125rem;
+        font-size: 0.75rem;
         font-weight: 700;
         letter-spacing: 0.025em;
-        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.22);
-        transition: box-shadow 0.18s ease, transform 0.18s ease;
+        flex-shrink: 0;
         user-select: none;
     }
 
-    .bw-um-trigger:hover .bw-um-avatar {
-        box-shadow: 0 0 0 2px rgba(82, 160, 60, 0.65);
-        transform: scale(1.06);
+    .bw-um-chip-name {
+        font-size: 0.8125rem;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.9);
+        letter-spacing: 0.01em;
+        white-space: nowrap;
+        max-width: 7rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .bw-um-chevron {
+        width: 0.875rem;
+        height: 0.875rem;
+        color: rgba(255, 255, 255, 0.55);
+        flex-shrink: 0;
+        transition: transform 0.15s ease;
+    }
+
+    .bw-um-chevron--open {
+        transform: rotate(180deg);
+    }
+
+    /* Desktop: topbar is frosted white — flip chip to dark-on-light */
+    @media (min-width: 1024px) {
+        .bw-um-trigger {
+            background: rgba(0, 0, 0, 0.05);
+            border-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .bw-um-trigger:hover {
+            background: rgba(0, 0, 0, 0.09);
+            border-color: rgba(0, 0, 0, 0.18);
+        }
+
+        .bw-um-chip-name {
+            color: #374151;
+        }
+
+        .bw-um-chevron {
+            color: rgba(0, 0, 0, 0.4);
+        }
+
+        /* Dark mode desktop: topbar goes dark, flip back to white */
+        .dark .bw-um-trigger {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.14);
+        }
+
+        .dark .bw-um-trigger:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.28);
+        }
+
+        .dark .bw-um-chip-name {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .dark .bw-um-chevron {
+            color: rgba(255, 255, 255, 0.55);
+        }
+    }
+
+    /* Small mobile: hide name, tighter chip */
+    @media (max-width: 480px) {
+        .bw-um-chip-name { display: none; }
+        .bw-um-trigger { padding: 0.25rem; }
     }
 
     /* ── Panel ── */
