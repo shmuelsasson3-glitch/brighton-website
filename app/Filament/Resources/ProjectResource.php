@@ -165,6 +165,7 @@ class ProjectResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->recordUrl(fn (Project $record): string => static::getUrl('edit', ['record' => $record]))
             ->columns([
                 Tables\Columns\ImageColumn::make('cover_image')
                     ->label('')
