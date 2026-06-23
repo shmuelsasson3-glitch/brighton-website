@@ -424,6 +424,15 @@
         .fi-topbar .fi-dropdown-panel {
             z-index: 50 !important;
         }
+
+        /* Reset color inside topbar dropdowns — don't inherit white text on light bg */
+        .fi-topbar .fi-dropdown-panel,
+        .fi-topbar .fi-dropdown-panel button,
+        .fi-topbar .fi-dropdown-panel a,
+        .fi-topbar .fi-dropdown-list-item,
+        .fi-topbar .fi-dropdown-list-item-label {
+            color: unset !important;
+        }
     }
 
     /* ============================================================
