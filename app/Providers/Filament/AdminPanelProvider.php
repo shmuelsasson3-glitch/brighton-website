@@ -37,6 +37,7 @@ class AdminPanelProvider extends PanelProvider
                 'gray' => Color::Slate,
             ])
             ->spa()
+            ->darkMode(false)
             ->sidebarCollapsibleOnDesktop()
             ->userMenuItems([
                 MenuItem::make()
@@ -57,7 +58,7 @@ class AdminPanelProvider extends PanelProvider
             )
             ->renderHook(
                 PanelsRenderHook::TOPBAR_END,
-                fn (): string => view('filament.mobile-color-mode')->render(),
+                fn (): string => view('filament.custom-user-menu')->render(),
             )
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')

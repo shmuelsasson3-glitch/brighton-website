@@ -1,3 +1,18 @@
+<script>
+    /* Apply stored colour mode before first paint — prevents flash */
+    (function () {
+        var m = localStorage.getItem('filamentColorScheme');
+        if (m === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else if (m === 'light') {
+            document.documentElement.classList.remove('dark');
+        } else {
+            if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.documentElement.classList.add('dark');
+            }
+        }
+    })();
+</script>
 <style>
     :root {
         --bw-dark-green: #1B3D2B;
@@ -209,18 +224,7 @@
         transform: translateX(2px);
     }
 
-    .fi-user-menu .fi-avatar {
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-        box-shadow: 0 0 0 2px rgba(82, 160, 60, 0.0);
-    }
-
-    .fi-user-menu button:hover .fi-avatar,
-    .fi-user-menu .fi-avatar:hover {
-        transform: scale(1.06);
-        box-shadow: 0 0 0 2px rgba(82, 160, 60, 0.55);
-    }
-
-    /* ---- Login & auth pages ---- */
+/* ---- Login & auth pages ---- */
     .fi-simple-layout {
         position: relative;
         isolation: isolate;
@@ -325,34 +329,226 @@
         box-shadow: 0 10px 24px -8px rgba(82, 160, 60, 0.7);
     }
 
-    /* ---- Mobile colour-mode toggle (custom topbar button) ---- */
-    .bw-color-toggle {
-        display: none; /* hidden on desktop — Filament's user menu handles it */
+    /* ---- Custom user menu ---- */
+
+    /* Hide Filament's built-in user menu — replaced by .bw-um */
+    .fi-user-menu { display: none !important; }
+
+    /* Ensure topbar never clips the panel (it extends below topbar height) */
+    .fi-topbar,
+    .fi-topbar > nav { overflow: visible !important; }
+
+    [x-cloak] { display: none !important; }
+
+    .bw-um {
+        position: relative;
+        display: flex;
+        align-items: center;
     }
 
-    .bw-color-toggle-btn {
+    /* ── Trigger ── */
+    .bw-um-trigger {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 2.25rem;
-        height: 2.25rem;
-        border-radius: 9999px;
+        padding: 0;
         border: none;
         background: transparent;
         cursor: pointer;
-        color: rgba(255, 255, 255, 0.8);
-        transition: background-color 0.15s ease, color 0.15s ease;
+        border-radius: 9999px;
     }
 
-    .bw-color-toggle-btn:hover {
-        background-color: rgba(255, 255, 255, 0.1);
+    .bw-um-avatar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.125rem;
+        height: 2.125rem;
+        border-radius: 9999px;
+        background: linear-gradient(135deg, var(--bw-green), var(--bw-mid-green));
         color: #fff;
+        font-size: 0.8125rem;
+        font-weight: 700;
+        letter-spacing: 0.025em;
+        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.22);
+        transition: box-shadow 0.18s ease, transform 0.18s ease;
+        user-select: none;
     }
 
-    .bw-color-toggle-btn svg {
-        width: 1.25rem;
-        height: 1.25rem;
-        display: block;
+    .bw-um-trigger:hover .bw-um-avatar {
+        box-shadow: 0 0 0 2px rgba(82, 160, 60, 0.65);
+        transform: scale(1.06);
+    }
+
+    /* ── Panel ── */
+    .bw-um-panel {
+        position: absolute;
+        top: calc(100% + 0.625rem);
+        right: 0;
+        z-index: 50;
+        min-width: 15rem;
+        border-radius: 0.875rem;
+        padding: 0.375rem;
+        background: #fff;
+        box-shadow:
+            0 0 0 1px rgba(0, 0, 0, 0.06),
+            0 16px 40px -10px rgba(27, 61, 43, 0.28);
+    }
+
+    .dark .bw-um-panel {
+        background: #1f2937;
+        box-shadow:
+            0 0 0 1px rgba(255, 255, 255, 0.08),
+            0 16px 40px -10px rgba(0, 0, 0, 0.55);
+    }
+
+    /* Panel enter/leave transitions */
+    .bw-um-enter         { transition: opacity 0.15s ease, transform 0.15s ease; }
+    .bw-um-enter-from    { opacity: 0; transform: scale(0.95) translateY(-6px); }
+    .bw-um-enter-to      { opacity: 1; transform: scale(1) translateY(0); }
+    .bw-um-leave         { transition: opacity 0.1s ease, transform 0.1s ease; }
+    .bw-um-leave-from    { opacity: 1; transform: scale(1) translateY(0); }
+    .bw-um-leave-to      { opacity: 0; transform: scale(0.95) translateY(-6px); }
+
+    /* ── Header ── */
+    .bw-um-header {
+        padding: 0.625rem 0.75rem 0.5rem;
+    }
+
+    .bw-um-name {
+        margin: 0;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #111827;
+        line-height: 1.4;
+    }
+
+    .dark .bw-um-name { color: #f9fafb; }
+
+    .bw-um-email {
+        margin: 0.125rem 0 0;
+        font-size: 0.75rem;
+        color: #6b7280;
+        line-height: 1.4;
+    }
+
+    .dark .bw-um-email { color: #9ca3af; }
+
+    /* ── Separator ── */
+    .bw-um-sep {
+        height: 1px;
+        margin: 0.25rem 0;
+        background: rgba(0, 0, 0, 0.06);
+    }
+
+    .dark .bw-um-sep { background: rgba(255, 255, 255, 0.07); }
+
+    /* ── Items (links + buttons) ── */
+    .bw-um-item {
+        display: flex;
+        align-items: center;
+        gap: 0.625rem;
+        width: 100%;
+        padding: 0.5rem 0.75rem;
+        border: none;
+        border-radius: 0.5rem;
+        background: transparent;
+        color: #374151;
+        font-size: 0.875rem;
+        font-weight: 500;
+        text-decoration: none;
+        cursor: pointer;
+        text-align: left;
+        transition: background-color 0.12s ease, color 0.12s ease;
+    }
+
+    .dark .bw-um-item { color: #d1d5db; }
+
+    .bw-um-item:hover {
+        background: rgba(0, 0, 0, 0.05);
+        color: #111827;
+    }
+
+    .dark .bw-um-item:hover {
+        background: rgba(255, 255, 255, 0.07);
+        color: #f9fafb;
+    }
+
+    .bw-um-item svg { width: 1rem; height: 1rem; flex-shrink: 0; opacity: 0.6; }
+
+    .bw-um-ext { margin-left: auto; width: 0.75rem !important; height: 0.75rem !important; }
+
+    .bw-um-item--danger { color: #dc2626; }
+    .dark .bw-um-item--danger { color: #f87171; }
+
+    .bw-um-item--danger:hover {
+        background: rgba(220, 38, 38, 0.06);
+        color: #b91c1c;
+    }
+
+    .dark .bw-um-item--danger:hover {
+        background: rgba(248, 113, 113, 0.1);
+        color: #fca5a5;
+    }
+
+    /* ── Colour mode row ── */
+    .bw-um-modes {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+        padding: 0.5rem 0.75rem;
+    }
+
+    .bw-um-modes-label {
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: #6b7280;
+        white-space: nowrap;
+    }
+
+    .dark .bw-um-modes-label { color: #9ca3af; }
+
+    .bw-um-modes-btns {
+        display: flex;
+        gap: 0.125rem;
+        padding: 0.125rem;
+        border-radius: 0.5rem;
+        background: rgba(0, 0, 0, 0.05);
+    }
+
+    .dark .bw-um-modes-btns { background: rgba(255, 255, 255, 0.07); }
+
+    .bw-um-mode-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        padding: 0.3rem 0.5rem;
+        border: none;
+        border-radius: 0.375rem;
+        background: transparent;
+        color: #9ca3af;
+        font-size: 0.6875rem;
+        font-weight: 500;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: background-color 0.12s ease, color 0.12s ease, box-shadow 0.12s ease;
+    }
+
+    .bw-um-mode-btn svg { width: 0.875rem; height: 0.875rem; }
+
+    .bw-um-mode-btn:hover { color: #374151; }
+    .dark .bw-um-mode-btn:hover { color: #e5e7eb; }
+
+    .bw-um-mode-btn--on {
+        background: #fff;
+        color: #111827;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+    }
+
+    .dark .bw-um-mode-btn--on {
+        background: rgba(255, 255, 255, 0.12);
+        color: #f9fafb;
     }
 
     /* ============================================================
@@ -391,7 +587,7 @@
             display: none !important;
         }
 
-        /* Hamburger / icon buttons white — .fi-icon-btn only, NOT the user menu button */
+        /* Hamburger / icon buttons white */
         .fi-topbar .fi-icon-btn {
             color: rgba(255, 255, 255, 0.8) !important;
         }
@@ -400,18 +596,6 @@
             color: #fff !important;
             background-color: rgba(255, 255, 255, 0.1) !important;
             border-radius: 9999px !important;
-        }
-
-        /* User menu button: transparent, no hover box — avatar ring is the indicator */
-        .fi-topbar .fi-user-menu button,
-        .fi-topbar .fi-user-menu button:hover {
-            background-color: transparent !important;
-            color: inherit !important;
-        }
-
-        /* Avatar ring on dark bg */
-        .fi-topbar .fi-user-menu .fi-avatar {
-            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.25);
         }
 
         /* --- Main content: offset for fixed topbar --- */
@@ -460,11 +644,6 @@
             z-index: 50 !important;
         }
 
-        /* Show custom colour-mode toggle on mobile */
-        .bw-color-toggle {
-            display: flex;
-            align-items: center;
-        }
     }
 
     /* ============================================================
