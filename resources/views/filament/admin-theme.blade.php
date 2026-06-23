@@ -189,11 +189,15 @@
     }
 
     /* ---- Dropdowns (account menu, table actions) ---- */
-    /* No animation here — Filament uses Alpine x-transition on dropdowns;
-       adding our own animation conflicts and can leave the panel at opacity:0 */
+    /* No animation — Filament uses Alpine x-transition; ours conflicts and can leave panel at opacity:0 */
     .fi-dropdown-panel {
         border-radius: 0.875rem !important;
-        box-shadow: 0 18px 45px -18px rgba(27, 61, 43, 0.45) !important;
+        /* First shadow replicates Filament's ring-1 (also box-shadow based) that !important would erase */
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 18px 45px -18px rgba(27, 61, 43, 0.45) !important;
+    }
+
+    .dark .fi-dropdown-panel {
+        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 18px 45px -18px rgba(27, 61, 43, 0.6) !important;
     }
 
     .fi-dropdown-list-item {
@@ -321,6 +325,36 @@
         box-shadow: 0 10px 24px -8px rgba(82, 160, 60, 0.7);
     }
 
+    /* ---- Mobile colour-mode toggle (custom topbar button) ---- */
+    .bw-color-toggle {
+        display: none; /* hidden on desktop — Filament's user menu handles it */
+    }
+
+    .bw-color-toggle-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.25rem;
+        height: 2.25rem;
+        border-radius: 9999px;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        color: rgba(255, 255, 255, 0.8);
+        transition: background-color 0.15s ease, color 0.15s ease;
+    }
+
+    .bw-color-toggle-btn:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: #fff;
+    }
+
+    .bw-color-toggle-btn svg {
+        width: 1.25rem;
+        height: 1.25rem;
+        display: block;
+    }
+
     /* ============================================================
        MOBILE / TABLET  ≤1023px — sidebar becomes overlay
        ============================================================ */
@@ -424,6 +458,12 @@
         /* Dropdown panels are x-teleport'd to <body> — must target globally */
         .fi-dropdown-panel {
             z-index: 50 !important;
+        }
+
+        /* Show custom colour-mode toggle on mobile */
+        .bw-color-toggle {
+            display: flex;
+            align-items: center;
         }
     }
 
