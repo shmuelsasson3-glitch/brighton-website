@@ -367,6 +367,7 @@
         .fi-topbar button[aria-label]:hover {
             color: #fff !important;
             background-color: rgba(255, 255, 255, 0.1) !important;
+            border-radius: 9999px !important;
         }
 
         /* Avatar ring on dark bg */
@@ -375,14 +376,8 @@
         }
 
         /* --- Main content: offset for fixed topbar --- */
-        .fi-layout-main,
-        .fi-main,
-        body > .fi-body {
-            padding-top: var(--bw-topbar-h) !important;
-        }
-
-        /* Filament v3 wraps content in this on mobile */
-        .fi-layout > .fi-main {
+        .fi-layout > .fi-main,
+        .fi-main {
             padding-top: var(--bw-topbar-h) !important;
             margin-top: 0 !important;
         }
@@ -390,13 +385,13 @@
         /* --- Sidebar: below topbar, correct z-index --- */
         .fi-sidebar {
             top: var(--bw-topbar-h) !important;
+            height: calc(100vh - var(--bw-topbar-h)) !important;  /* fallback */
             height: calc(100dvh - var(--bw-topbar-h)) !important;
             z-index: 39 !important;
         }
 
         /* Sidebar overlay/backdrop */
-        .fi-sidebar-close-overlay,
-        [x-ref="sidebarOverlay"] {
+        .fi-sidebar-close-overlay {
             z-index: 38 !important;
             top: var(--bw-topbar-h) !important;
         }
@@ -413,13 +408,21 @@
         }
 
         /* --- Notifications: above everything, below topbar top edge --- */
-        .fi-notifications,
-        [x-data*="notification"] > div {
+        .fi-notifications {
             position: fixed !important;
             top: calc(var(--bw-topbar-h) + 0.5rem) !important;
             right: 0.75rem !important;
             z-index: 60 !important;
             max-width: calc(100vw - 1.5rem) !important;
+        }
+
+        /* Ensure dropdown panels inside topbar render above topbar stacking context */
+        .fi-topbar {
+            overflow: visible !important;
+        }
+
+        .fi-topbar .fi-dropdown-panel {
+            z-index: 50 !important;
         }
     }
 
@@ -510,8 +513,12 @@
 
         /* --- Modal: full-screen minus topbar --- */
         .fi-modal-window {
+            position: fixed !important;
             top: var(--bw-topbar-h) !important;
+            left: 0 !important;
+            height: calc(100vh - var(--bw-topbar-h)) !important;  /* fallback */
             height: calc(100dvh - var(--bw-topbar-h)) !important;
+            max-height: calc(100vh - var(--bw-topbar-h)) !important;  /* fallback */
             max-height: calc(100dvh - var(--bw-topbar-h)) !important;
             border-radius: 0 !important;
             margin: 0 !important;
@@ -520,6 +527,7 @@
         }
 
         .fi-modal-content {
+            max-height: calc(100vh - var(--bw-topbar-h) - 4rem) !important;  /* fallback */
             max-height: calc(100dvh - var(--bw-topbar-h) - 4rem) !important;
             overflow-y: auto !important;
         }
@@ -531,8 +539,7 @@
         }
 
         /* --- Notifications: full width on phone --- */
-        .fi-notifications,
-        [x-data*="notification"] > div {
+        .fi-notifications {
             right: 0.5rem !important;
             left: 0.5rem !important;
             max-width: 100% !important;
