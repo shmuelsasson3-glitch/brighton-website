@@ -154,6 +154,11 @@
           <small>We'll be in touch within one business day.</small>
         </div>
         @if (!session('contact-success'))
+          @php
+            $ca = rand(2, 9); $cb = rand(1, $ca - 1);
+            session(['captcha_answer' => $ca - $cb]);
+            $captchaQ = "What is {$ca} − {$cb}?";
+          @endphp
           <form class="form" id="quoteForm" method="POST" action="{{ route('contact.store') }}" autocomplete="off">
             @csrf
             <input type="hidden" name="_fl" id="_fl">
@@ -182,6 +187,7 @@
               </select>
             </div>
             <div class="field"><label>Project Details</label><textarea name="details" placeholder="Tell us about your property, scope, and timeline.">{{ old('details') }}</textarea></div>
+            <div class="field"><label>{{ $captchaQ }}</label><input name="challenge" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="Your answer" autocomplete="off" value="{{ old('challenge') }}" required></div>
             <div class="form-error{{ $errors->any() ? ' active' : '' }}" id="formError">{{ $errors->first() }}</div>
             <button type="submit" class="btn btn-primary">Submit Request</button>
           </form>

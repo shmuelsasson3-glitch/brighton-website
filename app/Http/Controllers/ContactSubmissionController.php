@@ -39,7 +39,7 @@ class ContactSubmissionController extends Controller
             return $fakeSuccess;
         }
 
-        $submission = ContactSubmission::create($request->validated());
+        $submission = ContactSubmission::create($request->safe()->except(['challenge']));
 
         if ($recipient = config('mail.contact_to')) {
             rescue(fn () => Mail::to($recipient)->send(new ContactSubmissionReceived($submission)));
