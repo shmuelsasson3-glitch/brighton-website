@@ -204,10 +204,10 @@
     (function () {
       var challengeField = document.getElementById('challengeField');
       if (challengeField) {
-        var challengeInputs = document.querySelectorAll('#quoteForm input:not([name=challenge]):not([name=_token]):not([name=_fl]):not([name=website]), #quoteForm select, #quoteForm textarea');
+        var challengeInputs = document.querySelectorAll('#quoteForm input:not([type=radio]):not([type=hidden]):not([name=challenge]), #quoteForm select, #quoteForm textarea');
         function checkAnyFilled() {
           var filled = Array.from(challengeInputs).some(function (el) {
-            return el.type === 'radio' ? el.checked : el.value.trim() !== '';
+            return el.value.trim() !== '';
           });
           challengeField.style.display = filled ? '' : 'none';
           challengeField.querySelector('input').required = filled;
