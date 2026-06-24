@@ -182,7 +182,7 @@
               </select>
             </div>
             <div class="field"><label>Project Details</label><textarea name="details" placeholder="Tell us about your property, scope, and timeline.">{{ old('details') }}</textarea></div>
-            <div class="form-error" id="formError"{{ $errors->isEmpty() ? ' style="display:none"' : '' }}>{{ $errors->first() }}</div>
+            <div class="form-error{{ $errors->any() ? ' active' : '' }}" id="formError">{{ $errors->first() }}</div>
             <button type="submit" class="btn btn-primary">Submit Request</button>
           </form>
         @endif
@@ -196,6 +196,17 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
     (function () {
+      var phoneInput = document.querySelector('#quoteForm input[name=phone]');
+      if (phoneInput) {
+        phoneInput.addEventListener('input', function (e) {
+          var digits = e.target.value.replace(/\D/g, '').slice(0, 10);
+          var fmt = '';
+          if (digits.length > 0) fmt = '(' + digits.slice(0, 3);
+          if (digits.length >= 4) fmt += ') ' + digits.slice(3, 6);
+          if (digits.length >= 7) fmt += '-' + digits.slice(6, 10);
+          e.target.value = fmt;
+        });
+      }
       var form = document.getElementById('quoteForm');
       if (!form) return;
       var fl = document.getElementById('_fl');
@@ -207,7 +218,7 @@
         var successEl = document.getElementById('formSuccess');
         btn.disabled = true;
         btn.textContent = 'Sending…';
-        errorEl.style.display = 'none';
+        errorEl.classList.remove('active');
         try {
           var res = await fetch(form.action, {
             method: 'POST',
@@ -223,13 +234,13 @@
               ? Object.values(data.errors)[0][0]
               : (data.message || 'Something went wrong. Please try again.');
             errorEl.textContent = msg;
-            errorEl.style.display = '';
+            errorEl.classList.add('active');
             btn.disabled = false;
             btn.textContent = 'Submit Request';
           }
         } catch (_) {
           errorEl.textContent = 'Network error. Please try again.';
-          errorEl.style.display = '';
+          errorEl.classList.add('active');
           btn.disabled = false;
           btn.textContent = 'Submit Request';
         }
