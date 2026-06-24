@@ -187,7 +187,7 @@
               </select>
             </div>
             <div class="field"><label>Project Details</label><textarea name="details" placeholder="Tell us about your property, scope, and timeline.">{{ old('details') }}</textarea></div>
-            <div class="field"><label>{{ $captchaQ }}</label><input name="challenge" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="Your answer" autocomplete="off" value="{{ old('challenge') }}" required></div>
+            <div class="field" id="challengeField" style="display:none"><label>{{ $captchaQ }}</label><input name="challenge" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="Your answer" autocomplete="off" value="{{ old('challenge') }}"></div>
             <div class="form-error{{ $errors->any() ? ' active' : '' }}" id="formError">{{ $errors->first() }}</div>
             <button type="submit" class="btn btn-primary">Submit Request</button>
           </form>
@@ -202,6 +202,22 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
     (function () {
+      var challengeField = document.getElementById('challengeField');
+      if (challengeField) {
+        var challengeInputs = document.querySelectorAll('#quoteForm input:not([name=challenge]):not([name=_token]):not([name=_fl]):not([name=website]), #quoteForm select, #quoteForm textarea');
+        function checkAnyFilled() {
+          var filled = Array.from(challengeInputs).some(function (el) {
+            return el.type === 'radio' ? el.checked : el.value.trim() !== '';
+          });
+          challengeField.style.display = filled ? '' : 'none';
+          challengeField.querySelector('input').required = filled;
+        }
+        challengeInputs.forEach(function (el) {
+          el.addEventListener('input', checkAnyFilled);
+          el.addEventListener('change', checkAnyFilled);
+        });
+        checkAnyFilled();
+      }
       var phoneInput = document.querySelector('#quoteForm input[name=phone]');
       if (phoneInput) {
         phoneInput.addEventListener('input', function (e) {
