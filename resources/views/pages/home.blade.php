@@ -154,8 +154,9 @@
           <small>We'll be in touch within one business day.</small>
         </div>
         @if (!session('contact-success'))
-          <form class="form" id="quoteForm" method="POST" action="{{ route('contact.store') }}">
+          <form class="form" id="quoteForm" method="POST" action="{{ route('contact.store') }}" autocomplete="off">
             @csrf
+            <input type="hidden" name="_fl" id="_fl">
             <div style="display:none" aria-hidden="true">
               <input type="text" name="website" tabindex="-1" autocomplete="off">
             </div>
@@ -197,6 +198,8 @@
     (function () {
       var form = document.getElementById('quoteForm');
       if (!form) return;
+      var fl = document.getElementById('_fl');
+      if (fl) fl.value = Date.now();
       form.addEventListener('submit', async function (e) {
         e.preventDefault();
         var btn = form.querySelector('[type=submit]');
