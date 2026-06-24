@@ -149,14 +149,16 @@
       <div class="form-card reveal">
         <h3>Get My Estimate</h3>
         <p>Typical response within one business day.</p>
-        @if (session('contact-success'))
-          <div class="form-success active">
-            Thank you. Your request has been received.
-            <small>We'll be in touch within one business day.</small>
-          </div>
-        @else
+        <div class="form-success{{ session('contact-success') ? ' active' : '' }}" id="formSuccess">
+          Thank you. Your request has been received.
+          <small>We'll be in touch within one business day.</small>
+        </div>
+        @if (!session('contact-success'))
           <form class="form" id="quoteForm" method="POST" action="{{ route('contact.store') }}">
             @csrf
+            <div style="display:none" aria-hidden="true">
+              <input type="text" name="website" tabindex="-1" autocomplete="off">
+            </div>
             <div class="row2">
               <div class="field"><label>Name</label><input name="name" type="text" required placeholder="Full name" value="{{ old('name') }}"></div>
               <div class="field"><label>Phone</label><input name="phone" type="tel" required placeholder="(000) 000-0000" value="{{ old('phone') }}"></div>
@@ -179,9 +181,7 @@
               </select>
             </div>
             <div class="field"><label>Project Details</label><textarea name="details" placeholder="Tell us about your property, scope, and timeline.">{{ old('details') }}</textarea></div>
-            @if ($errors->any())
-              <div class="form-error">{{ $errors->first() }}</div>
-            @endif
+            <div class="form-error" id="formError"{{ $errors->isEmpty() ? ' style="display:none"' : '' }}>{{ $errors->first() }}</div>
             <button type="submit" class="btn btn-primary">Submit Request</button>
           </form>
         @endif
@@ -193,4 +193,44 @@
 
 @push('scripts')
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    (function () {
+      var form = document.getElementById('quoteForm');
+      if (!form) return;
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        var btn = form.querySelector('[type=submit]');
+        var errorEl = document.getElementById('formError');
+        var successEl = document.getElementById('formSuccess');
+        btn.disabled = true;
+        btn.textContent = 'Sending…';
+        errorEl.style.display = 'none';
+        try {
+          var res = await fetch(form.action, {
+            method: 'POST',
+            headers: { 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+            body: new FormData(form),
+          });
+          var data = await res.json();
+          if (res.ok) {
+            form.style.display = 'none';
+            successEl.classList.add('active');
+          } else {
+            var msg = data.errors
+              ? Object.values(data.errors)[0][0]
+              : (data.message || 'Something went wrong. Please try again.');
+            errorEl.textContent = msg;
+            errorEl.style.display = '';
+            btn.disabled = false;
+            btn.textContent = 'Submit Request';
+          }
+        } catch (_) {
+          errorEl.textContent = 'Network error. Please try again.';
+          errorEl.style.display = '';
+          btn.disabled = false;
+          btn.textContent = 'Submit Request';
+        }
+      });
+    })();
+  </script>
 @endpush
