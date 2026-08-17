@@ -5,6 +5,10 @@
   min-height: 100vh;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 .admin-center {
   min-height: 100vh;
   display: flex;

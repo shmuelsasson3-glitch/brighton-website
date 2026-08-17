@@ -5,7 +5,7 @@ export function initNav(options = {}) {
   const logo = isSnow ? `${ASSET_BASE_URL}/assets/images/snow-logo-crop.png` : `${ASSET_BASE_URL}/assets/images/logo.png`;
   const logoAlt = isSnow ? 'Brighton Snow Division' : 'Brighton Lawn & Landscape';
   const ctaText = isSnow ? 'Get a Snow Contract' : 'Get a Quote';
-  const ctaHref = 'index.html#contact';
+  const ctaHref = '/index.html#contact';
   const closeIcon = `<i class="fa-solid fa-xmark"></i>`;
 
   const navContainer = document.getElementById('site-nav');
@@ -14,13 +14,13 @@ export function initNav(options = {}) {
   navContainer.innerHTML = `
 <header id="header">
   <div class="header-inner">
-    <a href="index.html" class="brand"><img src="${logo}" alt="${logoAlt}"></a>
+    <a href="/index.html" class="brand"><img src="${logo}" alt="${logoAlt}"></a>
     <nav class="nav">
-      <a href="residential.html">Residential</a>
-      <a href="commercial.html">Commercial</a>
-      <a href="sitework.html">Site Work</a>
-      <a href="snow.html">Snow &amp; Ice</a>
-      <a href="index.html#about">About</a>
+      <a href="/residential.html">Residential</a>
+      <a href="/commercial.html">Commercial</a>
+      <a href="/sitework.html">Site Work</a>
+      <a href="/snow.html">Snow &amp; Ice</a>
+      <a href="/index.html#about">About</a>
       <a href="${ctaHref}" class="nav-btn">${ctaText}</a>
     </nav>
     <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
@@ -28,11 +28,11 @@ export function initNav(options = {}) {
 </header>
 <div class="mobile-nav" id="mobileNav">
   <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close menu">${closeIcon}</button>
-  <a href="residential.html">Residential</a>
-  <a href="commercial.html">Commercial</a>
-  <a href="sitework.html">Site Work</a>
-  <a href="snow.html">Snow &amp; Ice</a>
-  <a href="index.html#about">About</a>
+  <a href="/residential.html">Residential</a>
+  <a href="/commercial.html">Commercial</a>
+  <a href="/sitework.html">Site Work</a>
+  <a href="/snow.html">Snow &amp; Ice</a>
+  <a href="/index.html#about">About</a>
   <a href="${ctaHref}" class="nav-btn">${ctaText}</a>
 </div>`;
 
