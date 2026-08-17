@@ -79,13 +79,18 @@ loginForm.addEventListener('submit', async (e) => {
   loginError.hidden = true;
   const email = document.getElementById('loginEmail').value;
   const password = document.getElementById('loginPassword').value;
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
-  if (error) {
-    loginError.textContent = error.message;
+  try {
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) {
+      loginError.textContent = error.message;
+      loginError.hidden = false;
+      return;
+    }
+    refreshAuthView();
+  } catch (err) {
+    loginError.textContent = `Login request failed: ${err.message}. If you have an ad blocker or privacy extension enabled, try disabling it for this site.`;
     loginError.hidden = false;
-    return;
   }
-  refreshAuthView();
 });
 
 logoutBtn.addEventListener('click', async () => {
