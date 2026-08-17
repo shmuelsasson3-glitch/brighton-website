@@ -32,6 +32,10 @@
 }
 .form-success.active { display: block; }
 .form-success small { display:block; margin-top:10px; font-family:var(--font-body); font-size:14px; color:var(--muted); }
+.form-error {
+  display:none; color:#c0524a; font-size:13.5px; margin-top:-6px;
+}
+.form-error.active { display:block; }
 
 @media (max-width: 1080px) {
   .form-card { padding:30px 22px; }
