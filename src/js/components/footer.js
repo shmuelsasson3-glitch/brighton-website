@@ -11,11 +11,11 @@ export function initFooter() {
       </div>
       <div class="foot-col">
         <h5>Services</h5>
-        <a href="/residential.html">Residential Construction</a>
-        <a href="/commercial.html">Commercial Maintenance</a>
-        <a href="/sitework.html">Site Work</a>
-        <a href="/snow.html">Snow &amp; Ice</a>
-        <a href="/index.html#about">About</a>
+        <a href="/residential">Residential Construction</a>
+        <a href="/commercial">Commercial Maintenance</a>
+        <a href="/sitework">Site Work</a>
+        <a href="/snow">Snow &amp; Ice</a>
+        <a href="/#about">About</a>
       </div>
       <div class="foot-col">
         <h5>Service Area</h5>
