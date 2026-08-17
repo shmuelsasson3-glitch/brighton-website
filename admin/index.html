@@ -29,10 +29,35 @@
 <div id="appView" hidden>
   <div class="admin-topbar">
     <h1>Brighton Admin — Projects</h1>
-    <button class="admin-btn admin-btn-ghost admin-btn-sm" id="logoutBtn">Log Out</button>
+    <div style="display:flex; gap:8px;">
+      <button class="admin-btn admin-btn-ghost admin-btn-sm" id="changePasswordBtn">Change Password</button>
+      <button class="admin-btn admin-btn-ghost admin-btn-sm" id="logoutBtn">Log Out</button>
+    </div>
   </div>
 
   <div class="admin-shell">
+    <div id="passwordView" class="admin-editor" hidden>
+      <form id="passwordForm">
+        <div class="admin-section">
+          <h3>Change Password</h3>
+          <div class="admin-field">
+            <label for="newPassword">New password</label>
+            <input id="newPassword" type="password" required minlength="8" autocomplete="new-password">
+          </div>
+          <div class="admin-field">
+            <label for="confirmPassword">Confirm new password</label>
+            <input id="confirmPassword" type="password" required minlength="8" autocomplete="new-password">
+          </div>
+        </div>
+        <div style="display:flex; gap:10px;">
+          <button type="submit" class="admin-btn admin-btn-primary">Update Password</button>
+          <button type="button" class="admin-btn admin-btn-ghost" id="cancelPasswordBtn">Cancel</button>
+        </div>
+        <div class="admin-error" id="passwordError" hidden></div>
+        <div class="admin-help" id="passwordSuccess" hidden style="margin-top:10px; color:#2f6d3f;">Password updated.</div>
+      </form>
+    </div>
+
     <div id="listView">
       <div class="admin-list-head">
         <span></span>

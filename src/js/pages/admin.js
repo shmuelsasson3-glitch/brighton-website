@@ -8,6 +8,12 @@ const logoutBtn = document.getElementById('logoutBtn');
 
 const listView = document.getElementById('listView');
 const editorView = document.getElementById('editorView');
+const passwordView = document.getElementById('passwordView');
+const changePasswordBtn = document.getElementById('changePasswordBtn');
+const cancelPasswordBtn = document.getElementById('cancelPasswordBtn');
+const passwordForm = document.getElementById('passwordForm');
+const passwordError = document.getElementById('passwordError');
+const passwordSuccess = document.getElementById('passwordSuccess');
 const projectRows = document.getElementById('projectRows');
 const newProjectBtn = document.getElementById('newProjectBtn');
 const cancelEditBtn = document.getElementById('cancelEditBtn');
@@ -96,6 +102,51 @@ loginForm.addEventListener('submit', async (e) => {
 logoutBtn.addEventListener('click', async () => {
   await supabase.auth.signOut();
   refreshAuthView();
+});
+
+// --- Change password ---
+
+changePasswordBtn.addEventListener('click', () => {
+  passwordForm.reset();
+  passwordError.hidden = true;
+  passwordSuccess.hidden = true;
+  listView.hidden = true;
+  editorView.hidden = true;
+  passwordView.hidden = false;
+});
+
+cancelPasswordBtn.addEventListener('click', () => {
+  passwordView.hidden = true;
+  listView.hidden = false;
+});
+
+passwordForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  passwordError.hidden = true;
+  passwordSuccess.hidden = true;
+
+  const newPassword = document.getElementById('newPassword').value;
+  const confirmPassword = document.getElementById('confirmPassword').value;
+
+  if (newPassword !== confirmPassword) {
+    passwordError.textContent = 'Passwords do not match.';
+    passwordError.hidden = false;
+    return;
+  }
+
+  try {
+    const { error } = await supabase.auth.updateUser({ password: newPassword });
+    if (error) {
+      passwordError.textContent = error.message;
+      passwordError.hidden = false;
+      return;
+    }
+    passwordForm.reset();
+    passwordSuccess.hidden = false;
+  } catch (err) {
+    passwordError.textContent = `Request failed: ${err.message}`;
+    passwordError.hidden = false;
+  }
 });
 
 // --- List ---
