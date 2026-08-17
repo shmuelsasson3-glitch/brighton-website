@@ -1,6 +1,8 @@
+import { ASSET_BASE_URL } from '../shared.js';
+
 export function initNav(options = {}) {
   const isSnow = options.variant === 'snow';
-  const logo = isSnow ? 'assets/images/snow-logo-crop.png' : 'assets/images/logo.png';
+  const logo = isSnow ? `${ASSET_BASE_URL}/assets/images/snow-logo-crop.png` : `${ASSET_BASE_URL}/assets/images/logo.png`;
   const logoAlt = isSnow ? 'Brighton Snow Division' : 'Brighton Lawn & Landscape';
   const ctaText = isSnow ? 'Get a Snow Contract' : 'Get a Quote';
   const ctaHref = 'index.html#contact';

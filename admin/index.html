@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/png" href="/assets/images/brighton-icon.png">
+  <title>Admin - Brighton Lawn &amp; Landscape</title>
+  <link rel="stylesheet" href="/src/styles/pages/admin.css">
+</head>
+<body class="admin-body">
+
+<div id="loginView" class="admin-center">
+  <form id="loginForm" class="admin-card">
+    <h1>Brighton Admin</h1>
+    <div class="admin-field">
+      <label for="loginEmail">Email</label>
+      <input id="loginEmail" type="email" required autocomplete="username">
+    </div>
+    <div class="admin-field">
+      <label for="loginPassword">Password</label>
+      <input id="loginPassword" type="password" required autocomplete="current-password">
+    </div>
+    <button type="submit" class="admin-btn admin-btn-primary" style="width:100%;">Log In</button>
+    <div class="admin-error" id="loginError" hidden></div>
+  </form>
+</div>
+
+<div id="appView" hidden>
+  <div class="admin-topbar">
+    <h1>Brighton Admin — Projects</h1>
+    <button class="admin-btn admin-btn-ghost admin-btn-sm" id="logoutBtn">Log Out</button>
+  </div>
+
+  <div class="admin-shell">
+    <div id="listView">
+      <div class="admin-list-head">
+        <span></span>
+        <button class="admin-btn admin-btn-primary" id="newProjectBtn">New Project</button>
+      </div>
+      <table class="admin-table">
+        <thead>
+          <tr><th></th><th>Title</th><th>Category</th><th>Photos</th><th>Published</th><th></th></tr>
+        </thead>
+        <tbody id="projectRows"></tbody>
+      </table>
+    </div>
+
+    <div id="editorView" class="admin-editor" hidden>
+      <form id="projectForm">
+        <div class="admin-section">
+          <h3>Hero</h3>
+          <img id="coverPreview" class="admin-cover-preview" hidden>
+          <input type="file" id="coverInput" accept="image/jpeg,image/png,image/webp,image/gif">
+          <div class="admin-grid-2" style="margin-top:14px;">
+            <div class="admin-field">
+              <label>Focal point</label>
+              <select id="fCoverPosition">
+                <option value="top left">Top Left</option>
+                <option value="top center">Top Center</option>
+                <option value="top right">Top Right</option>
+                <option value="center left">Center Left</option>
+                <option value="center center" selected>Center (default)</option>
+                <option value="center right">Center Right</option>
+                <option value="bottom left">Bottom Left</option>
+                <option value="bottom center">Bottom Center</option>
+                <option value="bottom right">Bottom Right</option>
+              </select>
+            </div>
+            <div class="admin-field">
+              <label>Title</label>
+              <input id="fTitle" required>
+            </div>
+            <div class="admin-field">
+              <label>Slug</label>
+              <input id="fSlug" required>
+              <span class="admin-help">/work/&lt;slug&gt;</span>
+            </div>
+            <div class="admin-field">
+              <label>Category</label>
+              <select id="fCategory">
+                <option value="residential">Residential</option>
+                <option value="commercial">Commercial</option>
+              </select>
+            </div>
+            <div class="admin-field">
+              <label>Tag</label>
+              <input id="fTag" placeholder="Residential - NJ" required>
+            </div>
+            <div class="admin-field">
+              <label>Location</label>
+              <input id="fLocation">
+            </div>
+          </div>
+          <div class="admin-toggle-row" style="margin-top:10px;">
+            <input type="checkbox" id="fPublished" checked>
+            <label for="fPublished">Published</label>
+          </div>
+        </div>
+
+        <div class="admin-section">
+          <h3>Overview (optional)</h3>
+          <div class="admin-field">
+            <label>Kicker</label>
+            <input id="fOverviewKicker" placeholder="About the Project">
+          </div>
+          <div class="admin-field">
+            <label>Heading</label>
+            <input id="fOverviewHeading" placeholder="17 Homes. Fully <em>Landscaped.</em>">
+            <span class="admin-help">Wrap words in &lt;em&gt;...&lt;/em&gt; for the green accent style.</span>
+          </div>
+          <div class="admin-field">
+            <label>Body</label>
+            <textarea id="fOverviewBody"></textarea>
+          </div>
+          <div id="statsList"></div>
+          <button type="button" class="admin-btn admin-btn-ghost admin-btn-sm" id="addStatBtn">Add stat box</button>
+        </div>
+
+        <div class="admin-section">
+          <h3>Gallery</h3>
+          <div id="imagesList"></div>
+          <input type="file" id="galleryInput" accept="image/jpeg,image/png,image/webp,image/gif" multiple>
+        </div>
+
+        <div style="display:flex; gap:10px;">
+          <button type="submit" class="admin-btn admin-btn-primary">Save Project</button>
+          <button type="button" class="admin-btn admin-btn-ghost" id="cancelEditBtn">Cancel</button>
+          <button type="button" class="admin-btn admin-btn-danger" id="deleteProjectBtn" style="margin-left:auto;" hidden>Delete</button>
+        </div>
+        <div class="admin-error" id="formError" hidden></div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="/src/js/pages/admin.js"></script>
+</body>
+</html>

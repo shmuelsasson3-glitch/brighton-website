@@ -1,0 +1,77 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[dev]
+  command = "npm run dev"
+  targetPort = 5173
+  port = 8888
+  publish = "dist"
+  autoLaunch = false
+
+[functions]
+  directory = "netlify/functions"
+
+# Legacy project URLs — preserved so existing links/SEO keep working after the
+# switch to the single dynamic work-project.html template.
+[[redirects]]
+  from = "/arlington-project.html"
+  to = "/work-project.html?slug=arlington"
+  status = 200
+
+[[redirects]]
+  from = "/baker-project.html"
+  to = "/work-project.html?slug=baker"
+  status = 200
+
+[[redirects]]
+  from = "/bates-road.html"
+  to = "/work-project.html?slug=bates-road"
+  status = 200
+
+[[redirects]]
+  from = "/beige-project.html"
+  to = "/work-project.html?slug=beige"
+  status = 200
+
+[[redirects]]
+  from = "/corner-project.html"
+  to = "/work-project.html?slug=corner"
+  status = 200
+
+[[redirects]]
+  from = "/pool-patio.html"
+  to = "/work-project.html?slug=jacks-way"
+  status = 200
+
+[[redirects]]
+  from = "/scotchway-project.html"
+  to = "/work-project.html?slug=scotchway"
+  status = 200
+
+[[redirects]]
+  from = "/sukkah-project.html"
+  to = "/work-project.html?slug=sukkah"
+  status = 200
+
+[[redirects]]
+  from = "/toras-aron-project.html"
+  to = "/work-project.html?slug=toras-aron"
+  status = 200
+
+[[redirects]]
+  from = "/vanard-project.html"
+  to = "/work-project.html?slug=vanard"
+  status = 200
+
+# Clean URLs for all projects going forward (new ones added via the admin get this for free).
+[[redirects]]
+  from = "/work/*"
+  to = "/work-project.html?slug=:splat"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
