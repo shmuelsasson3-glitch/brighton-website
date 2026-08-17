@@ -4,7 +4,31 @@ import { supabase } from '../supabase-client.js';
 
 init();
 
-const slug = new URLSearchParams(window.location.search).get('slug');
+// Netlify's 200 rewrites change what content is served for a URL, but the
+// browser's address bar (and window.location) still shows the original path
+// with no query string — so the slug has to be read from the path itself.
+const LEGACY_SLUG_MAP = {
+  '/arlington-project.html': 'arlington',
+  '/baker-project.html': 'baker',
+  '/bates-road.html': 'bates-road',
+  '/beige-project.html': 'beige',
+  '/corner-project.html': 'corner',
+  '/pool-patio.html': 'jacks-way',
+  '/scotchway-project.html': 'scotchway',
+  '/sukkah-project.html': 'sukkah',
+  '/toras-aron-project.html': 'toras-aron',
+  '/vanard-project.html': 'vanard',
+};
+
+function resolveSlug() {
+  const path = window.location.pathname;
+  if (LEGACY_SLUG_MAP[path]) return LEGACY_SLUG_MAP[path];
+  const match = path.match(/^\/work\/([^/]+)\/?$/);
+  if (match) return decodeURIComponent(match[1]);
+  return new URLSearchParams(window.location.search).get('slug');
+}
+
+const slug = resolveSlug();
 
 function escapeHtml(str) {
   const div = document.createElement('div');
