@@ -6,6 +6,8 @@
   <meta name="robots" content="noindex, nofollow">
   <link rel="icon" type="image/png" href="/assets/images/brighton-icon.png">
   <title>Admin - Brighton Lawn &amp; Landscape</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/src/styles/pages/admin.css">
 </head>
 <body class="admin-body">
@@ -76,7 +78,14 @@
         <div class="admin-section">
           <h3>Hero</h3>
           <img id="coverPreview" class="admin-cover-preview" hidden>
-          <input type="file" id="coverInput" accept="image/jpeg,image/png,image/webp,image/gif">
+          <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+            <input type="file" id="coverInput" accept="image/jpeg,image/png,image/webp,image/gif" style="flex:1; min-width:200px;">
+            <button type="button" class="admin-btn admin-btn-ghost admin-btn-sm" id="cropCoverBtn" hidden>Crop / Rotate</button>
+          </div>
+          <div class="admin-progress" id="coverProgress" hidden>
+            <div class="admin-progress-bar"><div class="admin-progress-fill" id="coverProgressFill"></div></div>
+            <span class="admin-progress-label" id="coverProgressLabel"></span>
+          </div>
           <div class="admin-grid-2" style="margin-top:14px;">
             <div class="admin-field">
               <label>Focal point</label>
@@ -146,6 +155,10 @@
           <h3>Gallery</h3>
           <div id="imagesList"></div>
           <input type="file" id="galleryInput" accept="image/jpeg,image/png,image/webp,image/gif" multiple>
+          <div class="admin-progress" id="galleryProgress" hidden>
+            <div class="admin-progress-bar"><div class="admin-progress-fill" id="galleryProgressFill"></div></div>
+            <span class="admin-progress-label" id="galleryProgressLabel"></span>
+          </div>
         </div>
 
         <div style="display:flex; gap:10px;">
@@ -156,6 +169,23 @@
         <div class="admin-error" id="formError" hidden></div>
       </form>
     </div>
+  </div>
+</div>
+
+<div id="cropModal" class="admin-crop-overlay" hidden>
+  <div class="admin-crop-dialog">
+    <div class="admin-crop-stage">
+      <img id="cropImage" alt="">
+    </div>
+    <div class="admin-crop-toolbar">
+      <button type="button" class="admin-btn admin-btn-ghost admin-btn-sm" id="cropRotateLeft">&#8630; Rotate Left</button>
+      <button type="button" class="admin-btn admin-btn-ghost admin-btn-sm" id="cropRotateRight">&#8631; Rotate Right</button>
+      <button type="button" class="admin-btn admin-btn-ghost admin-btn-sm" id="cropReset">Reset</button>
+      <span style="flex:1;"></span>
+      <button type="button" class="admin-btn admin-btn-ghost admin-btn-sm" id="cropCancel">Cancel</button>
+      <button type="button" class="admin-btn admin-btn-primary admin-btn-sm" id="cropSave">Use This Crop</button>
+    </div>
+    <div class="admin-error" id="cropError" hidden></div>
   </div>
 </div>
 

@@ -1,4 +1,6 @@
 import { supabase } from '../supabase-client.js';
+import Cropper from 'cropperjs';
+import 'cropperjs/dist/cropper.css';
 
 const loginView = document.getElementById('loginView');
 const appView = document.getElementById('appView');
@@ -23,10 +25,26 @@ const formError = document.getElementById('formError');
 
 const coverInput = document.getElementById('coverInput');
 const coverPreview = document.getElementById('coverPreview');
+const cropCoverBtn = document.getElementById('cropCoverBtn');
+const coverProgress = document.getElementById('coverProgress');
+const coverProgressFill = document.getElementById('coverProgressFill');
+const coverProgressLabel = document.getElementById('coverProgressLabel');
 const statsList = document.getElementById('statsList');
 const addStatBtn = document.getElementById('addStatBtn');
 const imagesList = document.getElementById('imagesList');
 const galleryInput = document.getElementById('galleryInput');
+const galleryProgress = document.getElementById('galleryProgress');
+const galleryProgressFill = document.getElementById('galleryProgressFill');
+const galleryProgressLabel = document.getElementById('galleryProgressLabel');
+
+const cropModal = document.getElementById('cropModal');
+const cropImage = document.getElementById('cropImage');
+const cropError = document.getElementById('cropError');
+const cropRotateLeft = document.getElementById('cropRotateLeft');
+const cropRotateRight = document.getElementById('cropRotateRight');
+const cropReset = document.getElementById('cropReset');
+const cropCancel = document.getElementById('cropCancel');
+const cropSave = document.getElementById('cropSave');
 
 let currentProjectId = null;
 let coverImageUrl = '';
@@ -56,14 +74,56 @@ async function adminFetch(path, options = {}) {
   return res.status === 204 ? null : res.json();
 }
 
-async function uploadFile(file, folder) {
+// Uploads a single file to R2 via a presigned URL, reporting byte-level
+// progress through onProgress(loadedBytes) so batches can show a real progress bar.
+function putWithProgress(uploadUrl, file, onProgress) {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open('PUT', uploadUrl);
+    xhr.setRequestHeader('content-type', file.type);
+    xhr.upload.addEventListener('progress', (e) => {
+      if (e.lengthComputable) onProgress(e.loaded);
+    });
+    xhr.addEventListener('load', () => {
+      if (xhr.status >= 200 && xhr.status < 300) resolve();
+      else reject(new Error('Upload to storage failed'));
+    });
+    xhr.addEventListener('error', () => reject(new Error('Upload to storage failed')));
+    xhr.send(file);
+  });
+}
+
+async function uploadFile(file, folder, onProgress) {
   const { uploadUrl, publicUrl } = await adminFetch('/api/admin/upload', {
     method: 'POST',
     body: JSON.stringify({ filename: file.name, contentType: file.type, folder }),
   });
-  const putRes = await fetch(uploadUrl, { method: 'PUT', headers: { 'content-type': file.type }, body: file });
-  if (!putRes.ok) throw new Error('Upload to storage failed');
+  await putWithProgress(uploadUrl, file, onProgress || (() => {}));
   return publicUrl;
+}
+
+// Uploads multiple files sequentially, tracking combined byte progress across
+// the whole batch so a single progress bar can represent "how long it's taking."
+async function uploadFilesWithProgress(files, folder, { fill, label }) {
+  const totalBytes = files.reduce((sum, f) => sum + f.size, 0);
+  let bytesDoneBeforeCurrent = 0;
+  const urls = [];
+
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+    label.textContent = `Uploading photo ${i + 1} of ${files.length}...`;
+    const url = await uploadFile(file, folder, (loaded) => {
+      const overall = bytesDoneBeforeCurrent + loaded;
+      const pct = totalBytes ? Math.min(100, Math.round((overall / totalBytes) * 100)) : 0;
+      fill.style.width = `${pct}%`;
+      label.textContent = `Uploading photo ${i + 1} of ${files.length}... ${pct}%`;
+    });
+    urls.push(url);
+    bytesDoneBeforeCurrent += file.size;
+  }
+
+  fill.style.width = '100%';
+  return urls;
 }
 
 // --- Auth ---
@@ -229,6 +289,7 @@ function renderImages() {
       <div>
         <input placeholder="Description (alt text)" value="${escapeHtml(img.alt || '')}" data-img-alt="${i}" style="width:100%;">
         <div class="admin-repeater-controls" style="flex-direction:row; margin-top:6px;">
+          <button type="button" class="admin-btn admin-btn-ghost admin-btn-sm" data-img-crop="${i}">Crop / Rotate</button>
           <button type="button" class="admin-btn admin-btn-ghost admin-btn-sm" data-img-up="${i}">&uarr;</button>
           <button type="button" class="admin-btn admin-btn-ghost admin-btn-sm" data-img-down="${i}">&darr;</button>
         </div>
@@ -249,36 +310,73 @@ function renderImages() {
   imagesList.querySelectorAll('[data-img-down]').forEach(el => {
     el.addEventListener('click', () => { swap(images, +el.dataset.imgDown, 1); renderImages(); });
   });
+  imagesList.querySelectorAll('[data-img-crop]').forEach(el => {
+    el.addEventListener('click', () => {
+      const i = +el.dataset.imgCrop;
+      openCropper(images[i].url, async (croppedUrl) => {
+        images[i].url = croppedUrl;
+        renderImages();
+      });
+    });
+  });
 }
 
 galleryInput.addEventListener('change', async () => {
+  const files = Array.from(galleryInput.files);
+  if (!files.length) return;
   const slug = document.getElementById('fSlug').value || 'untitled';
-  for (const file of galleryInput.files) {
-    try {
-      const url = await uploadFile(file, `projects/${slug}`);
-      images.push({ url, alt: '' });
-      renderImages();
-    } catch (err) {
-      formError.textContent = err.message;
-      formError.hidden = false;
-    }
+
+  galleryProgress.hidden = false;
+  galleryProgressFill.style.width = '0%';
+
+  try {
+    const urls = await uploadFilesWithProgress(files, `projects/${slug}`, {
+      fill: galleryProgressFill,
+      label: galleryProgressLabel,
+    });
+    urls.forEach(url => images.push({ url, alt: '' }));
+    renderImages();
+  } catch (err) {
+    formError.textContent = err.message;
+    formError.hidden = false;
+  } finally {
+    galleryInput.value = '';
+    setTimeout(() => { galleryProgress.hidden = true; }, 600);
   }
-  galleryInput.value = '';
 });
 
 coverInput.addEventListener('change', async () => {
   const file = coverInput.files[0];
   if (!file) return;
   const slug = document.getElementById('fSlug').value || 'untitled';
+
+  coverProgress.hidden = false;
+  coverProgressFill.style.width = '0%';
+  coverProgressLabel.textContent = 'Uploading...';
+
   try {
-    coverImageUrl = await uploadFile(file, `projects/${slug}`);
+    coverImageUrl = await uploadFile(file, `projects/${slug}`, (loaded) => {
+      const pct = file.size ? Math.min(100, Math.round((loaded / file.size) * 100)) : 0;
+      coverProgressFill.style.width = `${pct}%`;
+      coverProgressLabel.textContent = `Uploading... ${pct}%`;
+    });
     coverPreview.src = coverImageUrl;
     coverPreview.hidden = false;
+    cropCoverBtn.hidden = false;
   } catch (err) {
     formError.textContent = err.message;
     formError.hidden = false;
+  } finally {
+    coverInput.value = '';
+    setTimeout(() => { coverProgress.hidden = true; }, 600);
   }
-  coverInput.value = '';
+});
+
+cropCoverBtn.addEventListener('click', () => {
+  openCropper(coverImageUrl, async (croppedUrl) => {
+    coverImageUrl = croppedUrl;
+    coverPreview.src = croppedUrl;
+  });
 });
 
 function slugify(str) {
@@ -315,6 +413,7 @@ function openEditor(project) {
   coverImageUrl = project?.cover_image_url || '';
   coverPreview.src = coverImageUrl;
   coverPreview.hidden = !coverImageUrl;
+  cropCoverBtn.hidden = !coverImageUrl;
 
   stats = (project?.project_stats || []).slice().sort((a, b) => a.sort_order - b.sort_order)
     .map(s => ({ value: s.value, label: s.label }));
@@ -386,6 +485,91 @@ deleteProjectBtn.addEventListener('click', async () => {
     formError.textContent = err.message;
     formError.hidden = false;
   }
+});
+
+// --- Crop / rotate modal ---
+// Reused for both the cover photo and any gallery photo. Loads the existing
+// R2 image cross-origin (the bucket's CORS policy allows this), lets the
+// admin drag/pinch to crop and rotate, then re-uploads the result as a new
+// file and hands the new URL back via onSave.
+
+let activeCropper = null;
+let activeCropSave = null;
+let activeCropSlug = 'untitled';
+
+function openCropper(imageUrl, onSave) {
+  activeCropSave = onSave;
+  activeCropSlug = document.getElementById('fSlug').value || 'untitled';
+  cropError.hidden = true;
+  cropModal.hidden = false;
+
+  // Cache-bust: images uploaded before the R2 bucket's CORS policy was set
+  // may still be served from a stale edge cache without CORS headers, which
+  // silently fails the crossOrigin load needed to export a cropped canvas.
+  const separator = imageUrl.includes('?') ? '&' : '?';
+  cropImage.crossOrigin = 'anonymous';
+  cropImage.src = `${imageUrl}${separator}cb=${Date.now()}`;
+
+  const start = () => {
+    if (activeCropper) activeCropper.destroy();
+    activeCropper = new Cropper(cropImage, {
+      viewMode: 1,
+      dragMode: 'move',
+      autoCropArea: 1,
+      background: false,
+      responsive: true,
+    });
+  };
+
+  if (cropImage.complete) start();
+  else cropImage.onload = start;
+}
+
+function closeCropper() {
+  if (activeCropper) {
+    activeCropper.destroy();
+    activeCropper = null;
+  }
+  cropModal.hidden = true;
+  activeCropSave = null;
+}
+
+cropRotateLeft.addEventListener('click', () => activeCropper?.rotate(-90));
+cropRotateRight.addEventListener('click', () => activeCropper?.rotate(90));
+cropReset.addEventListener('click', () => activeCropper?.reset());
+cropCancel.addEventListener('click', closeCropper);
+
+cropSave.addEventListener('click', () => {
+  if (!activeCropper) return;
+  cropError.hidden = true;
+
+  const canvas = activeCropper.getCroppedCanvas({ imageSmoothingQuality: 'high' });
+  if (!canvas) {
+    cropError.textContent = 'Could not read this image for cropping.';
+    cropError.hidden = false;
+    return;
+  }
+
+  canvas.toBlob(async (blob) => {
+    if (!blob) {
+      cropError.textContent = 'Could not export the cropped image.';
+      cropError.hidden = false;
+      return;
+    }
+    const file = new File([blob], `cropped-${Date.now()}.jpg`, { type: 'image/jpeg' });
+    const onSave = activeCropSave;
+    cropSave.disabled = true;
+    try {
+      const url = await uploadFile(file, `projects/${activeCropSlug}`);
+      await onSave(url);
+      closeCropper();
+    } catch (err) {
+      cropError.textContent = err.message;
+      cropError.hidden = false;
+    } finally {
+      cropSave.disabled = false;
+    }
+  }, 'image/jpeg', 0.92);
 });
 
 refreshAuthView();
