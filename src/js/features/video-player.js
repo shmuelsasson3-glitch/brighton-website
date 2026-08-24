@@ -38,35 +38,21 @@ export function initVideoLightbox() {
     video.src = src;
     video.play().catch(() => {});
 
-    // On mobile, skip our custom theater-mode chrome entirely (no blur
-    // backdrop, no green controls) and hand playback straight to the OS's
-    // own video player — Apple's native fullscreen player on iOS, Chrome's
-    // on Android. The lightbox is still briefly laid out (required for the
-    // fullscreen APIs to have a visible element to target) but the
-    // 'native-handoff' class hides all of our own UI while that happens.
+    // On mobile, give the video the browser's own native control bar
+    // (Apple's on iOS, Chrome's on Android) instead of our custom theater-
+    // mode buttons, and also try to push it into true native fullscreen.
+    // Setting `controls = true` is what actually guarantees a working
+    // player regardless of platform — the fullscreen call on top of it is
+    // a nice-to-have, not something the rest of the UI depends on.
     if (isMobile()) {
+      video.controls = true;
       lightbox.classList.add('open', 'native-handoff');
-
-      // Safety net: if the native player never actually engages (blocked,
-      // not supported, or the video hasn't loaded enough to allow it yet),
-      // fall back to our own controls rather than leaving a video on
-      // screen with no way to pause, seek, or close it.
-      const fallbackToOwnControls = () => {
-        const engaged = video.webkitDisplayingFullscreen || document.fullscreenElement === video;
-        if (!engaged) lightbox.classList.remove('native-handoff');
-      };
-
-      if (video.webkitEnterFullscreen) {
-        video.webkitEnterFullscreen();
-        setTimeout(fallbackToOwnControls, 400);
-      } else if (video.requestFullscreen) {
-        video.requestFullscreen().catch(fallbackToOwnControls);
-      } else {
-        fallbackToOwnControls();
-      }
+      if (video.webkitEnterFullscreen) video.webkitEnterFullscreen();
+      else if (video.requestFullscreen) video.requestFullscreen().catch(() => {});
       return;
     }
 
+    video.controls = false;
     lightbox.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
@@ -75,6 +61,7 @@ export function initVideoLightbox() {
     video.pause();
     video.removeAttribute('src');
     video.load();
+    video.controls = false;
     lightbox.classList.remove('open', 'native-handoff');
     document.body.style.overflow = '';
   }
