@@ -1,3 +1,5 @@
+/* --- Card (thumbnail only — playback happens in the lightbox) --- */
+
 .video-card {
   background: var(--card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden;
   box-shadow: 0 8px 24px rgba(27,61,43,.05);
@@ -5,48 +7,90 @@
 }
 .video-card:hover { transform: translateY(-6px); box-shadow: 0 26px 52px rgba(27,61,43,.14); }
 
-.video-player {
-  position: relative; aspect-ratio: 16/9; background: #0d160d; overflow: hidden;
+.video-thumb {
+  position: relative; aspect-ratio: 16/9; background: #0d160d; overflow: hidden; cursor: pointer;
 }
-.video-player video {
-  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
-  cursor: pointer;
-}
+.video-thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.video-thumb-fallback { background: linear-gradient(150deg, var(--dark-green), var(--mid-green)); }
 
-.video-center-btn {
+.video-thumb .video-center-btn {
   position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-  width: 68px; height: 68px; border-radius: 50%;
+  width: 84px; height: 84px; border-radius: 50%;
   background: var(--green); border: 3px solid rgba(255,255,255,.85);
   display: flex; align-items: center; justify-content: center;
   cursor: pointer; z-index: 2;
   box-shadow: 0 8px 24px rgba(0,0,0,.35);
-  transition: opacity .2s ease, transform .2s ease, background .2s ease;
+  transition: background .2s ease, transform .2s ease;
 }
-.video-center-btn:hover { background: var(--green-light); transform: translate(-50%, -50%) scale(1.06); }
-.video-center-btn svg { width: 26px; height: 26px; fill: var(--white); }
-.video-center-btn .icon-pause { display: none; }
+.video-thumb:hover .video-center-btn { background: var(--green-light); transform: translate(-50%, -50%) scale(1.08); }
+.video-thumb .video-center-btn svg { width: 32px; height: 32px; fill: var(--white); }
 
-.video-player.is-playing .video-center-btn { opacity: 0; pointer-events: none; }
+.video-title {
+  padding: 20px 24px 24px;
+  font-family: var(--font-head); font-size: 21px; font-weight: 600; color: var(--heading);
+}
+
+/* --- Lightbox (theater mode) --- */
+
+.video-lightbox {
+  display: none; position: fixed; inset: 0; z-index: 2000;
+  align-items: center; justify-content: center; padding: 40px;
+  background: rgba(6,10,6,.82);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+}
+.video-lightbox.open { display: flex; }
+
+.vlb-stage {
+  position: relative; max-width: 92vw; max-height: 88vh;
+  display: flex; align-items: center; justify-content: center;
+}
+.vlb-stage video {
+  max-width: 92vw; max-height: 88vh; width: auto; height: auto;
+  border-radius: 8px; background: #000; cursor: pointer;
+  box-shadow: 0 30px 80px rgba(0,0,0,.5);
+}
+
+.vlb-close {
+  position: absolute; top: 22px; right: 28px; z-index: 2001;
+  font-size: 30px; line-height: 1; color: var(--white); cursor: pointer;
+  background: none; border: none; opacity: .75; transition: opacity .2s;
+}
+.vlb-close:hover { opacity: 1; }
+
+.vlb-stage .video-center-btn {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 76px; height: 76px; border-radius: 50%;
+  background: var(--green); border: 3px solid rgba(255,255,255,.85);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; z-index: 2;
+  box-shadow: 0 8px 24px rgba(0,0,0,.4);
+  transition: opacity .2s ease, background .2s ease, transform .2s ease;
+}
+.vlb-stage .video-center-btn:hover { background: var(--green-light); transform: translate(-50%, -50%) scale(1.06); }
+.vlb-stage .video-center-btn svg { width: 30px; height: 30px; fill: var(--white); }
+.vlb-stage .video-center-btn .icon-pause { display: none; }
+.video-lightbox.is-playing .video-center-btn { opacity: 0; pointer-events: none; }
 
 .video-controls-bar {
   position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
   display: flex; align-items: center; gap: 10px;
-  padding: 10px 12px;
+  padding: 12px 16px;
   background: linear-gradient(to top, rgba(8,12,8,.85) 0%, rgba(8,12,8,.55) 55%, transparent 100%);
+  border-radius: 0 0 8px 8px;
 }
 
 .video-bar-btn, .video-fullscreen-btn {
-  width: 30px; height: 30px; border-radius: 8px; border: none;
+  width: 32px; height: 32px; border-radius: 8px; border: none;
   background: transparent; color: var(--white);
   display: flex; align-items: center; justify-content: center;
   cursor: pointer; flex-shrink: 0; transition: background .18s;
 }
 .video-bar-btn:hover, .video-fullscreen-btn:hover { background: rgba(255,255,255,.14); }
-.video-bar-btn svg { width: 17px; height: 17px; fill: var(--white); }
-.video-fullscreen-btn svg { width: 16px; height: 16px; fill: none; stroke: var(--white); stroke-width: 2; }
+.video-bar-btn svg { width: 18px; height: 18px; fill: var(--white); }
+.video-fullscreen-btn svg { width: 17px; height: 17px; fill: none; stroke: var(--white); stroke-width: 2; }
 .video-bar-btn .icon-pause { display: none; }
-.video-player.is-playing .video-bar-btn .icon-play { display: none; }
-.video-player.is-playing .video-bar-btn .icon-pause { display: block; }
+.video-lightbox.is-playing .video-bar-btn .icon-play { display: none; }
+.video-lightbox.is-playing .video-bar-btn .icon-pause { display: block; }
 
 .video-progress {
   flex: 1; height: 6px; border-radius: 999px; background: rgba(255,255,255,.25);
@@ -58,17 +102,20 @@
 }
 
 .video-time {
-  font-size: 11px; color: rgba(255,255,255,.85); flex-shrink: 0; font-variant-numeric: tabular-nums;
+  font-size: 12px; color: rgba(255,255,255,.85); flex-shrink: 0; font-variant-numeric: tabular-nums;
 }
 
-.video-title {
-  padding: 18px 20px 20px;
-  font-family: var(--font-head); font-size: 18px; font-weight: 600; color: var(--heading);
+@media (max-width: 640px) {
+  .video-lightbox { padding: 0; }
+  .vlb-stage, .vlb-stage video { max-width: 100vw; max-height: 100svh; }
+  .vlb-stage video { border-radius: 0; }
+  .video-controls-bar { border-radius: 0; }
+  .vlb-close { top: 14px; right: 14px; }
 }
 
 @media (max-width: 480px) {
-  .video-center-btn { width: 56px; height: 56px; }
-  .video-center-btn svg { width: 22px; height: 22px; }
+  .video-thumb .video-center-btn { width: 56px; height: 56px; }
+  .video-thumb .video-center-btn svg { width: 22px; height: 22px; }
   .video-title { padding: 14px 16px 16px; font-size: 16px; }
   .video-time { display: none; }
 }

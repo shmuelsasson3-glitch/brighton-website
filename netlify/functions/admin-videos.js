@@ -4,7 +4,7 @@ export const config = {
   path: ['/api/admin/videos', '/api/admin/videos/:id'],
 };
 
-const VIDEO_FIELDS = ['title', 'video_url', 'recorded_at', 'sort_order'];
+const VIDEO_FIELDS = ['title', 'video_url', 'thumbnail_url', 'recorded_at', 'sort_order'];
 
 function pickVideoFields(body) {
   const out = {};

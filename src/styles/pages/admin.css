@@ -176,6 +176,11 @@
 }
 .admin-table img { width: 46px; height: 46px; object-fit: cover; border-radius: 8px; border: 1px solid var(--hair); }
 .admin-table video { width: 72px; height: 46px; object-fit: cover; border-radius: 8px; border: 1px solid var(--hair); background: #111; }
+.admin-thumb-replace {
+  display: block; margin-top: 6px; font-size: 11px; color: var(--green);
+  cursor: pointer; text-decoration: underline; white-space: nowrap;
+}
+.admin-thumb-replace:hover { color: var(--mid-green); }
 .admin-table td input[type="text"], .admin-table td input:not([type]) { width: 100%; min-width: 160px; }
 .admin-table td input[type="date"] { min-width: 140px; }
 .admin-row-actions { display: flex; gap: 8px; }

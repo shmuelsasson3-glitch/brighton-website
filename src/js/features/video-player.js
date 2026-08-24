@@ -1,9 +1,10 @@
-// Custom video player: real <video> elements (so iOS's native fullscreen
-// and AirPlay behavior keeps working normally) with our own play/pause and
-// progress UI layered on top, plus a shared registry so starting any video
-// pauses whichever other one is currently playing.
-
-const allVideos = [];
+// Theater-mode video lightbox: clicking any video thumbnail opens a single
+// shared overlay with the video centered at a large size (aspect ratio
+// preserved, so portrait videos letterbox instead of stretching or cropping)
+// against a dimmed, blurred backdrop — not the browser/OS's native fullscreen
+// player. A real <video> element is used throughout so iOS's own native
+// fullscreen and AirPlay controls keep working normally if the visitor taps
+// our fullscreen button.
 
 function formatTime(seconds) {
   if (!Number.isFinite(seconds)) return '0:00';
@@ -12,21 +13,36 @@ function formatTime(seconds) {
   return `${m}:${s}`;
 }
 
-function setupPlayer(root) {
-  const video = root.querySelector('video');
-  const centerBtn = root.querySelector('[data-video-center-btn]');
-  const barBtn = root.querySelector('[data-video-bar-btn]');
-  const progress = root.querySelector('[data-video-progress]');
-  const progressFill = root.querySelector('[data-video-progress-fill]');
-  const timeLabel = root.querySelector('[data-video-time]');
-  const fullscreenBtn = root.querySelector('[data-video-fullscreen-btn]');
-  if (!video) return;
+let openFn = null;
 
-  allVideos.push(video);
+// Wires the lightbox's own controls (close, play/pause, progress, fullscreen).
+// Call this once — these elements are static and persist across re-renders.
+export function initVideoLightbox() {
+  const lightbox = document.getElementById('videoLightbox');
+  const video = document.getElementById('vlbVideo');
+  if (!lightbox || !video) return;
 
-  function setPlayingState(isPlaying) {
-    root.classList.toggle('is-playing', isPlaying);
-    root.classList.toggle('is-paused', !isPlaying);
+  const closeBtn = document.getElementById('vlbClose');
+  const centerBtn = lightbox.querySelector('[data-video-center-btn]');
+  const barBtn = lightbox.querySelector('[data-video-bar-btn]');
+  const progress = lightbox.querySelector('[data-video-progress]');
+  const progressFill = lightbox.querySelector('[data-video-progress-fill]');
+  const timeLabel = lightbox.querySelector('[data-video-time]');
+  const fullscreenBtn = lightbox.querySelector('[data-video-fullscreen-btn]');
+
+  function open(src) {
+    video.src = src;
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    video.play().catch(() => {});
+  }
+
+  function close() {
+    video.pause();
+    video.removeAttribute('src');
+    video.load();
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
   }
 
   function togglePlay() {
@@ -34,18 +50,20 @@ function setupPlayer(root) {
     else video.pause();
   }
 
+  closeBtn?.addEventListener('click', close);
+  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) close(); });
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+  });
+
   centerBtn?.addEventListener('click', togglePlay);
   barBtn?.addEventListener('click', togglePlay);
   video.addEventListener('click', togglePlay);
 
-  video.addEventListener('play', () => {
-    setPlayingState(true);
-    for (const other of allVideos) {
-      if (other !== video && !other.paused) other.pause();
-    }
-  });
-  video.addEventListener('pause', () => setPlayingState(false));
-  video.addEventListener('ended', () => setPlayingState(false));
+  video.addEventListener('play', () => lightbox.classList.add('is-playing'));
+  video.addEventListener('pause', () => lightbox.classList.remove('is-playing'));
+  video.addEventListener('ended', () => lightbox.classList.remove('is-playing'));
 
   video.addEventListener('timeupdate', () => {
     if (!video.duration) return;
@@ -68,12 +86,16 @@ function setupPlayer(root) {
       video.webkitEnterFullscreen();
     } else if (video.requestFullscreen) {
       video.requestFullscreen();
-    } else if (root.requestFullscreen) {
-      root.requestFullscreen();
     }
   });
+
+  openFn = open;
 }
 
-export function initVideoPlayers() {
-  document.querySelectorAll('[data-video-player]').forEach(setupPlayer);
+// Wires click-to-open on video thumbnail cards. Call this after every
+// re-render, since the cards themselves are freshly created each time.
+export function wireVideoCards() {
+  document.querySelectorAll('[data-open-video]').forEach(el => {
+    el.addEventListener('click', () => openFn?.(el.dataset.videoSrc));
+  });
 }

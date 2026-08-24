@@ -85,12 +85,15 @@ create table if not exists videos (
   id uuid primary key default gen_random_uuid(),
   title text not null,
   video_url text not null,
+  thumbnail_url text,
   -- Internal-only date used for sorting the public page (Newest/Oldest); never rendered on the site.
   recorded_at date not null default current_date,
   sort_order integer not null default 0,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+
+alter table videos add column if not exists thumbnail_url text;
 
 create index if not exists videos_sort_order_idx on videos(sort_order);
 

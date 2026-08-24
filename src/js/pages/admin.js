@@ -45,6 +45,7 @@ const videoRows = document.getElementById('videoRows');
 const newVideoTitle = document.getElementById('newVideoTitle');
 const newVideoDate = document.getElementById('newVideoDate');
 const newVideoInput = document.getElementById('newVideoInput');
+const newVideoThumbnail = document.getElementById('newVideoThumbnail');
 const addVideoBtn = document.getElementById('addVideoBtn');
 const videoFormError = document.getElementById('videoFormError');
 const videoUploadProgress = document.getElementById('videoUploadProgress');
@@ -742,7 +743,15 @@ function renderVideos() {
           <button class="admin-btn admin-btn-ghost admin-btn-sm" data-video-down="${i}" ${i === currentVideos.length - 1 ? 'disabled' : ''}>&darr;</button>
         </div>
       </td>
-      <td><video src="${escapeHtml(v.video_url)}" muted preload="metadata"></video></td>
+      <td>
+        ${v.thumbnail_url
+          ? `<img src="${escapeHtml(v.thumbnail_url)}" alt="">`
+          : `<video src="${escapeHtml(v.video_url)}" muted preload="metadata"></video>`}
+        <label class="admin-thumb-replace">
+          Replace thumbnail
+          <input type="file" accept="image/jpeg,image/png,image/webp" data-video-thumb-input="${v.id}" hidden>
+        </label>
+      </td>
       <td><input type="text" value="${escapeHtml(v.title)}" data-video-title="${v.id}"></td>
       <td><input type="date" value="${escapeHtml(v.recorded_at)}" data-video-date="${v.id}"></td>
       <td class="admin-row-actions">
@@ -763,6 +772,9 @@ function renderVideos() {
   });
   videoRows.querySelectorAll('[data-video-down]').forEach(btn => {
     btn.addEventListener('click', () => reorderVideo(+btn.dataset.videoDown, 1));
+  });
+  videoRows.querySelectorAll('[data-video-thumb-input]').forEach(input => {
+    input.addEventListener('change', () => replaceVideoThumbnail(input.dataset.videoThumbInput, input));
   });
 }
 
@@ -816,10 +828,66 @@ async function reorderVideo(index, dir) {
   }
 }
 
+// Grabs a frame from a local video file (before it's even uploaded) and
+// returns it as a JPEG blob, so every video gets a real thumbnail by default.
+function captureVideoFrame(file) {
+  return new Promise((resolve, reject) => {
+    const video = document.createElement('video');
+    video.preload = 'metadata';
+    video.muted = true;
+    video.playsInline = true;
+    // Some browsers won't reliably decode/seek a video that's never attached
+    // to the document, even though metadata loading works fine detached.
+    video.style.cssText = 'position:fixed; opacity:0; pointer-events:none; width:1px; height:1px;';
+    const objectUrl = URL.createObjectURL(file);
+    video.src = objectUrl;
+
+    const cleanup = () => {
+      URL.revokeObjectURL(objectUrl);
+      video.remove();
+    };
+
+    video.addEventListener('loadedmetadata', () => {
+      video.currentTime = Math.min(1, (video.duration || 2) / 2);
+    });
+    video.addEventListener('seeked', () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+      canvas.toBlob((blob) => {
+        cleanup();
+        if (blob) resolve(new File([blob], `thumb-${Date.now()}.jpg`, { type: 'image/jpeg' }));
+        else reject(new Error('Could not generate a thumbnail from this video.'));
+      }, 'image/jpeg', 0.85);
+    });
+    video.addEventListener('error', () => {
+      cleanup();
+      reject(new Error('Could not read this video to generate a thumbnail.'));
+    });
+
+    document.body.appendChild(video);
+  });
+}
+
+async function replaceVideoThumbnail(id, input) {
+  const file = input.files[0];
+  if (!file) return;
+  try {
+    const thumbnail_url = await uploadFile(file, 'videos/thumbnails');
+    await adminFetch(`/api/admin/videos/${id}`, { method: 'PUT', body: JSON.stringify({ thumbnail_url }) });
+    await loadVideos();
+  } catch (err) {
+    videoFormError.textContent = err.message;
+    videoFormError.hidden = false;
+  }
+}
+
 addVideoBtn.addEventListener('click', async () => {
   videoFormError.hidden = true;
   const title = newVideoTitle.value.trim();
   const file = newVideoInput.files[0];
+  const thumbFile = newVideoThumbnail.files[0];
   const recorded_at = newVideoDate.value || todayIsoDate();
 
   if (!title) {
@@ -844,12 +912,23 @@ addVideoBtn.addEventListener('click', async () => {
       videoUploadProgressFill.style.width = `${pct}%`;
       videoUploadProgressLabel.textContent = `Uploading... ${pct}%`;
     });
+
+    let thumbnail_url = null;
+    videoUploadProgressLabel.textContent = 'Generating thumbnail...';
+    try {
+      const thumbSource = thumbFile || await captureVideoFrame(file);
+      thumbnail_url = await uploadFile(thumbSource, 'videos/thumbnails');
+    } catch {
+      // Non-fatal — the video still saves, just without a thumbnail.
+    }
+
     await adminFetch('/api/admin/videos', {
       method: 'POST',
-      body: JSON.stringify({ title, video_url, recorded_at }),
+      body: JSON.stringify({ title, video_url, thumbnail_url, recorded_at }),
     });
     newVideoTitle.value = '';
     newVideoInput.value = '';
+    newVideoThumbnail.value = '';
     newVideoDate.value = todayIsoDate();
     await loadVideos();
   } catch (err) {
