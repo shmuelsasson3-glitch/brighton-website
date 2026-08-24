@@ -32,7 +32,7 @@ export function initFooter() {
     </div>
     <div class="foot-bottom">
       <p class="copyright"><span class="copyright-icon" aria-hidden="true">&copy;</span><span class="yr"></span><span class="copyright-text">Brighton Lawn &amp; Landscape. All rights reserved.</span></p>
-      <span class="site-credit"><span class="credit-pill"><span class="credit-label">Website by</span><img class="blue-collar-logo" src="${ASSET_BASE_URL}/assets/images/bluecollarmedia.png" alt="Blue Collar Media"><span class="credit-divider" aria-hidden="true"></span><a href="https://adamate.ai" target="_blank" rel="noopener" aria-label="Adamate.ai"><img class="adamate-logo" src="https://adamate.ai/Logo-B2.png" alt="Adamate.ai"></a></span></span>
+      <span class="site-credit"><span class="credit-pill"><span class="credit-label">Website by</span><a href="https://blue-collar-media.netlify.app/" target="_blank" rel="noopener" aria-label="Blue Collar Media"><img class="blue-collar-logo" src="${ASSET_BASE_URL}/assets/images/bluecollarmedia.png" alt="Blue Collar Media"></a></span></span>
       <div class="foot-social">
         <a href="https://www.instagram.com/brighton_lawn_landscape" target="_blank" rel="noopener" aria-label="Instagram">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>

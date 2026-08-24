@@ -46,8 +46,24 @@ export function initVideoLightbox() {
     // 'native-handoff' class hides all of our own UI while that happens.
     if (isMobile()) {
       lightbox.classList.add('open', 'native-handoff');
-      if (video.webkitEnterFullscreen) video.webkitEnterFullscreen();
-      else if (video.requestFullscreen) video.requestFullscreen();
+
+      // Safety net: if the native player never actually engages (blocked,
+      // not supported, or the video hasn't loaded enough to allow it yet),
+      // fall back to our own controls rather than leaving a video on
+      // screen with no way to pause, seek, or close it.
+      const fallbackToOwnControls = () => {
+        const engaged = video.webkitDisplayingFullscreen || document.fullscreenElement === video;
+        if (!engaged) lightbox.classList.remove('native-handoff');
+      };
+
+      if (video.webkitEnterFullscreen) {
+        video.webkitEnterFullscreen();
+        setTimeout(fallbackToOwnControls, 400);
+      } else if (video.requestFullscreen) {
+        video.requestFullscreen().catch(fallbackToOwnControls);
+      } else {
+        fallbackToOwnControls();
+      }
       return;
     }
 
