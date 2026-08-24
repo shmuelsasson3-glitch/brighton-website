@@ -231,8 +231,9 @@ let currentProjects = [];
 async function loadProjects() {
   currentProjects = await adminFetch('/api/admin/projects');
   projectRows.innerHTML = currentProjects.map((p, i) => `
-    <tr>
+    <tr draggable="true" data-row-id="${p.id}">
       <td>
+        <div class="admin-drag-handle" data-drag-handle title="Drag to reorder">&#9776;</div>
         <div class="admin-repeater-controls" style="flex-direction:row;">
           <button class="admin-btn admin-btn-ghost admin-btn-sm" data-reorder-up="${i}" ${i === 0 ? 'disabled' : ''}>&uarr;</button>
           <button class="admin-btn admin-btn-ghost admin-btn-sm" data-reorder-down="${i}" ${i === currentProjects.length - 1 ? 'disabled' : ''}>&darr;</button>
@@ -262,6 +263,20 @@ async function loadProjects() {
   projectRows.querySelectorAll('[data-reorder-down]').forEach(btn => {
     btn.addEventListener('click', () => reorderProject(+btn.dataset.reorderDown, 1));
   });
+
+  wireProjectDragAndDrop();
+}
+
+async function persistProjectOrder(orderedProjects) {
+  try {
+    await Promise.all(orderedProjects.map((p, i) =>
+      p.sort_order === i ? null : adminFetch(`/api/admin/projects/${p.id}`, { method: 'PUT', body: JSON.stringify({ sort_order: i }) })
+    ));
+    await loadProjects();
+  } catch (err) {
+    formError.textContent = err.message;
+    formError.hidden = false;
+  }
 }
 
 async function reorderProject(index, dir) {
@@ -283,6 +298,57 @@ async function reorderProject(index, dir) {
     formError.textContent = err.message;
     formError.hidden = false;
   }
+}
+
+// Desktop drag-and-drop reordering: grab any row (or the handle) and drop it
+// where it should go, instead of walking it up/down one click at a time.
+function wireProjectDragAndDrop() {
+  let draggedId = null;
+
+  const rows = () => Array.from(projectRows.querySelectorAll('tr'));
+
+  rows().forEach(row => {
+    row.addEventListener('dragstart', (e) => {
+      draggedId = row.dataset.rowId;
+      row.classList.add('is-dragging');
+      e.dataTransfer.effectAllowed = 'move';
+    });
+
+    row.addEventListener('dragend', () => {
+      row.classList.remove('is-dragging');
+      rows().forEach(r => r.classList.remove('drag-over-top', 'drag-over-bottom'));
+    });
+
+    row.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      if (row.dataset.rowId === draggedId) return;
+      const rect = row.getBoundingClientRect();
+      const before = e.clientY < rect.top + rect.height / 2;
+      row.classList.toggle('drag-over-top', before);
+      row.classList.toggle('drag-over-bottom', !before);
+    });
+
+    row.addEventListener('dragleave', () => {
+      row.classList.remove('drag-over-top', 'drag-over-bottom');
+    });
+
+    row.addEventListener('drop', (e) => {
+      e.preventDefault();
+      const targetId = row.dataset.rowId;
+      const before = row.classList.contains('drag-over-top');
+      row.classList.remove('drag-over-top', 'drag-over-bottom');
+      if (!draggedId || draggedId === targetId) return;
+
+      const ordered = currentProjects.slice();
+      const fromIndex = ordered.findIndex(p => p.id === draggedId);
+      const [moved] = ordered.splice(fromIndex, 1);
+      let toIndex = ordered.findIndex(p => p.id === targetId);
+      if (!before) toIndex += 1;
+      ordered.splice(toIndex, 0, moved);
+
+      persistProjectOrder(ordered);
+    });
+  });
 }
 
 // --- Stats repeater ---
