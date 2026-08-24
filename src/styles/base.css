@@ -1,4 +1,5 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+[hidden] { display: none !important; }
 
 html { scroll-behavior: smooth; overflow-x: hidden; }
 .hero h1 em, .sec-head h2 em, .cap-col h3 em, .contact-info h2 em,

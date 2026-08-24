@@ -76,14 +76,26 @@ function renderProject(project) {
   document.getElementById('projTitle').textContent = project.title;
 
   const overviewSection = document.getElementById('projOverview');
-  if (project.overview_heading || project.overview_body) {
+  const stats = (project.project_stats || []).slice().sort((a, b) => a.sort_order - b.sort_order);
+  const hasOverviewContent = project.overview_kicker || project.overview_heading || project.overview_body || stats.length;
+
+  if (hasOverviewContent) {
     overviewSection.hidden = false;
-    document.getElementById('overviewKicker').textContent = project.overview_kicker || 'About the Project';
-    renderEmphasis(document.getElementById('overviewHeading'), project.overview_heading);
-    document.getElementById('overviewBody').textContent = project.overview_body || '';
+
+    const kickerEl = document.getElementById('overviewKicker');
+    const headingEl = document.getElementById('overviewHeading');
+    const bodyEl = document.getElementById('overviewBody');
+
+    kickerEl.hidden = !(project.overview_kicker || project.overview_heading || project.overview_body);
+    kickerEl.textContent = project.overview_kicker || 'About the Project';
+
+    headingEl.hidden = !project.overview_heading;
+    renderEmphasis(headingEl, project.overview_heading);
+
+    bodyEl.hidden = !project.overview_body;
+    bodyEl.textContent = project.overview_body || '';
 
     const statsRow = document.getElementById('statsRow');
-    const stats = (project.project_stats || []).slice().sort((a, b) => a.sort_order - b.sort_order);
     statsRow.innerHTML = stats.map(stat => `
       <div class="proj-stat-box">
         <div class="proj-stat-num">${escapeHtml(stat.value)}</div>

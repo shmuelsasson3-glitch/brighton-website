@@ -57,9 +57,21 @@ export default async (req, context) => {
 
   if (req.method === 'POST') {
     const body = await req.json();
+    const fields = pickProjectFields(body);
+
+    if (fields.sort_order === undefined) {
+      const { data: maxRow } = await db
+        .from('projects')
+        .select('sort_order')
+        .order('sort_order', { ascending: false })
+        .limit(1)
+        .maybeSingle();
+      fields.sort_order = (maxRow?.sort_order ?? -1) + 1;
+    }
+
     const { data: project, error } = await db
       .from('projects')
-      .insert(pickProjectFields(body))
+      .insert(fields)
       .select()
       .single();
     if (error) return json({ error: error.message }, 400);

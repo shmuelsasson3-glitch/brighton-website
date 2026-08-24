@@ -173,6 +173,7 @@ changePasswordBtn.addEventListener('click', () => {
   listView.hidden = true;
   editorView.hidden = true;
   passwordView.hidden = false;
+  history.pushState({ adminView: 'password' }, '');
 });
 
 cancelPasswordBtn.addEventListener('click', () => {
@@ -211,10 +212,18 @@ passwordForm.addEventListener('submit', async (e) => {
 
 // --- List ---
 
+let currentProjects = [];
+
 async function loadProjects() {
-  const projects = await adminFetch('/api/admin/projects');
-  projectRows.innerHTML = projects.map(p => `
+  currentProjects = await adminFetch('/api/admin/projects');
+  projectRows.innerHTML = currentProjects.map((p, i) => `
     <tr>
+      <td>
+        <div class="admin-repeater-controls" style="flex-direction:row;">
+          <button class="admin-btn admin-btn-ghost admin-btn-sm" data-reorder-up="${i}" ${i === 0 ? 'disabled' : ''}>&uarr;</button>
+          <button class="admin-btn admin-btn-ghost admin-btn-sm" data-reorder-down="${i}" ${i === currentProjects.length - 1 ? 'disabled' : ''}>&darr;</button>
+        </div>
+      </td>
       <td><img src="${escapeHtml(p.cover_image_url)}" alt=""></td>
       <td>${escapeHtml(p.title)}<br><span class="admin-help">${escapeHtml(p.tag)}</span></td>
       <td>${escapeHtml(p.category)}</td>
@@ -232,6 +241,34 @@ async function loadProjects() {
       openEditor(project);
     });
   });
+
+  projectRows.querySelectorAll('[data-reorder-up]').forEach(btn => {
+    btn.addEventListener('click', () => reorderProject(+btn.dataset.reorderUp, -1));
+  });
+  projectRows.querySelectorAll('[data-reorder-down]').forEach(btn => {
+    btn.addEventListener('click', () => reorderProject(+btn.dataset.reorderDown, 1));
+  });
+}
+
+async function reorderProject(index, dir) {
+  const otherIndex = index + dir;
+  if (otherIndex < 0 || otherIndex >= currentProjects.length) return;
+
+  const a = currentProjects[index];
+  const b = currentProjects[otherIndex];
+  const aOrder = a.sort_order;
+  const bOrder = b.sort_order;
+
+  try {
+    await Promise.all([
+      adminFetch(`/api/admin/projects/${a.id}`, { method: 'PUT', body: JSON.stringify({ sort_order: bOrder }) }),
+      adminFetch(`/api/admin/projects/${b.id}`, { method: 'PUT', body: JSON.stringify({ sort_order: aOrder }) }),
+    ]);
+    await loadProjects();
+  } catch (err) {
+    formError.textContent = err.message;
+    formError.hidden = false;
+  }
 }
 
 // --- Stats repeater ---
@@ -403,7 +440,6 @@ function openEditor(project) {
   document.getElementById('fSlug').value = project?.slug || '';
   document.getElementById('fCategory').value = project?.category || 'residential';
   document.getElementById('fTag').value = project?.tag || '';
-  document.getElementById('fLocation').value = project?.location || '';
   document.getElementById('fPublished').checked = project ? project.is_published : true;
   document.getElementById('fCoverPosition').value = project?.cover_image_position || 'center center';
   document.getElementById('fOverviewKicker').value = project?.overview_kicker || '';
@@ -425,6 +461,7 @@ function openEditor(project) {
   deleteProjectBtn.hidden = !project;
   listView.hidden = true;
   editorView.hidden = false;
+  history.pushState({ adminView: 'editor' }, '');
 }
 
 function closeEditor() {
@@ -432,6 +469,15 @@ function closeEditor() {
   listView.hidden = false;
   loadProjects();
 }
+
+// Pressing the browser's back button while editing a project should return
+// to the project list instead of leaving /admin entirely.
+window.addEventListener('popstate', () => {
+  editorView.hidden = true;
+  passwordView.hidden = true;
+  listView.hidden = false;
+  loadProjects();
+});
 
 newProjectBtn.addEventListener('click', () => openEditor(null));
 cancelEditBtn.addEventListener('click', closeEditor);
@@ -451,7 +497,6 @@ projectForm.addEventListener('submit', async (e) => {
     slug: document.getElementById('fSlug').value,
     category: document.getElementById('fCategory').value,
     tag: document.getElementById('fTag').value,
-    location: document.getElementById('fLocation').value,
     is_published: document.getElementById('fPublished').checked,
     cover_image_url: coverImageUrl,
     cover_image_position: document.getElementById('fCoverPosition').value,
