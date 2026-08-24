@@ -40,6 +40,19 @@
 }
 .video-lightbox.open { display: flex; }
 
+/* Mobile hands off straight to the OS's native player — the lightbox is
+   only technically "open" so the fullscreen APIs have a target, but none
+   of our own theater-mode chrome should ever be visible while that happens. */
+.video-lightbox.native-handoff {
+  background: transparent;
+  backdrop-filter: none; -webkit-backdrop-filter: none;
+}
+.video-lightbox.native-handoff .vlb-close,
+.video-lightbox.native-handoff .video-center-btn,
+.video-lightbox.native-handoff .video-controls-bar {
+  display: none;
+}
+
 .vlb-stage {
   position: relative; max-width: 92vw; max-height: 88vh;
   display: flex; align-items: center; justify-content: center;

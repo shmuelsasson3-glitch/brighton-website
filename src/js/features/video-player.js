@@ -36,24 +36,30 @@ export function initVideoLightbox() {
 
   function open(src) {
     video.src = src;
-    lightbox.classList.add('open');
-    document.body.style.overflow = 'hidden';
     video.play().catch(() => {});
 
-    // On mobile, hand playback straight to the OS's own video player
-    // (Apple's native fullscreen player on iOS, Chrome's on Android)
-    // instead of our custom in-page theater mode.
+    // On mobile, skip our custom theater-mode chrome entirely (no blur
+    // backdrop, no green controls) and hand playback straight to the OS's
+    // own video player — Apple's native fullscreen player on iOS, Chrome's
+    // on Android. The lightbox is still briefly laid out (required for the
+    // fullscreen APIs to have a visible element to target) but the
+    // 'native-handoff' class hides all of our own UI while that happens.
     if (isMobile()) {
+      lightbox.classList.add('open', 'native-handoff');
       if (video.webkitEnterFullscreen) video.webkitEnterFullscreen();
       else if (video.requestFullscreen) video.requestFullscreen();
+      return;
     }
+
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
   }
 
   function close() {
     video.pause();
     video.removeAttribute('src');
     video.load();
-    lightbox.classList.remove('open');
+    lightbox.classList.remove('open', 'native-handoff');
     document.body.style.overflow = '';
   }
 
