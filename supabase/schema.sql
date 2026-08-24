@@ -108,3 +108,38 @@ drop policy if exists "public can read all videos" on videos;
 create policy "public can read all videos"
   on videos for select
   using (true);
+
+-- One editable background (video or image) per page hero, managed from the
+-- admin's "Backgrounds" tab. Seeded with the site's current defaults so
+-- nothing changes visually until the admin replaces one.
+create table if not exists page_backgrounds (
+  id uuid primary key default gen_random_uuid(),
+  page_key text not null unique,
+  label text not null,
+  media_type text not null check (media_type in ('video', 'image')),
+  media_url text not null,
+  updated_at timestamptz not null default now()
+);
+
+drop trigger if exists page_backgrounds_set_updated_at on page_backgrounds;
+create trigger page_backgrounds_set_updated_at
+  before update on page_backgrounds
+  for each row execute function set_updated_at();
+
+alter table page_backgrounds enable row level security;
+
+drop policy if exists "public can read all backgrounds" on page_backgrounds;
+create policy "public can read all backgrounds"
+  on page_backgrounds for select
+  using (true);
+
+insert into page_backgrounds (page_key, label, media_type, media_url) values
+  ('home', 'Homepage', 'video', 'https://pub-a6dc624b9e8c4464a0bde6b04c6bc866.r2.dev/assets/videos/hero.mp4'),
+  ('residential', 'Residential', 'video', 'https://pub-a6dc624b9e8c4464a0bde6b04c6bc866.r2.dev/assets/videos/residential-hero.mp4'),
+  ('commercial', 'Commercial', 'video', 'https://pub-a6dc624b9e8c4464a0bde6b04c6bc866.r2.dev/assets/videos/commercial-hero.mp4'),
+  ('commercial-installs', 'Commercial Installs', 'image', 'https://pub-a6dc624b9e8c4464a0bde6b04c6bc866.r2.dev/assets/images/install-header.jpg'),
+  ('sitework', 'Site Work', 'video', 'https://pub-a6dc624b9e8c4464a0bde6b04c6bc866.r2.dev/assets/videos/sitework-hero.mp4'),
+  ('snow', 'Snow & Ice', 'video', 'https://pub-a6dc624b9e8c4464a0bde6b04c6bc866.r2.dev/assets/videos/snow-hero.mp4'),
+  ('work', 'Our Work', 'image', 'https://pub-a6dc624b9e8c4464a0bde6b04c6bc866.r2.dev/assets/images/go-over.jpg'),
+  ('videos', 'Videos (See Brighton In Action)', 'video', 'https://pub-a6dc624b9e8c4464a0bde6b04c6bc866.r2.dev/assets/videos/hero.mp4')
+on conflict (page_key) do nothing;

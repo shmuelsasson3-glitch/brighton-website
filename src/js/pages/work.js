@@ -1,8 +1,10 @@
 import { init } from '../shared.js';
 import { initWorkFilters } from '../features/work-filters.js';
 import { supabase } from '../supabase-client.js';
+import { applyPageBackground } from '../features/page-background.js';
 
 init();
+applyPageBackground('work', { heroSelector: '.page-hero', mediaClass: 'ph-video', overlaySelector: '.ph-ov' });
 
 function escapeHtml(str) {
   const div = document.createElement('div');

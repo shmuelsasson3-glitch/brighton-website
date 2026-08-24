@@ -39,8 +39,12 @@ const galleryProgressLabel = document.getElementById('galleryProgressLabel');
 
 const tabProjectsBtn = document.getElementById('tabProjectsBtn');
 const tabVideosBtn = document.getElementById('tabVideosBtn');
+const tabBackgroundsBtn = document.getElementById('tabBackgroundsBtn');
 const projectsSection = document.getElementById('projectsSection');
 const videosSection = document.getElementById('videosSection');
+const backgroundsSection = document.getElementById('backgroundsSection');
+const backgroundRows = document.getElementById('backgroundRows');
+const backgroundFormError = document.getElementById('backgroundFormError');
 const videoRows = document.getElementById('videoRows');
 const newVideoTitle = document.getElementById('newVideoTitle');
 const newVideoDate = document.getElementById('newVideoDate');
@@ -563,20 +567,25 @@ window.addEventListener('popstate', () => {
 // --- Tabs ---
 
 let videosLoaded = false;
+let backgroundsLoaded = false;
 
 function showProjectsTab() {
   tabProjectsBtn.classList.add('active');
   tabVideosBtn.classList.remove('active');
+  tabBackgroundsBtn.classList.remove('active');
   projectsSection.hidden = false;
   videosSection.hidden = true;
+  backgroundsSection.hidden = true;
   passwordView.hidden = true;
 }
 
 function showVideosTab() {
   tabVideosBtn.classList.add('active');
   tabProjectsBtn.classList.remove('active');
+  tabBackgroundsBtn.classList.remove('active');
   videosSection.hidden = false;
   projectsSection.hidden = true;
+  backgroundsSection.hidden = true;
   passwordView.hidden = true;
   if (!videosLoaded) {
     videosLoaded = true;
@@ -584,8 +593,23 @@ function showVideosTab() {
   }
 }
 
+function showBackgroundsTab() {
+  tabBackgroundsBtn.classList.add('active');
+  tabProjectsBtn.classList.remove('active');
+  tabVideosBtn.classList.remove('active');
+  backgroundsSection.hidden = false;
+  projectsSection.hidden = true;
+  videosSection.hidden = true;
+  passwordView.hidden = true;
+  if (!backgroundsLoaded) {
+    backgroundsLoaded = true;
+    loadBackgrounds();
+  }
+}
+
 tabProjectsBtn.addEventListener('click', showProjectsTab);
 tabVideosBtn.addEventListener('click', showVideosTab);
+tabBackgroundsBtn.addEventListener('click', showBackgroundsTab);
 
 newProjectBtn.addEventListener('click', () => openEditor(null));
 cancelEditBtn.addEventListener('click', closeEditor);
@@ -939,5 +963,72 @@ addVideoBtn.addEventListener('click', async () => {
     setTimeout(() => { videoUploadProgress.hidden = true; }, 600);
   }
 });
+
+// --- Backgrounds ---
+
+async function loadBackgrounds() {
+  try {
+    const backgrounds = await adminFetch('/api/admin/backgrounds');
+    backgroundRows.innerHTML = backgrounds.map(bg => `
+      <div class="admin-bg-row">
+        <div class="admin-bg-preview">
+          ${bg.media_type === 'video'
+            ? `<video src="${escapeHtml(bg.media_url)}" muted preload="metadata"></video>`
+            : `<img src="${escapeHtml(bg.media_url)}" alt="">`}
+        </div>
+        <div class="admin-bg-info">
+          <h4>${escapeHtml(bg.label)}</h4>
+          <span class="admin-bg-type">${bg.media_type}</span>
+          <div class="admin-bg-controls">
+            <input type="file" accept="video/mp4,video/quicktime,video/webm,image/jpeg,image/png,image/webp" data-bg-input="${bg.page_key}">
+          </div>
+          <div class="admin-progress admin-bg-progress" data-bg-progress="${bg.page_key}" hidden>
+            <div class="admin-progress-bar"><div class="admin-progress-fill" data-bg-progress-fill="${bg.page_key}"></div></div>
+            <span class="admin-progress-label" data-bg-progress-label="${bg.page_key}"></span>
+          </div>
+        </div>
+      </div>
+    `).join('');
+
+    backgroundRows.querySelectorAll('[data-bg-input]').forEach(input => {
+      input.addEventListener('change', () => replaceBackground(input.dataset.bgInput, input));
+    });
+  } catch (err) {
+    backgroundFormError.textContent = err.message;
+    backgroundFormError.hidden = false;
+  }
+}
+
+async function replaceBackground(pageKey, input) {
+  const file = input.files[0];
+  if (!file) return;
+  backgroundFormError.hidden = true;
+
+  const mediaType = file.type.startsWith('video/') ? 'video' : 'image';
+  const progress = backgroundRows.querySelector(`[data-bg-progress="${pageKey}"]`);
+  const progressFill = backgroundRows.querySelector(`[data-bg-progress-fill="${pageKey}"]`);
+  const progressLabel = backgroundRows.querySelector(`[data-bg-progress-label="${pageKey}"]`);
+
+  progress.hidden = false;
+  progressFill.style.width = '0%';
+  progressLabel.textContent = 'Uploading...';
+
+  try {
+    const media_url = await uploadFile(file, `backgrounds/${pageKey}`, (loaded) => {
+      const pct = file.size ? Math.min(100, Math.round((loaded / file.size) * 100)) : 0;
+      progressFill.style.width = `${pct}%`;
+      progressLabel.textContent = `Uploading... ${pct}%`;
+    });
+    await adminFetch(`/api/admin/backgrounds/${pageKey}`, {
+      method: 'PUT',
+      body: JSON.stringify({ media_type: mediaType, media_url }),
+    });
+    await loadBackgrounds();
+  } catch (err) {
+    backgroundFormError.textContent = err.message;
+    backgroundFormError.hidden = false;
+    progress.hidden = true;
+  }
+}
 
 refreshAuthView();

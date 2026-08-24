@@ -41,6 +41,7 @@
     <div class="admin-tabs">
       <button class="admin-tab active" id="tabProjectsBtn" type="button">Projects</button>
       <button class="admin-tab" id="tabVideosBtn" type="button">Videos</button>
+      <button class="admin-tab" id="tabBackgroundsBtn" type="button">Backgrounds</button>
     </div>
 
     <div id="passwordView" class="admin-editor" hidden>
@@ -213,6 +214,14 @@
           <tbody id="videoRows"></tbody>
         </table>
       </div>
+    </div>
+
+    <div id="backgroundsSection" hidden>
+      <p class="admin-help" style="margin-bottom:20px; display:block;">
+        Each page below shows its current background. Upload a video or a photo to replace it — the rest of the page stays the same.
+      </p>
+      <div id="backgroundRows"></div>
+      <div class="admin-error" id="backgroundFormError" hidden></div>
     </div>
   </div>
 </div>

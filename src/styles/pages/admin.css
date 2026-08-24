@@ -183,6 +183,38 @@
 .admin-thumb-replace:hover { color: var(--mid-green); }
 .admin-table td input[type="text"], .admin-table td input:not([type]) { width: 100%; min-width: 160px; }
 .admin-table td input[type="date"] { min-width: 140px; }
+
+/* --- Backgrounds tab --- */
+
+.admin-bg-row {
+  display: flex; gap: 20px; align-items: center;
+  background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+  padding: 16px 20px; margin-bottom: 14px;
+  box-shadow: 0 1px 2px rgba(27,61,43,.04);
+}
+.admin-bg-preview {
+  width: 160px; height: 90px; border-radius: 10px; overflow: hidden; flex-shrink: 0;
+  background: #111; border: 1px solid var(--hair);
+}
+.admin-bg-preview video, .admin-bg-preview img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.admin-bg-info { flex: 1; min-width: 0; }
+.admin-bg-info h4 {
+  font-family: var(--font-head); font-size: 15px; font-weight: 600; color: var(--heading); margin-bottom: 4px;
+}
+.admin-bg-type {
+  display: inline-block; font-size: 10.5px; font-weight: 700; letter-spacing: .4px; text-transform: uppercase;
+  color: var(--muted-2); margin-bottom: 10px;
+}
+.admin-bg-controls { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.admin-bg-controls input[type="file"] { max-width: 280px; }
+.admin-bg-progress { margin-top: 8px; max-width: 280px; }
+
+@media (max-width: 640px) {
+  .admin-bg-row { flex-direction: column; align-items: stretch; }
+  .admin-bg-preview { width: 100%; height: 160px; }
+}
 .admin-row-actions { display: flex; gap: 8px; }
 
 .admin-badge {

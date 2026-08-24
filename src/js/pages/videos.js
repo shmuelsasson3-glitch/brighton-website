@@ -1,9 +1,11 @@
 import { init } from '../shared.js';
 import { initVideoLightbox, wireVideoCards } from '../features/video-player.js';
 import { supabase } from '../supabase-client.js';
+import { applyPageBackground } from '../features/page-background.js';
 
 init();
 initVideoLightbox();
+applyPageBackground('videos', { heroSelector: '.page-hero', mediaClass: 'ph-video', overlaySelector: '.ph-ov' });
 
 const grid = document.getElementById('videosGrid');
 const empty = document.getElementById('videosEmpty');
