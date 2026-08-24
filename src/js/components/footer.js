@@ -15,6 +15,7 @@ export function initFooter() {
         <a href="/commercial">Commercial Maintenance</a>
         <a href="/sitework">Site Work</a>
         <a href="/snow">Snow &amp; Ice</a>
+        <a href="/videos">Videos</a>
         <a href="/#about">About</a>
       </div>
       <div class="foot-col">

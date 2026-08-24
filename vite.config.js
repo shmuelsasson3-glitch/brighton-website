@@ -14,6 +14,7 @@ export default defineConfig({
         snow: resolve(__dirname, 'snow.html'),
         work: resolve(__dirname, 'work.html'),
         'work-project': resolve(__dirname, 'work-project.html'),
+        videos: resolve(__dirname, 'videos.html'),
         admin: resolve(__dirname, 'admin/index.html'),
       },
     },

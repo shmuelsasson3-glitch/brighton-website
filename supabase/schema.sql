@@ -61,18 +61,47 @@ alter table projects enable row level security;
 alter table project_stats enable row level security;
 alter table project_images enable row level security;
 
+drop policy if exists "public can read published projects" on projects;
 create policy "public can read published projects"
   on projects for select
   using (is_published = true);
 
+drop policy if exists "public can read stats of published projects" on project_stats;
 create policy "public can read stats of published projects"
   on project_stats for select
   using (exists (
     select 1 from projects p where p.id = project_stats.project_id and p.is_published = true
   ));
 
+drop policy if exists "public can read images of published projects" on project_images;
 create policy "public can read images of published projects"
   on project_images for select
   using (exists (
     select 1 from projects p where p.id = project_images.project_id and p.is_published = true
   ));
+
+-- Videos tab (public /videos page + admin video management)
+create table if not exists videos (
+  id uuid primary key default gen_random_uuid(),
+  title text not null,
+  video_url text not null,
+  -- Internal-only date used for sorting the public page (Newest/Oldest); never rendered on the site.
+  recorded_at date not null default current_date,
+  sort_order integer not null default 0,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create index if not exists videos_sort_order_idx on videos(sort_order);
+
+drop trigger if exists videos_set_updated_at on videos;
+create trigger videos_set_updated_at
+  before update on videos
+  for each row execute function set_updated_at();
+
+alter table videos enable row level security;
+
+drop policy if exists "public can read all videos" on videos;
+create policy "public can read all videos"
+  on videos for select
+  using (true);

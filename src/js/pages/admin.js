@@ -37,6 +37,20 @@ const galleryProgress = document.getElementById('galleryProgress');
 const galleryProgressFill = document.getElementById('galleryProgressFill');
 const galleryProgressLabel = document.getElementById('galleryProgressLabel');
 
+const tabProjectsBtn = document.getElementById('tabProjectsBtn');
+const tabVideosBtn = document.getElementById('tabVideosBtn');
+const projectsSection = document.getElementById('projectsSection');
+const videosSection = document.getElementById('videosSection');
+const videoRows = document.getElementById('videoRows');
+const newVideoTitle = document.getElementById('newVideoTitle');
+const newVideoDate = document.getElementById('newVideoDate');
+const newVideoInput = document.getElementById('newVideoInput');
+const addVideoBtn = document.getElementById('addVideoBtn');
+const videoFormError = document.getElementById('videoFormError');
+const videoUploadProgress = document.getElementById('videoUploadProgress');
+const videoUploadProgressFill = document.getElementById('videoUploadProgressFill');
+const videoUploadProgressLabel = document.getElementById('videoUploadProgressLabel');
+
 const cropModal = document.getElementById('cropModal');
 const cropImage = document.getElementById('cropImage');
 const cropError = document.getElementById('cropError');
@@ -479,6 +493,33 @@ window.addEventListener('popstate', () => {
   loadProjects();
 });
 
+// --- Tabs ---
+
+let videosLoaded = false;
+
+function showProjectsTab() {
+  tabProjectsBtn.classList.add('active');
+  tabVideosBtn.classList.remove('active');
+  projectsSection.hidden = false;
+  videosSection.hidden = true;
+  passwordView.hidden = true;
+}
+
+function showVideosTab() {
+  tabVideosBtn.classList.add('active');
+  tabProjectsBtn.classList.remove('active');
+  videosSection.hidden = false;
+  projectsSection.hidden = true;
+  passwordView.hidden = true;
+  if (!videosLoaded) {
+    videosLoaded = true;
+    loadVideos();
+  }
+}
+
+tabProjectsBtn.addEventListener('click', showProjectsTab);
+tabVideosBtn.addEventListener('click', showVideosTab);
+
 newProjectBtn.addEventListener('click', () => openEditor(null));
 cancelEditBtn.addEventListener('click', closeEditor);
 
@@ -615,6 +656,143 @@ cropSave.addEventListener('click', () => {
       cropSave.disabled = false;
     }
   }, 'image/jpeg', 0.92);
+});
+
+// --- Videos ---
+
+let currentVideos = [];
+
+function todayIsoDate() {
+  return new Date().toISOString().slice(0, 10);
+}
+newVideoDate.value = todayIsoDate();
+
+function renderVideos() {
+  videoRows.innerHTML = currentVideos.map((v, i) => `
+    <tr>
+      <td>
+        <div class="admin-repeater-controls" style="flex-direction:row;">
+          <button class="admin-btn admin-btn-ghost admin-btn-sm" data-video-up="${i}" ${i === 0 ? 'disabled' : ''}>&uarr;</button>
+          <button class="admin-btn admin-btn-ghost admin-btn-sm" data-video-down="${i}" ${i === currentVideos.length - 1 ? 'disabled' : ''}>&darr;</button>
+        </div>
+      </td>
+      <td><video src="${escapeHtml(v.video_url)}" muted preload="metadata"></video></td>
+      <td><input type="text" value="${escapeHtml(v.title)}" data-video-title="${v.id}"></td>
+      <td><input type="date" value="${escapeHtml(v.recorded_at)}" data-video-date="${v.id}"></td>
+      <td class="admin-row-actions">
+        <button class="admin-btn admin-btn-ghost admin-btn-sm" data-video-save="${v.id}">Save</button>
+        <button class="admin-btn admin-btn-danger admin-btn-sm" data-video-delete="${v.id}">Delete</button>
+      </td>
+    </tr>
+  `).join('');
+
+  videoRows.querySelectorAll('[data-video-save]').forEach(btn => {
+    btn.addEventListener('click', () => saveVideoRow(btn.dataset.videoSave));
+  });
+  videoRows.querySelectorAll('[data-video-delete]').forEach(btn => {
+    btn.addEventListener('click', () => deleteVideo(btn.dataset.videoDelete));
+  });
+  videoRows.querySelectorAll('[data-video-up]').forEach(btn => {
+    btn.addEventListener('click', () => reorderVideo(+btn.dataset.videoUp, -1));
+  });
+  videoRows.querySelectorAll('[data-video-down]').forEach(btn => {
+    btn.addEventListener('click', () => reorderVideo(+btn.dataset.videoDown, 1));
+  });
+}
+
+async function loadVideos() {
+  try {
+    currentVideos = await adminFetch('/api/admin/videos');
+    renderVideos();
+  } catch (err) {
+    videoFormError.textContent = err.message;
+    videoFormError.hidden = false;
+  }
+}
+
+async function saveVideoRow(id) {
+  const title = videoRows.querySelector(`[data-video-title="${id}"]`).value;
+  const recorded_at = videoRows.querySelector(`[data-video-date="${id}"]`).value;
+  try {
+    await adminFetch(`/api/admin/videos/${id}`, { method: 'PUT', body: JSON.stringify({ title, recorded_at }) });
+    await loadVideos();
+  } catch (err) {
+    videoFormError.textContent = err.message;
+    videoFormError.hidden = false;
+  }
+}
+
+async function deleteVideo(id) {
+  if (!confirm('Delete this video? This cannot be undone.')) return;
+  try {
+    await adminFetch(`/api/admin/videos/${id}`, { method: 'DELETE' });
+    await loadVideos();
+  } catch (err) {
+    videoFormError.textContent = err.message;
+    videoFormError.hidden = false;
+  }
+}
+
+async function reorderVideo(index, dir) {
+  const otherIndex = index + dir;
+  if (otherIndex < 0 || otherIndex >= currentVideos.length) return;
+  const a = currentVideos[index];
+  const b = currentVideos[otherIndex];
+  try {
+    await Promise.all([
+      adminFetch(`/api/admin/videos/${a.id}`, { method: 'PUT', body: JSON.stringify({ sort_order: b.sort_order }) }),
+      adminFetch(`/api/admin/videos/${b.id}`, { method: 'PUT', body: JSON.stringify({ sort_order: a.sort_order }) }),
+    ]);
+    await loadVideos();
+  } catch (err) {
+    videoFormError.textContent = err.message;
+    videoFormError.hidden = false;
+  }
+}
+
+addVideoBtn.addEventListener('click', async () => {
+  videoFormError.hidden = true;
+  const title = newVideoTitle.value.trim();
+  const file = newVideoInput.files[0];
+  const recorded_at = newVideoDate.value || todayIsoDate();
+
+  if (!title) {
+    videoFormError.textContent = 'A title is required.';
+    videoFormError.hidden = false;
+    return;
+  }
+  if (!file) {
+    videoFormError.textContent = 'Choose a video file to upload.';
+    videoFormError.hidden = false;
+    return;
+  }
+
+  addVideoBtn.disabled = true;
+  videoUploadProgress.hidden = false;
+  videoUploadProgressFill.style.width = '0%';
+  videoUploadProgressLabel.textContent = 'Uploading...';
+
+  try {
+    const video_url = await uploadFile(file, 'videos', (loaded) => {
+      const pct = file.size ? Math.min(100, Math.round((loaded / file.size) * 100)) : 0;
+      videoUploadProgressFill.style.width = `${pct}%`;
+      videoUploadProgressLabel.textContent = `Uploading... ${pct}%`;
+    });
+    await adminFetch('/api/admin/videos', {
+      method: 'POST',
+      body: JSON.stringify({ title, video_url, recorded_at }),
+    });
+    newVideoTitle.value = '';
+    newVideoInput.value = '';
+    newVideoDate.value = todayIsoDate();
+    await loadVideos();
+  } catch (err) {
+    videoFormError.textContent = err.message;
+    videoFormError.hidden = false;
+  } finally {
+    addVideoBtn.disabled = false;
+    setTimeout(() => { videoUploadProgress.hidden = true; }, 600);
+  }
 });
 
 refreshAuthView();

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="/assets/images/brighton-icon.png">
+  <link rel="apple-touch-icon" href="/assets/images/brighton-icon.png">
+  <title>Videos | Brighton Lawn &amp; Landscape</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="/src/main.css">
+</head>
+<body>
+
+<div id="site-nav"></div>
+
+<section class="page-hero">
+  <div class="ph-bg"></div>
+  <div class="ph-ov"></div>
+  <div class="ph-inner">
+    <div class="wrap">
+      <span class="ph-kicker">Videos</span>
+      <h1>See Brighton <em>In Action</em></h1>
+      <p>Walkthroughs, project highlights, and behind-the-scenes footage from our crews at work.</p>
+    </div>
+  </div>
+</section>
+
+<section class="work-wrap">
+  <div class="wrap">
+    <div class="videos-toolbar">
+      <label for="videoSort">Sort by</label>
+      <select id="videoSort">
+        <option value="newest">Newest first</option>
+        <option value="oldest">Oldest first</option>
+      </select>
+    </div>
+
+    <div class="videos-grid casc" id="videosGrid"></div>
+    <div class="videos-empty" id="videosEmpty" hidden>No videos yet — check back soon.</div>
+  </div>
+</section>
+
+<div class="cta-band">
+  <div class="wrap">
+    <h2>Like What You <em>See?</em></h2>
+    <p>Tell us about your property and we'll build a plan around it.</p>
+    <a href="/#contact" class="btn btn-primary">Request a Quote</a>
+  </div>
+</div>
+
+<div data-site-footer></div>
+
+<script type="module" src="/src/js/pages/videos.js"></script>
+</body>
+</html>

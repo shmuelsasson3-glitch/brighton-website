@@ -14,6 +14,7 @@
 @import './styles/components/capability-cards.css';
 @import './styles/components/process.css';
 @import './styles/components/project-cards.css';
+@import './styles/components/video-player.css';
 @import './styles/components/process-rows.css';
 @import './styles/components/before-after.css';
 @import './styles/components/trust.css';
@@ -28,3 +29,4 @@
 @import './styles/components/animations.css';
 @import './styles/pages/snow.css';
 @import './styles/pages/commercial.css';
+@import './styles/pages/videos.css';

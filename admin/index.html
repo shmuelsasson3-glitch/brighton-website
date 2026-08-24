@@ -30,7 +30,7 @@
 
 <div id="appView" hidden>
   <div class="admin-topbar">
-    <h1>Brighton Admin — Projects</h1>
+    <h1>Brighton Admin</h1>
     <div style="display:flex; gap:8px;">
       <button class="admin-btn admin-btn-ghost admin-btn-sm" id="changePasswordBtn">Change Password</button>
       <button class="admin-btn admin-btn-ghost admin-btn-sm" id="logoutBtn">Log Out</button>
@@ -38,6 +38,11 @@
   </div>
 
   <div class="admin-shell">
+    <div class="admin-tabs">
+      <button class="admin-tab active" id="tabProjectsBtn" type="button">Projects</button>
+      <button class="admin-tab" id="tabVideosBtn" type="button">Videos</button>
+    </div>
+
     <div id="passwordView" class="admin-editor" hidden>
       <form id="passwordForm">
         <div class="admin-section">
@@ -60,6 +65,7 @@
       </form>
     </div>
 
+    <div id="projectsSection">
     <div id="listView">
       <div class="admin-list-head">
         <span></span>
@@ -164,6 +170,45 @@
         </div>
         <div class="admin-error" id="formError" hidden></div>
       </form>
+    </div>
+    </div>
+
+    <div id="videosSection" hidden>
+      <div id="videosListView">
+        <div class="admin-editor" style="margin-bottom:20px;">
+          <h3 style="font-family:var(--font-head); font-size:15px; font-weight:600; color:var(--heading); margin-bottom:16px;">Add Video</h3>
+          <div class="admin-grid-2">
+            <div class="admin-field">
+              <label>Title</label>
+              <input id="newVideoTitle" placeholder="Spring Cleanup Walkthrough">
+            </div>
+            <div class="admin-field">
+              <label>Date</label>
+              <input type="date" id="newVideoDate">
+            </div>
+          </div>
+          <div class="admin-field">
+            <label>Video file</label>
+            <input type="file" id="newVideoInput" accept="video/mp4,video/quicktime,video/webm">
+          </div>
+          <div class="admin-progress" id="videoUploadProgress" hidden>
+            <div class="admin-progress-bar"><div class="admin-progress-fill" id="videoUploadProgressFill"></div></div>
+            <span class="admin-progress-label" id="videoUploadProgressLabel"></span>
+          </div>
+          <button type="button" class="admin-btn admin-btn-primary" id="addVideoBtn" style="margin-top:6px;">Upload &amp; Add Video</button>
+          <div class="admin-error" id="videoFormError" hidden></div>
+        </div>
+
+        <div class="admin-list-head">
+          <span></span>
+        </div>
+        <table class="admin-table">
+          <thead>
+            <tr><th>Order</th><th>Preview</th><th>Title</th><th>Date</th><th></th></tr>
+          </thead>
+          <tbody id="videoRows"></tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>

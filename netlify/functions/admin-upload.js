@@ -6,7 +6,10 @@ export const config = {
   path: '/api/admin/upload',
 };
 
-const CONTENT_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp', 'image/gif']);
+const CONTENT_TYPES = new Set([
+  'image/jpeg', 'image/png', 'image/webp', 'image/gif',
+  'video/mp4', 'video/quicktime', 'video/webm',
+]);
 
 function sanitizeSegment(segment) {
   return segment.replace(/[^a-zA-Z0-9_-]/g, '-').replace(/-+/g, '-').toLowerCase();
@@ -46,7 +49,7 @@ export default async (req) => {
   const uploadUrl = await getSignedUrl(
     client,
     new PutObjectCommand({ Bucket: process.env.R2_BUCKET, Key: key, ContentType: contentType }),
-    { expiresIn: 300 },
+    { expiresIn: 3600 },
   );
 
   return json({ uploadUrl, publicUrl: `${process.env.R2_PUBLIC_URL}/${key}` });
