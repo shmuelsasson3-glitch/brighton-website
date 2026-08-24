@@ -1,6 +1,9 @@
 import { supabase } from '../supabase-client.js';
 import Cropper from 'cropperjs';
 import 'cropperjs/dist/cropper.css';
+import { initVideoLightbox, openVideo } from '../features/video-player.js';
+
+initVideoLightbox();
 
 const loginView = document.getElementById('loginView');
 const appView = document.getElementById('appView');
@@ -775,6 +778,7 @@ function renderVideos() {
           Replace thumbnail
           <input type="file" accept="image/jpeg,image/png,image/webp" data-video-thumb-input="${v.id}" hidden>
         </label>
+        <a class="admin-thumb-replace" href="#" data-video-thumb-reset="${v.id}">Reset to default</a>
       </td>
       <td><input type="text" value="${escapeHtml(v.title)}" data-video-title="${v.id}"></td>
       <td><input type="date" value="${escapeHtml(v.recorded_at)}" data-video-date="${v.id}"></td>
@@ -799,6 +803,12 @@ function renderVideos() {
   });
   videoRows.querySelectorAll('[data-video-thumb-input]').forEach(input => {
     input.addEventListener('change', () => replaceVideoThumbnail(input.dataset.videoThumbInput, input));
+  });
+  videoRows.querySelectorAll('[data-video-thumb-reset]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      resetVideoThumbnail(link.dataset.videoThumbReset);
+    });
   });
 }
 
@@ -907,6 +917,58 @@ async function replaceVideoThumbnail(id, input) {
   }
 }
 
+// Same idea as captureVideoFrame, but grabs the frame from an already-hosted
+// video URL instead of a local file — used to regenerate the default
+// thumbnail for a video that already exists.
+function captureVideoFrameFromUrl(url) {
+  return new Promise((resolve, reject) => {
+    const video = document.createElement('video');
+    video.preload = 'metadata';
+    video.muted = true;
+    video.playsInline = true;
+    video.crossOrigin = 'anonymous';
+    video.style.cssText = 'position:fixed; opacity:0; pointer-events:none; width:1px; height:1px;';
+    video.src = `${url}${url.includes('?') ? '&' : '?'}cb=${Date.now()}`;
+
+    const cleanup = () => video.remove();
+
+    video.addEventListener('loadedmetadata', () => {
+      video.currentTime = Math.min(1, (video.duration || 2) / 2);
+    });
+    video.addEventListener('seeked', () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+      canvas.toBlob((blob) => {
+        cleanup();
+        if (blob) resolve(new File([blob], `thumb-${Date.now()}.jpg`, { type: 'image/jpeg' }));
+        else reject(new Error('Could not generate a thumbnail from this video.'));
+      }, 'image/jpeg', 0.85);
+    });
+    video.addEventListener('error', () => {
+      cleanup();
+      reject(new Error('Could not read this video to generate a thumbnail.'));
+    });
+
+    document.body.appendChild(video);
+  });
+}
+
+async function resetVideoThumbnail(id) {
+  const record = currentVideos.find(v => v.id === id);
+  if (!record) return;
+  try {
+    const frame = await captureVideoFrameFromUrl(record.video_url);
+    const thumbnail_url = await uploadFile(frame, 'videos/thumbnails');
+    await adminFetch(`/api/admin/videos/${id}`, { method: 'PUT', body: JSON.stringify({ thumbnail_url }) });
+    await loadVideos();
+  } catch (err) {
+    videoFormError.textContent = err.message;
+    videoFormError.hidden = false;
+  }
+}
+
 addVideoBtn.addEventListener('click', async () => {
   videoFormError.hidden = true;
   const title = newVideoTitle.value.trim();
@@ -973,7 +1035,10 @@ async function loadBackgrounds() {
       <div class="admin-bg-row">
         <div class="admin-bg-preview">
           ${bg.media_type === 'video'
-            ? `<video src="${escapeHtml(bg.media_url)}" muted preload="metadata"></video>`
+            ? `<video src="${escapeHtml(bg.media_url)}" muted preload="metadata"></video>
+               <button type="button" class="admin-bg-play-btn" data-bg-preview="${escapeHtml(bg.media_url)}" aria-label="Preview video">
+                 <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+               </button>`
             : `<img src="${escapeHtml(bg.media_url)}" alt="">`}
         </div>
         <div class="admin-bg-info">
@@ -992,6 +1057,9 @@ async function loadBackgrounds() {
 
     backgroundRows.querySelectorAll('[data-bg-input]').forEach(input => {
       input.addEventListener('change', () => replaceBackground(input.dataset.bgInput, input));
+    });
+    backgroundRows.querySelectorAll('[data-bg-preview]').forEach(btn => {
+      btn.addEventListener('click', () => openVideo(btn.dataset.bgPreview));
     });
   } catch (err) {
     backgroundFormError.textContent = err.message;

@@ -30,11 +30,23 @@ export function initVideoLightbox() {
   const timeLabel = lightbox.querySelector('[data-video-time]');
   const fullscreenBtn = lightbox.querySelector('[data-video-fullscreen-btn]');
 
+  function isMobile() {
+    return window.matchMedia('(max-width: 700px)').matches;
+  }
+
   function open(src) {
     video.src = src;
     lightbox.classList.add('open');
     document.body.style.overflow = 'hidden';
     video.play().catch(() => {});
+
+    // On mobile, hand playback straight to the OS's own video player
+    // (Apple's native fullscreen player on iOS, Chrome's on Android)
+    // instead of our custom in-page theater mode.
+    if (isMobile()) {
+      if (video.webkitEnterFullscreen) video.webkitEnterFullscreen();
+      else if (video.requestFullscreen) video.requestFullscreen();
+    }
   }
 
   function close() {
@@ -44,6 +56,13 @@ export function initVideoLightbox() {
     lightbox.classList.remove('open');
     document.body.style.overflow = '';
   }
+
+  // Native players report their own dismissal separately from our overlay's
+  // close button, so mirror that back into closing our (hidden-behind-it) overlay.
+  video.addEventListener('webkitendfullscreen', () => { if (lightbox.classList.contains('open')) close(); });
+  document.addEventListener('fullscreenchange', () => {
+    if (!document.fullscreenElement && isMobile() && lightbox.classList.contains('open')) close();
+  });
 
   function togglePlay() {
     if (video.paused) video.play();
@@ -98,4 +117,10 @@ export function wireVideoCards() {
   document.querySelectorAll('[data-open-video]').forEach(el => {
     el.addEventListener('click', () => openFn?.(el.dataset.videoSrc));
   });
+}
+
+// Opens the lightbox directly for a given video URL, without needing a
+// [data-open-video] element in the DOM (e.g. an admin preview button).
+export function openVideo(src) {
+  openFn?.(src);
 }
