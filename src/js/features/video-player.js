@@ -34,30 +34,57 @@ export function initVideoLightbox() {
     return window.matchMedia('(max-width: 700px)').matches;
   }
 
-  function open(src) {
-    video.src = src;
-    video.play().catch(() => {});
+  // iOS's webkitEnterFullscreen() (and, to a lesser extent, the standard
+  // Fullscreen API) silently fails if the video hasn't loaded its metadata
+  // yet — calling it the instant `src` is set, before any data has
+  // arrived, does nothing. Guard against a rapid second tap re-triggering
+  // a stale pending call for a previous video.
+  let pendingFullscreenHandler = null;
 
-    // On mobile, give the video the browser's own native control bar
-    // (Apple's on iOS, Chrome's on Android) instead of our custom theater-
-    // mode buttons, and also try to push it into true native fullscreen.
-    // Setting `controls = true` is what actually guarantees a working
-    // player regardless of platform — the fullscreen call on top of it is
-    // a nice-to-have, not something the rest of the UI depends on.
+  function open(src) {
     if (isMobile()) {
-      video.controls = true;
+      if (pendingFullscreenHandler) {
+        video.removeEventListener('loadedmetadata', pendingFullscreenHandler);
+        pendingFullscreenHandler = null;
+      }
+
       lightbox.classList.add('open', 'native-handoff');
-      if (video.webkitEnterFullscreen) video.webkitEnterFullscreen();
-      else if (video.requestFullscreen) video.requestFullscreen().catch(() => {});
+      video.src = src;
+      video.load();
+
+      // Only fall back to inline native controls if this browser has no
+      // fullscreen API at all — a real capability check, not a timing
+      // guess, so it can never flip on mid-transition like before.
+      video.controls = !(video.webkitEnterFullscreen || video.requestFullscreen);
+
+      const enterNativeFullscreen = () => {
+        pendingFullscreenHandler = null;
+        video.play().catch(() => {});
+        if (video.webkitEnterFullscreen) video.webkitEnterFullscreen();
+        else if (video.requestFullscreen) video.requestFullscreen().catch(() => {});
+      };
+
+      if (video.readyState >= 1) {
+        enterNativeFullscreen();
+      } else {
+        pendingFullscreenHandler = enterNativeFullscreen;
+        video.addEventListener('loadedmetadata', pendingFullscreenHandler, { once: true });
+      }
       return;
     }
 
     video.controls = false;
+    video.src = src;
+    video.play().catch(() => {});
     lightbox.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
 
   function close() {
+    if (pendingFullscreenHandler) {
+      video.removeEventListener('loadedmetadata', pendingFullscreenHandler);
+      pendingFullscreenHandler = null;
+    }
     video.pause();
     video.removeAttribute('src');
     video.load();
