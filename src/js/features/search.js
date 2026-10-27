@@ -3,7 +3,6 @@ export function initSearch() {
     { title:'Home',                   desc:'Brighton Lawn & Landscape - full-service landscaping NJ & PA', url:'index.html',                      tags:'home main brighton lawn landscape nj pa' },
     { title:'Residential Services',   desc:'Design, build, and maintain your dream outdoor space',         url:'residential.html',                tags:'residential design build maintain backyard home house' },
     { title:'Commercial Services',    desc:'Commercial lawn maintenance and installs',                      url:'commercial.html',                 tags:'commercial lawn maintenance property management hoa office' },
-    { title:'Site Work',              desc:'Asphalt, concrete, drainage, land clearing, tree removal',     url:'sitework.html',                   tags:'site work asphalt concrete drainage land clearing tree removal grading excavation' },
     { title:'Snow & Ice Management',  desc:'Plowing, salting, sidewalk clearing - 24/7 storm response',   url:'snow.html',                       tags:'snow ice plowing salting storm winter division brighton snow' },
     { title:'Our Work / Portfolio',   desc:'Browse all completed projects',                                url:'work.html',                       tags:'portfolio work projects gallery completed photos' },
     { title:'Contact / Get a Quote',  desc:'Request a free estimate - call or email us',                  url:'index.html#contact',              tags:'contact quote estimate call email phone reach' },
@@ -46,11 +45,6 @@ export function initSearch() {
     { title:'Office Complexes',       desc:'Snow and grounds maintenance for office parks',               url:'snow.html',                      tags:'office complex corporate park business snow lawn maintenance' },
     { title:'Multi-Family / Apartments', desc:'Snow and lawn maintenance for apartment communities',      url:'commercial.html',                tags:'multi family apartment complex residential community snow lawn maintenance' },
     { title:'Property Management',    desc:'Full grounds and snow services for property managers',        url:'commercial.html',                tags:'property management manager grounds snow lawn commercial contract' },
-    { title:'Asphalt Repair',         desc:'Patching, pothole repair, small asphalt work',               url:'sitework.html#asphalt',           tags:'asphalt paving pothole patch repair parking lot driveway' },
-    { title:'Concrete Work',          desc:'Concrete repairs, curbing, and finishing',                    url:'sitework.html#concrete',          tags:'concrete repair finishing curb sidewalk pour slab' },
-    { title:'Drainage',               desc:'French drains, drainage pipe installation, water management', url:'sitework.html#drainage',          tags:'drainage french drain water pipe flood grading catch basin' },
-    { title:'Land Clearing',          desc:'Lot clearing, grubbing, site prep, excavation',              url:'sitework.html#land-clearing',     tags:'land clearing lot grubbing site prep excavation demolish brush' },
-    { title:'Tree Removal & Pruning', desc:'Tree removal, pruning, trimming, bucket truck service',      url:'sitework.html#tree-removal',      tags:'tree removal pruning trimming bucket truck stump grinding' },
     { title:'Landscape Design',       desc:'Custom layout, materials, planting, and lighting plans',     url:'residential.html#design',         tags:'design landscape plan layout 3d render rendering concept' },
     { title:'Landscape Construction', desc:'Hardscaping, planting, turf, lighting installation',         url:'residential.html#build',          tags:'build construction hardscape paver patio retaining wall lighting turf install' },
     { title:'Landscape Maintenance',  desc:'Ongoing seasonal care - we maintain what we install',        url:'residential.html#maintain',       tags:'maintain maintenance seasonal residential cleanup spring fall' },
@@ -142,28 +136,17 @@ export function initSearch() {
     'pavers':['patio','paver','hardscape'], 'paver':['patio','hardscape'],
     'hardscape':['patio','paver','construction','retaining','wall'],
     'stone':['patio','paver','hardscape'], 'brick':['patio','paver','hardscape'],
-    'walkway':['patio','paver','hardscape'], 'driveway':['asphalt','concrete','paver'],
+    'walkway':['patio','paver','hardscape'],
     'retaining':['hardscape','wall','retaining wall'], 'wall':['hardscape','retaining'],
     'steps':['hardscape','paver','construction'], 'staircase':['hardscape','paver'],
     'pool':['pool','patio','water','construction'], 'swimming':['pool','patio'],
     'tree':['tree','removal','pruning','trimming'], 'trees':['tree','removal','pruning'],
     'trim':['tree','pruning','trimming'], 'trimming':['tree','pruning'],
     'prune':['tree','pruning'], 'pruning':['tree','trimming'],
-    'stump':['tree','removal','grinding'], 'bush':['tree','shrub','pruning'],
     'shrub':['tree','shrub','pruning','trimming'], 'plant':['design','maintain','construction'],
     'planting':['design','construction','beds'], 'flower':['design','beds','planting'],
     'mulch':['beds','maintain','landscape'], 'mulching':['beds','maintain'],
-    'drain':['drainage','french','pipe','water'], 'drainage':['french drain','water','pipe'],
-    'french drain':['drainage','water','flooding'], 'flood':['drainage','french'],
-    'flooding':['drainage','french drain'], 'water':['drainage','irrigation','pool'],
-    'catch basin':['drainage','water'],
-    'asphalt':['asphalt','paving','repair'], 'paving':['asphalt','concrete'],
-    'pothole':['asphalt','repair'], 'pavement':['asphalt','concrete'],
-    'concrete':['concrete','repair','curb'], 'curb':['concrete','asphalt'],
     'clear':['land clearing','clearing'], 'clearing':['land clearing','lot'],
-    'lot':['land clearing','clearing'], 'grading':['land clearing','site work'],
-    'excavation':['land clearing','site work','grading'],
-    'demolish':['land clearing','site work'],
     'design':['design','layout','plan','render'], 'blueprint':['design','plan'],
     'render':['design','3d','plan'], 'build':['construction','build'],
     'install':['construction','build','installs','commercial'],
@@ -247,7 +230,6 @@ export function initSearch() {
         <a href="#" data-q="lawn maintenance">Lawn maintenance</a>
         <a href="#" data-q="Ocean County">Ocean County</a>
         <a href="#" data-q="patio">Patio</a>
-        <a href="#" data-q="tree removal">Tree removal</a>
       </div>
     </div>`;
   document.body.appendChild(overlay);
@@ -278,7 +260,7 @@ export function initSearch() {
   const PROJ_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M9 21V9"/></svg>`;
   const LOC_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>`;
   const PROJ_URLS = ['sukkah-project','corner-project','baker-project','beige-project','bates-road','arlington-project','pool-patio','vanard-project','scotchway-project','toras-aron-project'];
-  const SVC_URLS = ['commercial.html','residential.html','sitework.html','commercial-installs.html'];
+  const SVC_URLS = ['commercial.html','residential.html','commercial-installs.html'];
   const LOC_TITLES = ['County','Toms River','Brick','Lakewood','Jackson','Howell','Manchester','Wall','Freehold','Marlboro','Manalapan','Old Bridge','Sayreville','Edison','Philadelphia','Bensalem','Levittown','Bristol'];
 
   function iconFor(url, title) {

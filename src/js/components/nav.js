@@ -18,7 +18,6 @@ export function initNav(options = {}) {
     <nav class="nav">
       <a href="/residential">Residential</a>
       <a href="/commercial">Commercial</a>
-      <a href="/sitework">Site Work</a>
       <a href="/snow">Snow &amp; Ice</a>
       <a href="/videos">Videos</a>
       <a href="/#about">About</a>
@@ -31,7 +30,6 @@ export function initNav(options = {}) {
   <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close menu">${closeIcon}</button>
   <a href="/residential">Residential</a>
   <a href="/commercial">Commercial</a>
-  <a href="/sitework">Site Work</a>
   <a href="/snow">Snow &amp; Ice</a>
   <a href="/videos">Videos</a>
   <a href="/#about">About</a>

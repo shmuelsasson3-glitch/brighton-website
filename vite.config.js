@@ -10,7 +10,6 @@ export default defineConfig({
         residential: resolve(__dirname, 'residential.html'),
         commercial: resolve(__dirname, 'commercial.html'),
         'commercial-installs': resolve(__dirname, 'commercial-installs.html'),
-        sitework: resolve(__dirname, 'sitework.html'),
         snow: resolve(__dirname, 'snow.html'),
         work: resolve(__dirname, 'work.html'),
         'work-project': resolve(__dirname, 'work-project.html'),

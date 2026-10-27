@@ -1,5 +1,5 @@
 .capabilities { padding: 110px 0; background: var(--bg-2); scroll-margin-top: 70px; }
-.split { display:grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.split { display:grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
 .cap-col {
   background: var(--card); border: 1px solid var(--border);
   border-radius: 20px; padding: 38px 34px 34px; position:relative; overflow:hidden;

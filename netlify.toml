@@ -75,3 +75,14 @@
   [headers.values]
     X-Frame-Options = "DENY"
     X-Content-Type-Options = "nosniff"
+
+# Site Work page removed (saved on the draft/site-work branch). Keep old links/SEO alive.
+[[redirects]]
+  from = "/sitework"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/sitework.html"
+  to = "/"
+  status = 301
