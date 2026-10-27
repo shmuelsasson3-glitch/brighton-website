@@ -7,7 +7,7 @@ export function initFooter() {
     <div class="foot-grid">
       <div class="foot-brand">
         <img src="${ASSET_BASE_URL}/assets/images/logo.png" alt="Brighton Lawn & Landscape">
-        <p>Full-service landscape construction and commercial maintenance across New Jersey &amp; Pennsylvania.</p>
+        <p>Full-service landscape construction and commercial maintenance across New Jersey.</p>
       </div>
       <div class="foot-col">
         <h5>Services</h5>
@@ -19,8 +19,7 @@ export function initFooter() {
       </div>
       <div class="foot-col">
         <h5>Service Area</h5>
-        <p>Philadelphia &amp; Main Line, PA</p>
-        <p>Northern DE &amp; NE Maryland</p>
+        <p>New Jersey</p>
       </div>
       <div class="foot-col">
         <h5>Contact</h5>

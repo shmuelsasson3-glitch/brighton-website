@@ -1,6 +1,6 @@
 export function initSearch() {
   const INDEX = [
-    { title:'Home',                   desc:'Brighton Lawn & Landscape - full-service landscaping NJ & PA', url:'index.html',                      tags:'home main brighton lawn landscape nj pa' },
+    { title:'Home',                   desc:'Brighton Lawn & Landscape - full-service landscaping in NJ', url:'index.html',                      tags:'home main brighton lawn landscape nj' },
     { title:'Residential Services',   desc:'Design, build, and maintain your dream outdoor space',         url:'residential.html',                tags:'residential design build maintain backyard home house' },
     { title:'Commercial Services',    desc:'Commercial lawn maintenance and installs',                      url:'commercial.html',                 tags:'commercial lawn maintenance property management hoa office' },
     { title:'Snow & Ice Management',  desc:'Plowing, salting, sidewalk clearing - 24/7 storm response',   url:'snow.html',                       tags:'snow ice plowing salting storm winter division brighton snow' },
@@ -33,10 +33,6 @@ export function initSearch() {
     { title:'Marlboro, NJ',           desc:'Landscaping and snow in Marlboro Township',                   url:'snow.html',                      tags:'marlboro monmouth county nj snow lawn landscape' },
     { title:'Middlesex County, NJ',   desc:'Snow and landscape services in Middlesex County',             url:'snow.html',                      tags:'middlesex county nj old bridge sayreville edison south brunswick monroe township piscataway perth amboy' },
     { title:'Old Bridge, NJ',         desc:'Snow plowing and landscaping in Old Bridge',                  url:'snow.html',                      tags:'old bridge middlesex county nj snow lawn landscape' },
-    { title:'Northeast Philadelphia', desc:'Snow plowing and landscape services in Northeast Philly',      url:'snow.html',                      tags:'northeast philly philadelphia fox chase mayfair tacony holmesburg torresdale pa pennsylvania' },
-    { title:'Bensalem, PA',           desc:'Snow and landscape services in Bensalem',                     url:'snow.html',                      tags:'bensalem bucks county pa pennsylvania snow lawn landscape northeast philly' },
-    { title:'Levittown, PA',          desc:'Snow and landscape services in Levittown',                     url:'snow.html',                      tags:'levittown bucks county pa pennsylvania snow lawn landscape' },
-    { title:'Bristol, PA',            desc:'Snow and landscape services in Bristol',                       url:'snow.html',                      tags:'bristol bucks county pa pennsylvania snow lawn landscape' },
     { title:'HOA Landscaping',        desc:'Lawn maintenance and snow for homeowner associations',         url:'commercial.html',                tags:'hoa homeowner association community property lawn snow maintenance' },
     { title:'Medical Facilities',     desc:'Snow and grounds maintenance for medical properties',          url:'snow.html',                      tags:'medical hospital clinic healthcare facility snow lawn maintenance' },
     { title:'Industrial Properties',  desc:'Snow plowing and grounds for industrial sites',               url:'snow.html',                      tags:'industrial warehouse facility snow plow lawn maintenance' },
@@ -102,18 +98,6 @@ export function initSearch() {
     'old bridge':['old bridge','middlesex county','nj'],
     'sayreville':['sayreville','middlesex county','nj'],
     'edison':['edison','middlesex county','nj'],
-    'pa':['pennsylvania','philly','philadelphia','bensalem','levittown'],
-    'pennsylvania':['pa','philly','northeast philadelphia','bensalem'],
-    'philly':['philadelphia','northeast philadelphia','pa','snow'],
-    'philadelphia':['northeast philadelphia','philly','pa','snow'],
-    'northeast':['northeast philadelphia','fox chase','mayfair','bensalem'],
-    'fox chase':['northeast philadelphia','philly','pa'],
-    'mayfair':['northeast philadelphia','philly','pa'],
-    'tacony':['northeast philadelphia','philly','pa'],
-    'bensalem':['bensalem','bucks county','pa','snow'],
-    'levittown':['levittown','bucks county','pa','snow'],
-    'bristol':['bristol','bucks county','pa','snow'],
-    'bucks':['bucks county','bensalem','levittown','bristol','pa'],
     'hoa':['hoa','homeowner','association','commercial','lawn','snow'],
     'homeowner':['hoa','residential','commercial'],
     'medical':['medical','hospital','healthcare','snow','lawn'],
@@ -261,7 +245,7 @@ export function initSearch() {
   const LOC_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>`;
   const PROJ_URLS = ['sukkah-project','corner-project','baker-project','beige-project','bates-road','arlington-project','pool-patio','vanard-project','scotchway-project','toras-aron-project'];
   const SVC_URLS = ['commercial.html','residential.html','commercial-installs.html'];
-  const LOC_TITLES = ['County','Toms River','Brick','Lakewood','Jackson','Howell','Manchester','Wall','Freehold','Marlboro','Manalapan','Old Bridge','Sayreville','Edison','Philadelphia','Bensalem','Levittown','Bristol'];
+  const LOC_TITLES = ['County','Toms River','Brick','Lakewood','Jackson','Howell','Manchester','Wall','Freehold','Marlboro','Manalapan','Old Bridge','Sayreville','Edison'];
 
   function iconFor(url, title) {
     if (LOC_TITLES.some(l => title.includes(l))) return LOC_ICON;
