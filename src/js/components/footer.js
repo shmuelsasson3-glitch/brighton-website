@@ -19,7 +19,6 @@ export function initFooter() {
       </div>
       <div class="foot-col">
         <h5>Service Area</h5>
-        <p>New Jersey</p>
         <p>Philadelphia &amp; Main Line, PA</p>
         <p>Northern DE &amp; NE Maryland</p>
       </div>
